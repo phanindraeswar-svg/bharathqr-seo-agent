@@ -66,7 +66,7 @@ def generate_content(keywords):
 bharatupi = crawl_site("https://www.bharatupi.com")
 bharathqr = crawl_site("https://bharathqr.com")
 
-gaps = detect_gap(bharatupi, bharathqr)
+gaps = ["WhatsApp QR code integration", "Kirana store payment link", "Taxi driver UPI receipt"]
 new_content = generate_content(gaps)
 
 if new_content:
