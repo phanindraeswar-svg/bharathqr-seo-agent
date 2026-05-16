@@ -27,4 +27,4 @@ jobs:
 
     - name: Run SEO Automation Script
       run: |
-        python scripts/publish_nextjs.py
+        python scripts/nextjs_publish.py
