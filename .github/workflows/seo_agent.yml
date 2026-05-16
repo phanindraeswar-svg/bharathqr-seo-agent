@@ -28,3 +28,10 @@ jobs:
     - name: Run SEO Automation Script
       run: |
         python scripts/nextjs_publish.py
+    - name: Commit and Push Changes
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git add .
+        git commit -m "Automated SEO update: Added new pages" || echo "No changes to commit"
+        git push
