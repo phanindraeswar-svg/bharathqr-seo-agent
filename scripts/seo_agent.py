@@ -1,16 +1,14 @@
-import requests
-from bs4 import BeautifulSoup
-import openai
-import json
 import os
+import requests
+import json
+import google.generativeai as genai
+from bs4 import BeautifulSoup
 
 def crawl_site(url):
     try:
-        # Added a standard User-Agent header so competitor servers don't block our autonomous agent
         headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
         resp = requests.get(url, headers=headers, timeout=10)
         soup = BeautifulSoup(resp.text, 'html.parser')
-        
         meta = [tag.get('content') for tag in soup.find_all('meta') if tag.get('content')]
         headings = [h.get_text().strip() for h in soup.find_all(['h1', 'h2', 'h3']) if h.get_text()]
         return {"meta": meta, "headings": headings}
@@ -19,7 +17,6 @@ def crawl_site(url):
         return {"meta": [], "headings": []}
 
 def detect_gap(site1, site2):
-    # Case-insensitive comparison so we don't fetch duplicates because of styling capitalization
     site2_headings_lower = [h.lower() for h in site2["headings"]]
     missing_keywords = [kw for kw in site1["headings"] if kw.lower() not in site2_headings_lower]
     return missing_keywords
@@ -29,47 +26,29 @@ def generate_content(keywords):
         print("✅ No new keyword gaps found this week.")
         return None
 
-    # Read key safely
-    with open("config/openai_key.txt") as f:
-        api_key = f.read().strip()
-    
-    # Modernized OpenAI client invocation configuration
-    client = openai.OpenAI(api_key=api_key)
-    
-    prompt = (
-        f"You are an expert Programmatic SEO Agent. Analyze these missing keyword gaps from a competitor: {keywords}. "
-        "Generate optimized meta tags, JSON-LD Schema markup, and standard landing page content structures to beat them. "
-        "Your response MUST be strict raw JSON matching this format:\n"
-        "{\n"
-        "  \"meta_title\": \"...\",\n"
-        "  \"meta_description\": \"...\",\n"
-        "  \"schema_markup\": {},\n"
-        "  \"suggested_routes\": [{\"route\": \"/qr-for-xyz\", \"heading\": \"...\", \"body_text\": \"...\"}]\n"
-        "}"
-    )
-
-    try:
-        response = client.chat.completions.create(
-            model="gpt-4",
-            messages=[
-                {"role": "system", "content": "You are a strict JSON-only generating assistant."},
-                {"role": "user", "content": prompt}
-            ],
-            response_format={"type": "json_object"}
-        )
-        return json.loads(response.choices[0].message.content)
-    except Exception as e:
-        print(f"⚠️ OpenAI Generation Error: {e}")
+    # The Bypass Check: The agent stops and asks YOU for permission first
+    permission = input("🤖 Agent: Found keyword gaps. Do I have permission to run the AI task? (yes/no): ")
+    if permission.lower() != 'yes':
+        print("❌ Task cancelled by user.")
         return None
 
-# Execution Flow
-bharatupi = crawl_site("https://www.bharatupi.com")
-bharathqr = crawl_site("https://bharathqr.com")
+    print("🚀 Proceeding with your permission using free Gemini model...")
+    
+    # Securely fetches your hidden free key from GitHub Secrets
+    gemini_key = os.environ.get("GEMINI_API_KEY")
+    genai.configure(api_key=gemini_key)
+    model = genai.GenerativeModel('gemini-1.5-flash')
 
-gaps = ["WhatsApp QR code integration", "Kirana store payment link", "Taxi driver UPI receipt"]
-new_content = generate_content(gaps)
+    prompt = f"Write an SEO optimized blog post intro incorporating these missing competitor keywords: {', '.join(keywords)}"
+    response = model.generate_content(prompt)
+    return response.text
 
-if new_content:
-    with open("seo_updates.json", "w") as f:
-        json.dump({"gaps": gaps, "optimized_data": new_content}, f, indent=2)
-    print("💾 Analysis logged successfully to seo_updates.json")
+if __name__ == "__main__":
+    # Example testing URLs
+    my_site = crawl_site("https://bharathqr.com") 
+    competitor_site = crawl_site("https://google.com")
+    
+    gaps = detect_gap(competitor_site, my_site)
+    result = generate_content(gaps)
+    if result:
+        print("\n✨ SEO Agent Output:\n", result)
