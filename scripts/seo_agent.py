@@ -25,30 +25,29 @@ def generate_content(keywords):
     if not keywords:
         print("✅ No new keyword gaps found this week.")
         return None
-
-    # The Bypass Check: The agent stops and asks YOU for permission first
-    permission = input("🤖 Agent: Found keyword gaps. Do I have permission to run the AI task? (yes/no): ")
-    if permission.lower() != 'yes':
-        print("❌ Task cancelled by user.")
-        return None
-
-    print("🚀 Proceeding with your permission using free Gemini model...")
+        
+    print("🚀 Proceeding automatically using free Gemini model...")
     
     # Securely fetches your hidden free key from GitHub Secrets
     gemini_key = os.environ.get("GEMINI_API_KEY")
+    if not gemini_key:
+        print("❌ Error: GEMINI_API_KEY environment variable not found!")
+        return None
+        
     genai.configure(api_key=gemini_key)
     model = genai.GenerativeModel('gemini-1.5-flash')
-
+    
     prompt = f"Write an SEO optimized blog post intro incorporating these missing competitor keywords: {', '.join(keywords)}"
     response = model.generate_content(prompt)
     return response.text
 
 if __name__ == "__main__":
     # Example testing URLs
-    my_site = crawl_site("https://bharathqr.com") 
+    my_site = crawl_site("https://bharathqr.com")
     competitor_site = crawl_site("https://google.com")
     
     gaps = detect_gap(competitor_site, my_site)
     result = generate_content(gaps)
+    
     if result:
         print("\n✨ SEO Agent Output:\n", result)
