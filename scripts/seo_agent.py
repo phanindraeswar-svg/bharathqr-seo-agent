@@ -1,84 +1,74 @@
 import os
 import sys
 import json
+import re
 import requests
 from bs4 import BeautifulSoup
-from google import genai
+import google.generativeai as genai
 
 print("Initiating competitive SEO pipeline analysis...")
 
-# 1. Scrape Competitor Gaps
+# 1. Scrape Competitor
 COMPETITOR_URL = "https://bharatupi.com"
 try:
     response = requests.get(COMPETITOR_URL, timeout=15)
     soup = BeautifulSoup(response.text, 'html.parser')
-    
     headings = [h.text.strip() for h in soup.find_all(['h1', 'h2', 'h3']) if h.text.strip()]
     competitor_keywords = list(dict.fromkeys(headings))[:15]
-    print(f"Identified potential content optimization gaps: {competitor_keywords}")
+    print(f"Gaps found: {competitor_keywords}")
 except Exception as e:
-    print(f"Critical Error: Failed to ingest competitor framework: {e}")
+    print(f"Error crawling competitor: {e}")
     sys.exit(1)
 
 if not competitor_keywords:
-    print("SEO Matrix footprint identical. No actionable gaps found.")
+    print("No gaps found. Exiting.")
     sys.exit(0)
 
-# 2. Initialize Modern Gemini Client
+# 2. Configure Stable Gemini SDK
 api_key = os.environ.get("GEMINI_API_KEY")
 if not api_key:
-    print("Critical Error: GEMINI_API_KEY environment token is missing.")
+    print("Error: GEMINI_API_KEY secret is missing in GitHub.")
     sys.exit(1)
 
-try:
-    client = genai.Client(api_key=api_key)
-except Exception as e:
-    print(f"Failed to bind model runtime client: {e}")
-    sys.exit(1)
+genai.configure(api_key=api_key)
+model = genai.GenerativeModel('gemini-1.5-flash')
 
 prompt = f"""
-You are an expert programmatic SEO engine. Analyze these scraped competitor content topics: {competitor_keywords}.
-Select the top 3 high-intent business industries or keyword concepts from this list that need targeted landing pages for our product 'BharatQR' (a zero-cost static UPI QR code generator for merchants).
+You are an expert programmatic SEO engine. Analyze these competitor topics: {competitor_keywords}.
+Select top 3 high-intent industries for BharatQR (a zero-cost UPI QR code generator for merchants).
 
-Generate a structured JSON response mapping out these 3 optimized landing pages.
-You MUST output raw JSON matching this schema exactly. Do not wrap the JSON in ```json markdown code blocks.
-
+Output raw JSON only. No markdown. No explanation. Exactly this schema:
 {{
   "suggested_routes": [
     {{
-      "slug": "industry-or-keyword-slug",
-      "industry": "Clean Industry Name",
-      "heading": "SEO Optimized Catchy H1 Heading including BharatQR and keyword",
-      "body_text": "A comprehensive 3-4 sentence value proposition paragraph explaining why merchants in this vertical need our zero-fee UPI QR code solution over standard alternatives."
+      "slug": "industry-slug",
+      "industry": "Industry Name",
+      "heading": "SEO H1 heading with BharatQR and keyword",
+      "body_text": "3-4 sentence value proposition for merchants in this vertical."
     }}
   ]
 }}
 """
 
-# 3. Query Gemini & Process Data Matrix
+# 3. Generate and Save
 try:
-    # Verified parameter format for the modern google-genai SDK
-    response = client.models.generate_content(
-        model='gemini-1.5-flash',
-        contents=prompt,
-    )
-    raw_text = response.text.strip()
-    
-    if raw_text.startswith("```"):
-        raw_text = raw_text.split("```")[1]
-        if raw_text.startswith("json"):
-            raw_text = raw_text[4:]
-    raw_text = raw_text.strip()
+    result = model.generate_content(prompt)
+    raw_text = result.text.strip()
 
-    structured_data = json.loads(raw_text)
+    # Robust JSON extraction
+    json_match = re.search(r'\{.*\}', raw_text, re.DOTALL)
+    if not json_match:
+        print(f"Error: No JSON found in response. Raw output was:\n{raw_text}")
+        sys.exit(1)
+
+    structured_data = json.loads(json_match.group())
     output_payload = {"optimized_data": structured_data}
-    
+
     with open("seo_updates.json", "w") as f:
         json.dump(output_payload, f, indent=2)
-        
-    print("Programmatic SEO data matrix successfully updated and compiled.")
+
+    print("seo_updates.json successfully written.")
 
 except Exception as e:
-    print(f"Error during LLM content generation or parsing: {e}")
-    print("Execution halted due to content generation parsing failure.")
+    print(f"Error during generation: {e}")
     sys.exit(1)
