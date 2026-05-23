@@ -1,9 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  reactStrictMode: true,
   images: {
-    unoptimized: true, // Prevents build errors during static export
-  }
+    unoptimized: true,
+  },
+  // REMOVED output: 'export' to fully allow Vercel dynamic ISR layers to function
 };
 
 module.exports = nextConfig;
