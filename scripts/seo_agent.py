@@ -57,6 +57,7 @@ You MUST output raw JSON matching this schema exactly. Do not wrap the JSON in `
 
 # 3. Query Gemini & Process Data Matrix
 try:
+    # Verified parameter format for the modern google-genai SDK
     response = client.models.generate_content(
         model='gemini-1.5-flash',
         contents=prompt,
