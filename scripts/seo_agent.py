@@ -4,7 +4,7 @@ import json
 import re
 import requests
 from bs4 import BeautifulSoup
-import google.generativeai as genai
+from google import genai
 
 print("Initiating competitive SEO pipeline analysis...")
 
@@ -24,14 +24,13 @@ if not competitor_keywords:
     print("No gaps found. Exiting.")
     sys.exit(0)
 
-# 2. Configure Stable Gemini SDK
+# 2. Configure New Gemini SDK (google-genai)
 api_key = os.environ.get("GEMINI_API_KEY")
 if not api_key:
     print("Error: GEMINI_API_KEY secret is missing in GitHub.")
     sys.exit(1)
 
-genai.configure(api_key=api_key)
-model = genai.GenerativeModel('gemini-1.5-flash')
+client = genai.Client(api_key=api_key)
 
 prompt = f"""
 You are an expert programmatic SEO engine. Analyze these competitor topics: {competitor_keywords}.
@@ -52,13 +51,17 @@ Output raw JSON only. No markdown. No explanation. Exactly this schema:
 
 # 3. Generate and Save
 try:
-    result = model.generate_content(prompt)
-    raw_text = result.text.strip()
+    response = client.models.generate_content(
+        model='gemini-2.0-flash',
+        contents=prompt
+    )
+    raw_text = response.text.strip()
+    print(f"Raw Gemini response: {raw_text[:200]}")
 
     # Robust JSON extraction
     json_match = re.search(r'\{.*\}', raw_text, re.DOTALL)
     if not json_match:
-        print(f"Error: No JSON found in response. Raw output was:\n{raw_text}")
+        print(f"Error: No JSON found in response.")
         sys.exit(1)
 
     structured_data = json.loads(json_match.group())
