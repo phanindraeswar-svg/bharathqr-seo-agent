@@ -3,7 +3,7 @@ import sys
 import json
 import requests
 from bs4 import BeautifulSoup
-import google.generativeai as genai
+from google import genai
 
 print("Initiating competitive SEO pipeline analysis...")
 
@@ -13,9 +13,7 @@ try:
     response = requests.get(COMPETITOR_URL, timeout=15)
     soup = BeautifulSoup(response.text, 'html.parser')
     
-    # Extract distinct headers as content positioning markers
     headings = [h.text.strip() for h in soup.find_all(['h1', 'h2', 'h3']) if h.text.strip()]
-    # De-duplicate while maintaining position order
     competitor_keywords = list(dict.fromkeys(headings))[:15]
     print(f"Identified potential content optimization gaps: {competitor_keywords}")
 except Exception as e:
@@ -26,19 +24,16 @@ if not competitor_keywords:
     print("SEO Matrix footprint identical. No actionable gaps found.")
     sys.exit(0)
 
-# 2. Initialize Gemini Engine
+# 2. Initialize Modern Gemini Client
 api_key = os.environ.get("GEMINI_API_KEY")
 if not api_key:
     print("Critical Error: GEMINI_API_KEY environment token is missing.")
     sys.exit(1)
 
-genai.configure(api_key=api_key)
-
-# Changed from models/gemini-1.5-flash to 'gemini-1.5-flash' for universal v1beta/v1 SDK compliance
 try:
-    model = genai.GenerativeModel('gemini-1.5-flash')
+    client = genai.Client(api_key=api_key)
 except Exception as e:
-    print(f"Failed to bind model runtime: {e}")
+    print(f"Failed to bind model runtime client: {e}")
     sys.exit(1)
 
 prompt = f"""
@@ -60,12 +55,14 @@ You MUST output raw JSON matching this schema exactly. Do not wrap the JSON in `
 }}
 """
 
-# 3. Query LLM & Process Data Matrix
+# 3. Query Gemini & Process Data Matrix
 try:
-    response = model.generate_content(prompt)
+    response = client.models.generate_content(
+        model='gemini-1.5-flash',
+        contents=prompt,
+    )
     raw_text = response.text.strip()
     
-    # Safe cleanup if the model accidentally included markdown wrappers
     if raw_text.startswith("```"):
         raw_text = raw_text.split("```")[1]
         if raw_text.startswith("json"):
@@ -73,9 +70,8 @@ try:
     raw_text = raw_text.strip()
 
     structured_data = json.loads(raw_text)
-    
-    # Save optimized roadmap back to the repository root
     output_payload = {"optimized_data": structured_data}
+    
     with open("seo_updates.json", "w") as f:
         json.dump(output_payload, f, indent=2)
         
