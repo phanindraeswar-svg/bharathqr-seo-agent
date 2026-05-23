@@ -1,9 +1,44 @@
-- name: Set up Python
+name: Run SEO Agent Daily
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  run-agent:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+
+    - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.11'        # ← change from 3.10 to 3.11
+        python-version: '3.11'
 
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install requests beautifulsoup4 google-genai   # ← google-genai not google-generativeai
+        pip install requests beautifulsoup4 google-genai
+
+    - name: Execute SEO Pipeline Scraper
+      env:
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      run: python scripts/seo_agent.py
+
+    - name: Commit and Push SEO Updates
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add seo_updates.json
+        if ! git diff --cached --quiet; then
+          git commit -m "Automated programmatic SEO data matrix update [skip ci]"
+          git push origin main
+        else
+          echo "No changes detected in SEO data matrix. Skipping push."
+        fi
