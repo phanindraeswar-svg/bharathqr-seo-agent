@@ -1,25 +1,30 @@
-import { useRouter } from 'next/router';
 import Head from 'next/head';
 import seoData from '../../seo_updates.json';
 
-export default function DynamicIndustryPage() {
-  const router = useRouter();
-  const { slug } = router.query;
+// This handles the routing on Vercel's servers before the browser opens
+export async function getServerSideProps({ params }) {
+  const { slug } = params;
 
-  // Matches the URL slug directly with your JSON slug field
+  // Match the URL slug with your JSON dataset
   const currentRouteData = seoData.optimized_data.suggested_routes.find(
     (item) => item.slug.trim() === slug
   );
 
-  // Show a clean loading state while Next.js finishes compiling the routing hooks
-  if (!slug || !currentRouteData) {
-    return (
-      <div style={{ padding: '3rem', fontFamily: 'system-ui, sans-serif', color: '#888', textAlign: 'center' }}>
-        Loading landing page details...
-      </div>
-    );
+  // If the path doesn't exist in your JSON, seamlessly render a real 404 page
+  if (!currentRouteData) {
+    return {
+      notFound: true,
+    };
   }
 
+  return {
+    props: {
+      currentRouteData,
+    },
+  };
+}
+
+export default function DynamicIndustryPage({ currentRouteData }) {
   return (
     <>
       <Head>
@@ -42,7 +47,7 @@ export default function DynamicIndustryPage() {
         </p>
 
         <div style={{ background: '#fafaf8', border: '1px solid #e8e8e4', borderRadius: '16px', padding: '1.5rem', textAlign: 'center' }}>
-          <h3 style={{ fontSize: '16px', color: '#111', marginBottom: '#0.5rem' }}>
+          <h3 style={{ fontSize: '16px', color: '#111', marginBottom: '0.5rem' }}>
             Need an instant payment code for your business?
           </h3>
           <p style={{ fontSize: '13px', color: '#666', marginBottom: '1.25rem' }}>
