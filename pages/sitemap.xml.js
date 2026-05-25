@@ -40,5 +40,7 @@ export async function getServerSideProps({ res }) {
     props: {},
   };
 }
-
-export default function Sitemap() {}
+// Change this at the very bottom of your file
+export default function Sitemap() {
+  return null;
+}
