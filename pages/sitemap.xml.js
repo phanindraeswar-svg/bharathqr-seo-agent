@@ -1,6 +1,6 @@
 import seoData from '../seo_updates.json';
 
-const EXTERNAL_URL = 'https://bharathqr-seo-agent-9vjm.vercel.app';
+const EXTERNAL_URL = 'https://bharathqr.com';
 
 function generateSiteMap(data) {
   return `<?xml version="1.0" encoding="UTF-8"?>
