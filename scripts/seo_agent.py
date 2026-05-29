@@ -7,118 +7,154 @@ import requests
 from bs4 import BeautifulSoup
 from google import genai
 
-# 1. Initialize Runtime Diagnostics Block
+# ── 1. Initialize ──────────────────────────────────────────────────────────────
 TODAY = datetime.date.today().strftime("%Y-%m-%d")
 report_metrics = {
     "api_status": "Success",
     "retries_attempted": 0,
     "new_pages_added": [],
     "blog_title_created": "Skipped",
-    "bing_ping_status": "Not Attempted"
+    "bing_ping_status": "Not Attempted",
+    "competitor_keywords_found": 0,
+    "total_routes_in_system": 0,
+    "errors": []
 }
 
-print(f"🚀 Launching Hardened Autonomous BharatQR SEO Engine [{TODAY}]...")
-
-# Ensure execution system directories exist safely
+print(f"🚀 Launching BharatQR SEO Engine [{TODAY}]...")
 os.makedirs("posts", exist_ok=True)
 os.makedirs("reports", exist_ok=True)
 
-def write_fallback_report(error_message):
-    report_content = f"# Autonomous SEO Engine Run Report - {TODAY}\n\n- **Status:** Operational Failure\n- **Reason:** {error_message}\n"
-    with open(f"reports/{TODAY}.md", "w", encoding="utf-8") as f:
-        f.write(report_content)
+def log_error(msg):
+    print(f"⚠️ {msg}")
+    report_metrics["errors"].append(msg)
 
-# 2. Verify Authentication Setup Safely (Exit code 0 prevents pipeline blocks)
+def write_report():
+    total = report_metrics["total_routes_in_system"]
+    report = f"""# SEO Engine Run Report — {TODAY}
+
+| Metric | Value |
+|---|---|
+| API Status | {report_metrics['api_status']} |
+| 429 Retries | {report_metrics['retries_attempted']} |
+| New Landing Pages Added | {len(report_metrics['new_pages_added'])} |
+| New Page Slugs | {', '.join(report_metrics['new_pages_added']) or 'None'} |
+| Blog Article Written | {report_metrics['blog_title_created']} |
+| Bing Ping | {report_metrics['bing_ping_status']} |
+| Competitor Keywords Found | {report_metrics['competitor_keywords_found']} |
+| Total Routes in System | {total} |
+| Errors | {chr(10).join(report_metrics['errors']) or 'None'} |
+| Timestamp | {datetime.datetime.utcnow().isoformat()} UTC |
+"""
+    with open(f"reports/{TODAY}.md", "w", encoding="utf-8") as f:
+        f.write(report)
+    print(f"📋 Report saved to reports/{TODAY}.md")
+
+# ── 2. Auth Check ──────────────────────────────────────────────────────────────
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 if not GEMINI_API_KEY:
-    msg = "API Execution Blocked: GEMINI_API_KEY missing from repository secrets."
-    print(f"⚠️ {msg}")
-    write_fallback_report(msg)
+    log_error("GEMINI_API_KEY missing from GitHub Secrets.")
+    write_report()
     sys.exit(0)
 
-# Initialize Client
 client = genai.Client(api_key=GEMINI_API_KEY)
 
-# 3. Deep Competitor Intelligence Scraper
-COMPETITOR_URL = "https://bharatupi.com"
+# ── 3. Crawl Competitor ────────────────────────────────────────────────────────
 competitor_keywords = []
 try:
-    headers = {"User-Agent": "BharatQR-SEO-Crawler/2.0"}
-    response = requests.get(COMPETITOR_URL, headers=headers, timeout=12)
-    if response.status_code == 200:
-        soup = BeautifulSoup(response.text, 'html.parser')
-        headings = [h.text.strip() for h in soup.find_all(['h1', 'h2', 'h3']) if h.text.strip()]
-        competitor_keywords = list(dict.fromkeys(headings))[:10]
-        print(f"📡 Scraped competitor insights successfully: {competitor_keywords}")
-except Exception as scrape_err:
-    print(f"⚠️ Scraper fallback notice: {scrape_err}")
+    headers = {"User-Agent": "Mozilla/5.0 (compatible; BharatQR-Bot/1.0)"}
+    r = requests.get("https://bharatupi.com", headers=headers, timeout=15)
+    if r.status_code == 200:
+        soup = BeautifulSoup(r.text, 'html.parser')
+        headings = [h.text.strip() for h in soup.find_all(['h1','h2','h3']) if h.text.strip()]
+        meta = soup.find('meta', attrs={'name': 'description'})
+        if meta and meta.get('content'):
+            headings.append(meta['content'])
+        competitor_keywords = list(dict.fromkeys(headings))[:12]
+        report_metrics["competitor_keywords_found"] = len(competitor_keywords)
+        print(f"📡 Competitor keywords: {competitor_keywords}")
+except Exception as e:
+    log_error(f"Competitor crawl failed: {e}")
 
-# 4. Load State Manifest Data (Deduplication ledger tracking)
+# ── 4. Load Deduplication State ────────────────────────────────────────────────
 used_topics = {"slugs": [], "titles": []}
 if os.path.exists("used_topics.json"):
     try:
         with open("used_topics.json", "r", encoding="utf-8") as f:
             used_topics = json.load(f)
-    except Exception:
-        print("⚠️ State ledger parsing issue. Initializing clean deduplication vectors.")
+    except Exception as e:
+        log_error(f"used_topics.json parse error: {e}")
 
-# 5. API Call Handler with Adaptive Quota Recovery
-def execute_gemini_generation(prompt_payload):
-    for attempt in range(4):
-        try:
-            # FIXED: Stable active model variant
-            response = client.models.generate_content(
-                model='gemini-1.5-flash',
-                contents=prompt_payload
-            )
-            return response.text
-        except Exception as e:
-            if "429" in str(e) or "Quota exceeded" in str(e):
-                if attempt < 3:
-                    print(f"⏳ Rate Limit (429) hit. Cooling down for 60 seconds... (Attempt {attempt + 1}/3)")
-                    report_metrics["retries_attempted"] += 1
-                    time.sleep(60)
-                    continue
-            print(f"⚠️ Gemini processing boundary failure: {e}")
-            return None
+# ── 5. Gemini API Call with Retry ──────────────────────────────────────────────
+def call_gemini(prompt, label=""):
+    # Try models in order — gemini-2.0-flash-lite has highest free quota
+    models = ["gemini-2.0-flash-lite", "gemini-1.5-flash-8b", "gemini-1.5-flash"]
+    for model in models:
+        for attempt in range(4):
+            try:
+                print(f"🤖 Trying {model} for {label} (attempt {attempt+1})...")
+                response = client.models.generate_content(
+                    model=model,
+                    contents=prompt
+                )
+                print(f"✅ {model} responded successfully.")
+                return response.text
+            except Exception as e:
+                err_str = str(e)
+                if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str or "Quota" in err_str:
+                    if attempt < 3:
+                        wait = 60 * (attempt + 1)
+                        print(f"⏳ 429 quota hit on {model}. Waiting {wait}s... (attempt {attempt+1}/3)")
+                        report_metrics["retries_attempted"] += 1
+                        time.sleep(wait)
+                        continue
+                    else:
+                        print(f"❌ {model} quota exhausted after 3 retries. Trying next model...")
+                        break
+                elif "404" in err_str or "not found" in err_str.lower():
+                    print(f"❌ {model} not available. Trying next model...")
+                    break
+                else:
+                    log_error(f"{model} error on {label}: {err_str[:200]}")
+                    break
+    log_error(f"All models exhausted for {label}. Content skipped today.")
+    report_metrics["api_status"] = f"All models quota exhausted for {label}"
     return None
 
-# --- GENERATION STEP A: DYNAMIC LANDING PAGES ---
+# ── 6. Generate Landing Pages ──────────────────────────────────────────────────
 landing_prompt = f"""
-You are an elite programmatic SEO architect for bharathqr.com (free UPI QR code generator for Indian merchants).
-Analyze competitor context items for semantic inspiration: {competitor_keywords}.
+You are a programmatic SEO expert for bharathqr.com — a FREE UPI QR code generator for Indian merchants.
+Today is {TODAY}.
 
-CRITICAL TARGET DIRECTION:
-Prioritize generating completely original long-tail micro-niches tailored around capturing market intent for these strategic angles:
-- "Best zero-fee UPI gateway for small retail stores"
-- "How to accept business payments without a current account"
+Competitor content themes (for inspiration only, never copy): {competitor_keywords}
+Already existing slugs (NEVER repeat these): {used_topics['slugs']}
 
-CRITICAL EXCLUSION LIST: Never generate matching slugs for these existing routes: {used_topics['slugs']}.
-Generate exactly 3 brand new, hyper-targeted hyper-local micro-niche industries or trade sectors in India needing a free merchant QR code.
+Generate exactly 3 NEW landing page suggestions targeting Indian micro-niche merchants who need free UPI QR codes.
+Focus on hyper-specific industries like: autorickshaw drivers, tiffin services, vegetable vendors, temple donations, 
+school fee collection, dairy delivery, street food, tailors, laundry services, tuition centers, etc.
 
-Your response MUST be a clean, raw JSON object matching this exact schema block structure:
+Respond with ONLY valid raw JSON. No markdown. No explanation. Exactly this schema:
 {{
   "suggested_routes": [
     {{
-      "slug": "lowercase-hyphenated-url-slug",
-      "industry": "Name of Micro-Niche Sector",
-      "heading": "SEO Rich Catchy H1 Heading Target",
-      "body_text": "3-4 sentences outlining zero setup friction, zero transactional clearing fees, instantaneous bank settlement, and compatibility with GPay, PhonePe, and Paytm apps."
+      "slug": "unique-lowercase-hyphenated-slug",
+      "industry": "Specific Industry Name",
+      "heading": "Free BharatQR UPI Code for [Industry] — Zero Fees, Instant Payment",
+      "body_text": "3-4 sentences explaining zero MDR fees, instant bank credit, works with GPay PhonePe Paytm BHIM. Specific to this industry.",
+      "meta_description": "Under 155 chars. Keyword-rich. Mentions free, UPI, and the industry name."
     }}
   ]
 }}
-Respond with valid JSON only. Do not wrap it in markdown block formatting code ticks.
 """
 
-print("🧠 Querying Gemini for clean programmatic landing assets...")
-landing_raw_output = execute_gemini_generation(landing_prompt)
+print("🧠 Generating landing pages...")
+landing_output = call_gemini(landing_prompt, label="landing pages")
 
-if landing_raw_output:
+if landing_output:
     try:
-        clean_json_str = landing_raw_output.replace("```json", "").replace("```", "").strip()
-        payload_data = json.loads(clean_json_str)
-        new_candidates = payload_data.get("suggested_routes", [])
-        
+        clean = landing_output.replace("```json","").replace("```","").strip()
+        data = json.loads(clean)
+        new_routes = data.get("suggested_routes", [])
+
         seo_updates = {"optimized_data": {"suggested_routes": []}}
         if os.path.exists("seo_updates.json"):
             try:
@@ -126,110 +162,110 @@ if landing_raw_output:
                     seo_updates = json.load(f)
             except Exception:
                 pass
-        
-        current_slugs_set = {item["slug"] for item in seo_updates.get("optimized_data", {}).get("suggested_routes", [])}
-        
-        appended_count = 0
-        for item in new_candidates:
-            slug = item.get("slug")
-            if slug and slug not in current_slugs_set and slug not in used_topics["slugs"]:
-                seo_updates["optimized_data"]["suggested_routes"].append(item)
+
+        existing_slugs = {r["slug"] for r in seo_updates["optimized_data"]["suggested_routes"]}
+        added = 0
+        for route in new_routes:
+            slug = route.get("slug","").strip()
+            if slug and slug not in existing_slugs and slug not in used_topics["slugs"]:
+                seo_updates["optimized_data"]["suggested_routes"].append(route)
                 used_topics["slugs"].append(slug)
                 report_metrics["new_pages_added"].append(slug)
-                appended_count += 1
-                
+                added += 1
+
+        report_metrics["total_routes_in_system"] = len(seo_updates["optimized_data"]["suggested_routes"])
+
         with open("seo_updates.json", "w", encoding="utf-8") as f:
             json.dump(seo_updates, f, indent=2)
-        print(f"✅ Master JSON update finished. Appended {appended_count} distinct long-tail channels.")
-    except Exception as parse_err:
-        report_metrics["api_status"] = f"Landing JSON Error: {parse_err}"
-        print(f"⚠️ Master schema processing skip: {parse_err}")
+        print(f"✅ Appended {added} new routes. Total: {report_metrics['total_routes_in_system']}")
 
-# --- GENERATION STEP B: HIGH-CONVERSION DEEP BLOG ---
+    except Exception as e:
+        log_error(f"Landing page JSON parse failed: {e}. Raw: {landing_output[:300]}")
+
+# ── 7. Generate Blog Article ───────────────────────────────────────────────────
 blog_prompt = f"""
-Write an entirely original, educational long-form blog article optimized for Indian micro-merchants.
-Use these competitor themes strictly as inspiration seeds: {competitor_keywords}.
+Write a 100% original, educational blog article for Indian small business merchants.
+Today is {TODAY}. Use this date in the article where relevant.
 
-CRITICAL COMPETITOR ATTACK LIST:
-You must select exactly ONE of the following precise high-intent topics to create a comprehensive guide on:
-1. "Best zero-fee UPI gateway for small retail stores"
-2. "BharatQR vs standard UPI QR code: What is the difference?"
-3. "How to accept business payments without a current account"
-4. "Bypassing credit card MDR using customer UPI transfers"
+Competitor topics (inspiration only, never copy): {competitor_keywords}
+Already written titles (NEVER duplicate): {used_topics['titles']}
 
-Do NOT touch or duplicate any of these previously written blog titles: {used_topics['titles']}.
+Pick ONE hyper-specific Indian merchant topic NOT in the existing titles list. Examples:
+- How autorickshaw drivers in Chennai can accept GPay payments
+- UPI QR code setup guide for tiffin delivery services
+- How vegetable vendors can go cashless using free QR codes
+- Temple donation collection via UPI — a complete guide
+- How tuition teachers can collect fees via UPI without a POS machine
 
 Requirements:
-- Minimum 600 words long, written naturally, uniquely, and authoritatively from scratch. Do not copy external formatting.
-- Must include an introductory hook, precisely 3 structural subheadings formatted with markdown H2 tags (##), and a clear structural conclusion.
-- Embed a prominent operational call-to-action linking naturally back to the master generator utility tool at https://bharathqr.com.
+- Minimum 600 words. Natural, helpful, authoritative writing.
+- Start with a strong hook introduction paragraph.
+- Include exactly 3 subheadings using ## markdown format.
+- End with a conclusion and call-to-action linking to https://bharathqr.com
+- Write for Indian merchants — use INR, mention Indian cities, Indian UPI apps.
 
-Provide your response wrapped inside a clean, raw JSON schema container containing exactly two keys: "title" and "body". Do not wrap the content of the body string in extra markdown ticks inside the JSON data.
+Respond with ONLY valid raw JSON containing exactly two keys:
+{{"title": "Article title here", "body": "Full article markdown body here — 600+ words"}}
+No markdown code fences. Raw JSON only.
 """
 
-print("✍️ Dispatching semantic requests for deep-dive blog infrastructure...")
-blog_raw_output = execute_gemini_generation(blog_prompt)
+print("✍️ Generating blog article...")
+blog_output = call_gemini(blog_prompt, label="blog article")
 
-if blog_raw_output:
+if blog_output:
     try:
-        clean_blog_str = blog_raw_output.replace("```json", "").replace("```", "").strip()
-        blog_json = json.loads(clean_blog_str)
-        blog_title = blog_json.get("title", "").strip()
-        blog_body = blog_json.get("body", "").strip()
-        
-        if blog_title and blog_body:
-            clean_slug = blog_title.lower().replace(" ", "-").replace("?", "").replace("!", "").replace(":", "")[:45].strip("-")
-            blog_filename = f"posts/{TODAY}-{clean_slug}.md"
-            meta_desc = f"Learn how {blog_title} empowers small Indian vendors. Read practical blueprints on zero-fee UPI collections and fast settlements via BharatQR."
-            
-            markdown_content = f"""---
-title: "{blog_title}"
+        clean = blog_output.replace("```json","").replace("```","").strip()
+        blog_json = json.loads(clean)
+        title = blog_json.get("title","").strip()
+        body = blog_json.get("body","").strip()
+
+        if title and body and len(body) > 300:
+            slug = title.lower()
+            for ch in ["?","!",":",",","'",'"',"/"]:
+                slug = slug.replace(ch,"")
+            slug = "-".join(slug.split())[:50].strip("-")
+
+            filename = f"posts/{TODAY}-{slug}.md"
+            meta_desc = f"{title} — practical guide for Indian merchants. Free UPI QR collection via BharatQR."
+
+            content = f"""---
+title: "{title}"
 date: "{TODAY}"
 description: "{meta_desc[:155]}"
-keywords: ["bharathqr", "free upi qr code", "merchant payments india"]
+keywords: ["bharathqr", "free upi qr code", "upi payments india", "merchant payments"]
 ---
 
-# {blog_title}
-
-{blog_body}
+{body}
 """
-            with open(blog_filename, "w", encoding="utf-8") as f:
-                f.write(markdown_content)
-                
-            used_topics["titles"].append(blog_title)
-            report_metrics["blog_title_created"] = blog_title
-            print(f"✅ Native markdown blog item successfully staged: {blog_filename}")
-    except Exception as blog_err:
-        print(f"⚠️ Blog generation processing skipped: {blog_err}")
-        report_metrics["api_status"] = f"Blog Compile Failure: {blog_err}"
+            with open(filename, "w", encoding="utf-8") as f:
+                f.write(content)
 
-# 6. Save Updated State Arrays
-with open("used_topics.json", "w", encoding="utf-8") as f:
-    json.dump(used_topics, f, indent=2)
+            used_topics["titles"].append(title)
+            report_metrics["blog_title_created"] = title
+            print(f"✅ Blog saved: {filename}")
+        else:
+            log_error(f"Blog content too short or empty. Title: '{title}', Body length: {len(body)}")
 
-# 7. Disseminate Indexation Up-link Broadcasts
-print("📡 Triggering modern dynamic search system crawl notify protocols...")
+    except Exception as e:
+        log_error(f"Blog JSON parse failed: {e}. Raw: {blog_output[:300]}")
+
+# ── 8. Save Deduplication State ────────────────────────────────────────────────
 try:
-    bing_ping_endpoint = "https://www.bing.com/ping?sitemap=https://bharathqr.com/sitemap.xml"
-    ping_response = requests.get(bing_ping_endpoint, timeout=10)
-    report_metrics["bing_ping_status"] = f"Confirmed ({ping_response.status_code} OK)"
-    print(f"📡 Bing ping confirmed: {ping_response.status_code}")
-except Exception as ping_err:
-    report_metrics["bing_ping_status"] = f"Failed communication channel: {ping_err}"
-    print(f"⚠️ Index notification bypass recorded: {ping_err}")
+    with open("used_topics.json", "w", encoding="utf-8") as f:
+        json.dump(used_topics, f, indent=2)
+    print("✅ used_topics.json updated.")
+except Exception as e:
+    log_error(f"Failed to save used_topics.json: {e}")
 
-# 8. Compile Master Diagnostic Run Logs
-report_template = f"""# Autonomous Agent Cycle Diagnostics — Run {TODAY}
+# ── 9. Bing Ping ───────────────────────────────────────────────────────────────
+try:
+    r = requests.get("https://www.bing.com/ping?sitemap=https://bharathqr.com/sitemap.xml", timeout=10)
+    report_metrics["bing_ping_status"] = f"{r.status_code}"
+    print(f"📡 Bing ping: {r.status_code}")
+except Exception as e:
+    report_metrics["bing_ping_status"] = f"Failed: {e}"
+    log_error(f"Bing ping failed: {e}")
 
-- **Core API Transaction Pipeline:** {report_metrics['api_status']}
-- **Rate Limit Cool-downs Triggered (Status 429):** {report_metrics['retries_attempted']}
-- **Programmatic Slugs Transferred into Matrix:** {report_metrics['new_pages_added']}
-- **Staged Long-Tail Article Node:** {report_metrics['blog_title_created']}
-- **Search System Broadcast Signal Status:** {report_metrics['bing_ping_status']}
-- **Diagnostic Timestamp Grid:** {datetime.datetime.utcnow().isoformat()} UTC
-"""
-
-with open(f"reports/{TODAY}.md", "w", encoding="utf-8") as f:
-    f.write(report_template)
-
-print(f"✅ Operational pipeline successfully shut down. Analytics metrics logged at reports/{TODAY}.md")
+# ── 10. Write Report ───────────────────────────────────────────────────────────
+write_report()
+print(f"🏁 Engine complete. {len(report_metrics['new_pages_added'])} pages added. Blog: {report_metrics['blog_title_created']}")
