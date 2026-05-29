@@ -66,8 +66,9 @@ if os.path.exists("used_topics.json"):
 def execute_gemini_generation(prompt_payload):
     for attempt in range(4):
         try:
+            # FIXED: Stable active model variant
             response = client.models.generate_content(
-                model='gemini-1.5-flash-8b',
+                model='gemini-1.5-flash',
                 contents=prompt_payload
             )
             return response.text
@@ -82,13 +83,19 @@ def execute_gemini_generation(prompt_payload):
             return None
     return None
 
-# --- GENERATION STEP A: DYNAMIC LANDING PAGES (Append and Merge) ---
+# --- GENERATION STEP A: DYNAMIC LANDING PAGES ---
 landing_prompt = f"""
 You are an elite programmatic SEO architect for bharathqr.com (free UPI QR code generator for Indian merchants).
-Analyze competitor context items: {competitor_keywords}.
-CRITICAL EXCLUSION LIST: Never generate matching slugs for these existing routes: {used_topics['slugs']}.
+Analyze competitor context items for semantic inspiration: {competitor_keywords}.
 
+CRITICAL TARGET DIRECTION:
+Prioritize generating completely original long-tail micro-niches tailored around capturing market intent for these strategic angles:
+- "Best zero-fee UPI gateway for small retail stores"
+- "How to accept business payments without a current account"
+
+CRITICAL EXCLUSION LIST: Never generate matching slugs for these existing routes: {used_topics['slugs']}.
 Generate exactly 3 brand new, hyper-targeted hyper-local micro-niche industries or trade sectors in India needing a free merchant QR code.
+
 Your response MUST be a clean, raw JSON object matching this exact schema block structure:
 {{
   "suggested_routes": [
@@ -140,12 +147,20 @@ if landing_raw_output:
 
 # --- GENERATION STEP B: HIGH-CONVERSION DEEP BLOG ---
 blog_prompt = f"""
-Write a high-converting, original, educational long-form blog article optimized for Indian micro-merchants.
-Base the topical space around these concepts: {competitor_keywords}.
+Write an entirely original, educational long-form blog article optimized for Indian micro-merchants.
+Use these competitor themes strictly as inspiration seeds: {competitor_keywords}.
+
+CRITICAL COMPETITOR ATTACK LIST:
+You must select exactly ONE of the following precise high-intent topics to create a comprehensive guide on:
+1. "Best zero-fee UPI gateway for small retail stores"
+2. "BharatQR vs standard UPI QR code: What is the difference?"
+3. "How to accept business payments without a current account"
+4. "Bypassing credit card MDR using customer UPI transfers"
+
 Do NOT touch or duplicate any of these previously written blog titles: {used_topics['titles']}.
 
 Requirements:
-- Minimum 600 words long, written naturally and authoritatively.
+- Minimum 600 words long, written naturally, uniquely, and authoritatively from scratch. Do not copy external formatting.
 - Must include an introductory hook, precisely 3 structural subheadings formatted with markdown H2 tags (##), and a clear structural conclusion.
 - Embed a prominent operational call-to-action linking naturally back to the master generator utility tool at https://bharathqr.com.
 
