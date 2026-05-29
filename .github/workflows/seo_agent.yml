@@ -1,44 +1,47 @@
-name: Run SEO Agent Daily
+name: Scheduled Autonomous SEO Agent Pipeline
 
 on:
   schedule:
-    - cron: '0 0 * * *'
-  workflow_dispatch:
+    # Executes precisely at 2:00 AM Indian Standard Time (IST) every single night (20:30 UTC)
+    - cron: '30 20 * * *'
+  workflow_dispatch: # Manual trigger override flag configuration
 
 jobs:
-  run-agent:
+  run-seo-agent:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        fetch-depth: 0
+      - name: Checkout Repository Code
+        uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
+      - name: Initialize Target Python Environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-    - name: Install Dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install requests beautifulsoup4 google-genai
+      - name: Inject Dynamic Automation Dependencies
+        run: |
+          pip install requests beautifulsoup4 google-genai
 
-    - name: Execute SEO Pipeline Scraper
-      env:
-        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-      run: python scripts/seo_agent.py
+      - name: Fire Core Growth Execution Cycle
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python scripts/seo_agent.py
 
-    - name: Commit and Push SEO Updates
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add seo_updates.json
-        if ! git diff --cached --quiet; then
-          git commit -m "Automated programmatic SEO data matrix update [skip ci]"
-          git push origin main
-        else
-          echo "No changes detected in SEO data matrix. Skipping push."
-        fi
+      - name: Commit and Secure Generated SEO Material
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Staging catchall flag to collect newly initialized subdirectories seamlessly
+          git add -A
+          
+          if git diff-index --quiet HEAD --; then
+            echo "Zero adjustments reported during this run window. Skipping commit procedures."
+          else
+            git commit -m "🤖 Autonomous SEO Loop: Synced Content Nodes [Skip CI]"
+            git push origin main
+          fi
