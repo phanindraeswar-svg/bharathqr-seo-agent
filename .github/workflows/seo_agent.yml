@@ -4,13 +4,17 @@ on:
   schedule:
     # Executes precisely at 2:00 AM Indian Standard Time (IST) every single night (20:30 UTC)
     - cron: '30 20 * * *'
-  workflow_dispatch: # Manual trigger override flag configuration
+  workflow_dispatch:
 
 jobs:
   run-seo-agent:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       contents: write
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
 
     steps:
       - name: Checkout Repository Code
@@ -23,11 +27,9 @@ jobs:
 
       - name: Inject Dynamic Automation Dependencies
         run: |
-          pip install requests beautifulsoup4 google-genai
+          pip install requests beautifulsoup4 groq
 
       - name: Fire Core Growth Execution Cycle
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           python scripts/seo_agent.py
 
@@ -35,10 +37,7 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          
-          # Staging catchall flag to collect newly initialized subdirectories seamlessly
           git add -A
-          
           if git diff-index --quiet HEAD --; then
             echo "Zero adjustments reported during this run window. Skipping commit procedures."
           else
