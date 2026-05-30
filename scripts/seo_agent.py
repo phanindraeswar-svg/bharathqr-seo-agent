@@ -55,9 +55,8 @@ if not GROQ_API_KEY:
     write_report()
     sys.exit(0)
 
-# ── 3. AI Call Function — Groq API ────────────────────────────────────────────
+# ── 3. AI Call Function ────────────────────────────────────────────────────────
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
-
 GROQ_MODELS = [
     "llama-3.3-70b-versatile",
     "llama-3.1-8b-instant",
@@ -79,12 +78,7 @@ def call_ai(prompt, label=""):
                     "temperature": 0.7,
                     "max_tokens": 2000
                 }
-                r = requests.post(
-                    GROQ_URL,
-                    headers=headers,
-                    json=payload,
-                    timeout=30
-                )
+                r = requests.post(GROQ_URL, headers=headers, json=payload, timeout=30)
                 if r.status_code == 200:
                     text = r.json()["choices"][0]["message"]["content"]
                     print(f"✅ {model} responded successfully.")
@@ -111,7 +105,6 @@ def call_ai(prompt, label=""):
     return None
 
 def clean_json(raw):
-    """Strip markdown fences and invalid control characters before parsing."""
     cleaned = raw.replace("```json", "").replace("```", "").strip()
     cleaned = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]', '', cleaned)
     return cleaned
@@ -119,8 +112,8 @@ def clean_json(raw):
 # ── 4. Crawl Competitor ────────────────────────────────────────────────────────
 competitor_keywords = []
 try:
-    headers = {"User-Agent": "Mozilla/5.0 (compatible; BharatQR-Bot/1.0)"}
-    r = requests.get("https://bharatupi.com", headers=headers, timeout=15)
+    hdrs = {"User-Agent": "Mozilla/5.0 (compatible; BharatQR-Bot/1.0)"}
+    r = requests.get("https://bharatupi.com", headers=hdrs, timeout=15)
     if r.status_code == 200:
         soup = BeautifulSoup(r.text, 'html.parser')
         headings = [h.text.strip() for h in soup.find_all(['h1','h2','h3']) if h.text.strip()]
@@ -204,47 +197,73 @@ if landing_output:
         log_error(f"Landing page parse failed: {e}. Raw: {landing_output[:300]}")
 
 # ── 7. Generate Blog Article ───────────────────────────────────────────────────
-blog_prompt = f"""Write a 100% original, educational blog article for Indian small business merchants.
-Today is {TODAY}. Write in a helpful, practical tone suited for Indian readers.
+# NOTE: We do NOT use JSON for the blog anymore.
+# The AI returns plain text with a TITLE: line and then the body.
+# This completely avoids the newline-inside-JSON bug.
 
-Competitor topics (inspiration only, never copy): {competitor_keywords}
-Already written titles (NEVER duplicate): {used_topics['titles']}
+blog_prompt = f"""You are writing a blog article for bharathqr.com, a free UPI QR code generator for Indian merchants.
+Today is {TODAY}.
 
-Pick ONE hyper-specific Indian merchant topic NOT already in the titles list above. Examples:
-- How autorickshaw drivers in Chennai can accept GPay payments without a smartphone
-- Complete guide to UPI QR codes for tiffin delivery services in Mumbai
-- How vegetable vendors in Delhi can go cashless using free QR codes
-- Temple donation collection via UPI — a step by step guide
-- How private tuition teachers can collect fees via UPI without a POS machine
+Competitor topics for inspiration only (never copy): {competitor_keywords}
+Already written titles — DO NOT repeat any of these: {used_topics['titles']}
+
+Pick ONE hyper-specific Indian merchant topic not in the list above. Examples:
+- How autorickshaw drivers in Chennai can accept GPay payments
+- UPI QR codes for tiffin delivery services in Mumbai
+- How vegetable vendors in Delhi can go cashless
+- Temple donation collection via UPI — complete guide
+- How tuition teachers can collect fees via UPI
 - UPI payments for dairy milk delivery routes in India
 - How street food vendors can use BharatQR to increase sales
+- Free QR code setup for medical shops in India
+- How beauty parlours can accept UPI payments without a POS machine
 
-Requirements:
-- Minimum 600 words. Natural, helpful, authoritative.
-- Strong opening paragraph hook.
-- Exactly 3 subheadings using ## markdown.
-- Practical step-by-step advice for Indian merchants.
-- Mention INR amounts, Indian cities, Indian UPI apps (GPay, PhonePe, Paytm, BHIM).
-- End with conclusion and call-to-action linking to https://bharathqr.com
-- Do NOT mention bharatupi.com anywhere.
-- Use only plain ASCII characters. No curly quotes, no em dashes, no special symbols.
+Format your response EXACTLY like this — two sections, nothing else:
 
-Respond with ONLY raw JSON — no markdown fences. Use plain straight quotes only:
-{{"title": "Article title here", "body": "Full 600+ word markdown article body here"}}"""
+TITLE: Your article title here
+
+BODY:
+Your full article here. Minimum 600 words. Include:
+- Strong opening hook paragraph
+- Exactly 3 subheadings using ## markdown
+- Practical step-by-step advice for Indian merchants
+- Mention INR amounts and Indian cities
+- Mention GPay, PhonePe, Paytm, BHIM
+- End with a call-to-action linking to https://bharathqr.com
+- Do NOT mention bharatupi.com anywhere"""
 
 print("✍️ Generating blog article...")
 blog_output = call_ai(blog_prompt, label="blog article")
 
 if blog_output:
     try:
-        data = json.loads(clean_json(blog_output))
-        title = data.get("title", "").strip()
-        body = data.get("body", "").strip()
+        # Parse TITLE: and BODY: sections — no JSON involved
+        title = ""
+        body = ""
+
+        lines = blog_output.strip().splitlines()
+        body_started = False
+        body_lines = []
+
+        for line in lines:
+            if line.startswith("TITLE:") and not title:
+                title = line.replace("TITLE:", "").strip()
+            elif line.startswith("BODY:"):
+                body_started = True
+            elif body_started:
+                body_lines.append(line)
+
+        body = "\n".join(body_lines).strip()
+
+        # Fallback: if TITLE/BODY markers missing, take first line as title
+        if not title and lines:
+            title = lines[0].replace("#", "").strip()
+            body = "\n".join(lines[1:]).strip()
 
         if title and body and len(body) > 400:
             slug = title.lower()
-            for ch in ["?", "!", ":", ",", "'", '"', "/"]:
-                slug = slug.replace(ch, "")
+            for ch in ["?", "!", ":", ",", "'", '"', "/", "—", "-"]:
+                slug = slug.replace(ch, " ")
             slug = "-".join(slug.split())[:50].strip("-")
 
             filename = f"posts/{TODAY}-{slug}.md"
@@ -266,10 +285,10 @@ keywords: ["bharathqr", "free upi qr code", "upi payments india", "merchant paym
             report_metrics["blog_title_created"] = title
             print(f"✅ Blog saved: {filename}")
         else:
-            log_error(f"Blog too short. Length: {len(body)}. Title: '{title}'")
+            log_error(f"Blog content too short or empty. Title: '{title}', Body length: {len(body)}")
 
     except Exception as e:
-        log_error(f"Blog parse failed: {e}. Raw: {blog_output[:300]}")
+        log_error(f"Blog processing failed: {e}")
 
 # ── 8. Save Deduplication State ────────────────────────────────────────────────
 try:
