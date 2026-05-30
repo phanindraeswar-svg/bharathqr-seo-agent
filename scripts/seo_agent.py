@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import re
 import time
 import datetime
 import requests
@@ -55,14 +56,12 @@ if not GROQ_API_KEY:
     sys.exit(0)
 
 # ── 3. AI Call Function — Groq API ────────────────────────────────────────────
-# Groq uses OpenAI-compatible format. No SDK needed — pure requests.
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 
-# Models in priority order — all free on Groq
 GROQ_MODELS = [
-    "llama-3.3-70b-versatile",   # Best quality, 14400 req/day free
-    "llama-3.1-8b-instant",      # Faster fallback, very high quota
-    "mixtral-8x7b-32768",        # Final fallback
+    "llama-3.3-70b-versatile",
+    "llama-3.1-8b-instant",
+    "mixtral-8x7b-32768",
 ]
 
 def call_ai(prompt, label=""):
@@ -110,6 +109,12 @@ def call_ai(prompt, label=""):
     log_error(f"All AI models failed for {label}.")
     report_metrics["api_status"] = f"All models failed for {label}"
     return None
+
+def clean_json(raw):
+    """Strip markdown fences and invalid control characters before parsing."""
+    cleaned = raw.replace("```json", "").replace("```", "").strip()
+    cleaned = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]', '', cleaned)
+    return cleaned
 
 # ── 4. Crawl Competitor ────────────────────────────────────────────────────────
 competitor_keywords = []
@@ -167,8 +172,7 @@ landing_output = call_ai(landing_prompt, label="landing pages")
 
 if landing_output:
     try:
-        clean = landing_output.replace("```json","").replace("```","").strip()
-        data = json.loads(clean)
+        data = json.loads(clean_json(landing_output))
         new_routes = data.get("suggested_routes", [])
 
         seo_updates = {"optimized_data": {"suggested_routes": []}}
@@ -182,7 +186,7 @@ if landing_output:
         existing_slugs = {r["slug"] for r in seo_updates["optimized_data"]["suggested_routes"]}
         added = 0
         for route in new_routes:
-            slug = route.get("slug","").strip()
+            slug = route.get("slug", "").strip()
             if slug and slug not in existing_slugs and slug not in used_topics["slugs"]:
                 seo_updates["optimized_data"]["suggested_routes"].append(route)
                 used_topics["slugs"].append(slug)
@@ -223,8 +227,9 @@ Requirements:
 - Mention INR amounts, Indian cities, Indian UPI apps (GPay, PhonePe, Paytm, BHIM).
 - End with conclusion and call-to-action linking to https://bharathqr.com
 - Do NOT mention bharatupi.com anywhere.
+- Use only plain ASCII characters. No curly quotes, no em dashes, no special symbols.
 
-Respond with ONLY raw JSON — no markdown fences:
+Respond with ONLY raw JSON — no markdown fences. Use plain straight quotes only:
 {{"title": "Article title here", "body": "Full 600+ word markdown article body here"}}"""
 
 print("✍️ Generating blog article...")
@@ -232,15 +237,14 @@ blog_output = call_ai(blog_prompt, label="blog article")
 
 if blog_output:
     try:
-        clean = blog_output.replace("```json","").replace("```","").strip()
-        blog_json = json.loads(clean)
-        title = blog_json.get("title","").strip()
-        body = blog_json.get("body","").strip()
+        data = json.loads(clean_json(blog_output))
+        title = data.get("title", "").strip()
+        body = data.get("body", "").strip()
 
         if title and body and len(body) > 400:
             slug = title.lower()
-            for ch in ["?","!",":",",","'",'"',"/"]:
-                slug = slug.replace(ch,"")
+            for ch in ["?", "!", ":", ",", "'", '"', "/"]:
+                slug = slug.replace(ch, "")
             slug = "-".join(slug.split())[:50].strip("-")
 
             filename = f"posts/{TODAY}-{slug}.md"
@@ -267,7 +271,7 @@ keywords: ["bharathqr", "free upi qr code", "upi payments india", "merchant paym
     except Exception as e:
         log_error(f"Blog parse failed: {e}. Raw: {blog_output[:300]}")
 
-# ── 8. Save State ──────────────────────────────────────────────────────────────
+# ── 8. Save Deduplication State ────────────────────────────────────────────────
 try:
     with open("used_topics.json", "w", encoding="utf-8") as f:
         json.dump(used_topics, f, indent=2)
