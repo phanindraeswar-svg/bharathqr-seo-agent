@@ -9,14 +9,14 @@ import Head from 'next/head';
 export default function BlogPost({ articleMetadata, htmlContent, slug }) {
   const structuredArticleSchema = {
     "@context": "https://schema.org",
-    "@type": "TechArticle",
+    "@type": "BlogPosting",
     "headline": articleMetadata.title,
     "datePublished": articleMetadata.date,
     "description": articleMetadata.description,
     "url": `https://bharathqr.com/blog/${slug}`,
     "publisher": {
       "@type": "Organization",
-      "name": "BharatQR",
+      "name": "BharathQR",
       "logo": {
         "@type": "ImageObject",
         "url": "https://bharathqr.com/logo.png"
@@ -24,7 +24,7 @@ export default function BlogPost({ articleMetadata, htmlContent, slug }) {
     },
     "author": {
       "@type": "Organization",
-      "name": "BharatQR Automated SEO Core Engine"
+      "name": "BharathQR Automated SEO Core Engine"
     }
   };
 
@@ -39,8 +39,13 @@ export default function BlogPost({ articleMetadata, htmlContent, slug }) {
   return (
     <div style={{ maxWidth: '720px', margin: '0 auto', padding: '2rem', fontFamily: 'system-ui, sans-serif', lineHeight: '1.7' }}>
       <Head>
-        <title>{articleMetadata.title} | BharatQR Merchant Frameworks</title>
+        <title>{articleMetadata.title} | BharathQR</title>
         <meta name="description" content={articleMetadata.description} />
+        <meta property="og:title" content={articleMetadata.title} />
+        <meta property="og:description" content={articleMetadata.description} />
+        <meta property="og:url" content={`https://bharathqr.com/blog/${slug}`} />
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="keywords" content={articleMetadata.keywords?.join(', ')} />
         <link rel="canonical" href={`https://bharathqr.com/blog/${slug}`} />
         
@@ -52,7 +57,7 @@ export default function BlogPost({ articleMetadata, htmlContent, slug }) {
 
       <nav style={{ marginBottom: '2rem' }}>
         <Link href="/blog" style={{ color: '#0070f3', textDecoration: 'none', fontWeight: '500' }}>
-          ← Back to Content Hub
+          ← Back to Blog
         </Link>
       </nav>
 
@@ -88,7 +93,7 @@ export default function BlogPost({ articleMetadata, htmlContent, slug }) {
         <h3>Need instant zero-fee customer collections?</h3>
         <p style={{ color: '#666', marginBottom: '1.5rem' }}>Generate your localized dynamic UPI custom merchant asset matching parameters directly via our application layout core.</p>
         <Link href="/" style={{ background: '#0070f3', color: '#fff', padding: '0.75rem 1.5rem', borderRadius: '6px', textDecoration: 'none', fontWeight: 'bold' }}>
-          Generate Free BharatQR Now
+          Generate Free BharathQR Now
         </Link>
       </footer>
     </div>

@@ -29,9 +29,17 @@ jobs:
         run: |
           pip install requests beautifulsoup4 groq
 
+      - name: Process Founder Feedback
+        run: |
+          python scripts/founder_feedback_agent.py
+
       - name: Fire Core Growth Execution Cycle
         run: |
           python scripts/seo_agent.py
+
+      - name: Validate Generated Content
+        run: |
+          python scripts/validate_content.py
 
       - name: Commit and Secure Generated SEO Material
         run: |

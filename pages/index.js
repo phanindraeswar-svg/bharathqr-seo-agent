@@ -25,15 +25,15 @@ function QRGenerator() {
   const generateQR = async () => {
     setError('');
     setQrUrl('');
-    if (!upiId.trim() || !name.trim()) {
-      setError('UPI ID and Name are required.');
+    if (!upiId.trim()) {
+      setError('UPI ID is required.');
       return;
     }
     if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9]+$/.test(upiId.trim())) {
       setError('Please enter a valid UPI ID (e.g. name@bank)');
       return;
     }
-    let upiString = `upi://pay?pa=${encodeURIComponent(upiId.trim())}&pn=${encodeURIComponent(name.trim())}&cu=INR`;
+    let upiString = `upi://pay?pa=${encodeURIComponent(upiId.trim())}&pn=${encodeURIComponent((name.trim() || 'BharathQR User'))}&cu=INR`;
     if (amount) upiString += `&am=${encodeURIComponent(amount)}`;
     if (note)   upiString += `&tn=${encodeURIComponent(note)}`;
 
@@ -77,7 +77,7 @@ function QRGenerator() {
         <input style={inputStyle} placeholder="yourname@bank" value={upiId} onChange={e => setUpiId(e.target.value)} />
       </div>
       <div style={{ marginBottom: '12px' }}>
-        <label style={labelStyle}>Merchant / Business Name *</label>
+        <label style={labelStyle}>Merchant / Business Name — Optional</label>
         <input style={inputStyle} placeholder="My Shop" value={name} onChange={e => setName(e.target.value)} />
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '12px' }}>
@@ -120,7 +120,7 @@ export default function Home({ suggestedRoutes }) {
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "BharatQR — Free UPI QR Code Generator",
+    "name": "BharathQR — Free UPI QR Code Generator",
     "url": "https://bharathqr.com",
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "Web",
@@ -131,10 +131,10 @@ export default function Home({ suggestedRoutes }) {
   return (
     <div style={{ fontFamily: 'system-ui, -apple-system, sans-serif', color: '#111827' }}>
       <Head>
-        <title>Free UPI QR Code Generator for Indian Merchants — BharatQR</title>
+        <title>Free UPI QR Code Generator for Indian Merchants — BharathQR</title>
         <meta name="description" content="Generate free UPI QR codes for your business in seconds. Zero MDR fees. Works with GPay, PhonePe, Paytm, BHIM & 45+ UPI apps. No signup needed." />
         <meta name="keywords" content="free UPI QR code generator, UPI QR code, free payment QR India, GPay QR code, PhonePe QR code, merchant QR code" />
-        <meta property="og:title" content="Free UPI QR Code Generator — BharatQR" />
+        <meta property="og:title" content="Free UPI QR Code Generator — BharathQR" />
         <meta property="og:description" content="Zero-fee UPI QR codes for Indian merchants. Instant bank credit. Works with all UPI apps." />
         <meta property="og:url" content="https://bharathqr.com" />
         <link rel="canonical" href="https://bharathqr.com" />
@@ -174,7 +174,7 @@ export default function Home({ suggestedRoutes }) {
       {/* HOW IT WORKS */}
       <section style={{ padding: '4rem 1.5rem', background: '#fff', textAlign: 'center' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '1.75rem', fontWeight: '700', marginBottom: '0.5rem' }}>How BharatQR Works</h2>
+          <h2 style={{ fontSize: '1.75rem', fontWeight: '700', marginBottom: '0.5rem' }}>How BharathQR Works</h2>
           <p style={{ color: '#6B7280', marginBottom: '3rem' }}>Get paid digitally in 3 simple steps</p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem' }}>
             {[
@@ -195,8 +195,8 @@ export default function Home({ suggestedRoutes }) {
       {/* BENEFITS */}
       <section style={{ padding: '4rem 1.5rem', background: '#F9FAFB' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{ fontSize: '1.75rem', fontWeight: '700', marginBottom: '0.5rem' }}>Benefits with BharatQR</h2>
-          <p style={{ color: '#6B7280', marginBottom: '3rem' }}>Why thousands of Indian merchants choose BharatQR</p>
+          <h2 style={{ fontSize: '1.75rem', fontWeight: '700', marginBottom: '0.5rem' }}>Benefits with BharathQR</h2>
+          <p style={{ color: '#6B7280', marginBottom: '3rem' }}>Why thousands of Indian merchants choose BharathQR</p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem', textAlign: 'left' }}>
             {[
               { icon: '₹0', title: 'Zero Transaction Fees', desc: 'No MDR. No hidden charges. Keep 100% of every payment you receive.' },
@@ -254,8 +254,8 @@ export default function Home({ suggestedRoutes }) {
         <div style={{ maxWidth: '700px', margin: '0 auto' }}>
           <h2 style={{ fontSize: '1.75rem', fontWeight: '700', textAlign: 'center', marginBottom: '3rem' }}>Frequently Asked Questions</h2>
           {[
-            { q: 'Is BharatQR really free?', a: 'Yes, 100% free. We charge zero fees — no MDR, no transaction charges, no subscription. You keep every rupee your customers pay.' },
-            { q: 'Which UPI apps work with BharatQR?', a: 'Your BharatQR code works with all UPI apps including Google Pay, PhonePe, Paytm, BHIM, Amazon Pay, and 43+ other apps.' },
+            { q: 'Is BharathQR really free?', a: 'Yes, 100% free. We charge zero fees — no MDR, no transaction charges, no subscription. You keep every rupee your customers pay.' },
+            { q: 'Which UPI apps work with BharathQR?', a: 'Your BharathQR code works with all UPI apps including Google Pay, PhonePe, Paytm, BHIM, Amazon Pay, and 43+ other apps.' },
             { q: 'Do I need to create an account?', a: 'No. No signup, no app download, no KYC. Just enter your UPI ID and generate your QR code in seconds.' },
             { q: 'Is my UPI ID safe?', a: 'Yes. Your UPI ID is processed entirely in your browser and never stored on our servers. Your data is private and secure.' },
             { q: 'Can I set a fixed amount on the QR code?', a: 'Yes. Enter the amount in the Amount field and your QR code will have a pre-filled payment amount that customers can see before paying.' },
@@ -285,8 +285,8 @@ export default function Home({ suggestedRoutes }) {
 
       {/* FOOTER */}
       <footer style={{ background: '#111827', color: '#9CA3AF', padding: '2rem 1.5rem', textAlign: 'center', fontSize: '13px' }}>
-        <p style={{ marginBottom: '0.5rem' }}>© {new Date().getFullYear()} BharatQR — Free UPI QR Code Generator for Indian Merchants</p>
-        <p>BharatQR is not affiliated with NPCI, BHIM, or any bank. UPI is a product of NPCI.</p>
+        <p style={{ marginBottom: '0.5rem' }}>© {new Date().getFullYear()} BharathQR — Free UPI QR Code Generator for Indian Merchants</p>
+        <p>BharathQR is not affiliated with NPCI, BHIM, or any bank. UPI is a product of NPCI.</p>
       </footer>
     </div>
   );

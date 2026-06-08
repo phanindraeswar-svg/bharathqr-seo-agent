@@ -20,7 +20,7 @@ report_metrics = {
     "errors": []
 }
 
-print(f"🚀 Launching BharatQR SEO Engine [{TODAY}]...")
+print(f"🚀 Launching BharathQR SEO Engine [{TODAY}]...")
 os.makedirs("posts", exist_ok=True)
 os.makedirs("reports", exist_ok=True)
 
@@ -112,7 +112,7 @@ def clean_json(raw):
 # ── 4. Crawl Competitor ────────────────────────────────────────────────────────
 competitor_keywords = []
 try:
-    hdrs = {"User-Agent": "Mozilla/5.0 (compatible; BharatQR-Bot/1.0)"}
+    hdrs = {"User-Agent": "Mozilla/5.0 (compatible; BharathQR-Bot/1.0)"}
     r = requests.get("https://bharatupi.com", headers=hdrs, timeout=15)
     if r.status_code == 200:
         soup = BeautifulSoup(r.text, 'html.parser')
@@ -135,11 +135,29 @@ if os.path.exists("used_topics.json"):
     except Exception as e:
         log_error(f"used_topics.json parse error: {e}")
 
+
+# ── Founder Style Preferences ─────────────────────────────────────────────────
+style_preferences = {"likes": [], "dislikes": [], "rules": []}
+try:
+    with open("data/style_preferences.json", "r", encoding="utf-8") as f:
+        style_preferences = json.load(f)
+except Exception:
+    pass
+
+founder_style_instruction = f"""
+Founder style preferences:
+Likes: {', '.join(style_preferences.get('likes', [])) or 'practical, clear, mobile-first examples'}
+Dislikes: {', '.join(style_preferences.get('dislikes', [])) or 'generic AI fluff'}
+Rules: {', '.join(style_preferences.get('rules', [])) or 'Founder feedback overrides generic SEO defaults'}
+Write like a useful human advisor. Avoid generic AI-sounding introductions.
+"""
+
 # ── 6. Generate Landing Pages ──────────────────────────────────────────────────
 landing_prompt = f"""You are a programmatic SEO expert for bharathqr.com — a FREE UPI QR code generator for Indian merchants.
 Today is {TODAY}.
 
 Competitor content themes (inspiration only, never copy): {competitor_keywords}
+{founder_style_instruction}
 Already existing slugs (NEVER repeat these): {used_topics['slugs']}
 
 Generate exactly 3 NEW landing page suggestions for hyper-specific Indian micro-niche merchants.
@@ -153,7 +171,7 @@ Respond with ONLY valid raw JSON. No markdown fences. No explanation. Exactly th
     {{
       "slug": "unique-lowercase-hyphenated-slug",
       "industry": "Specific Industry Name",
-      "heading": "Free BharatQR UPI Code for [Industry] — Zero Fees, Instant Payment",
+      "heading": "Free BharathQR UPI Code for [Industry] — Zero Fees, Instant Payment",
       "body_text": "3-4 sentences. Mention zero MDR fees, instant bank credit, works with GPay PhonePe Paytm BHIM. Specific to this industry.",
       "meta_description": "Under 155 chars. Keyword-rich. Mentions free, UPI, and the industry."
     }}
@@ -205,6 +223,7 @@ blog_prompt = f"""You are writing a blog article for bharathqr.com, a free UPI Q
 Today is {TODAY}.
 
 Competitor topics for inspiration only (never copy): {competitor_keywords}
+{founder_style_instruction}
 Already written titles — DO NOT repeat any of these: {used_topics['titles']}
 
 Pick ONE hyper-specific Indian merchant topic not in the list above. Examples:
@@ -214,7 +233,7 @@ Pick ONE hyper-specific Indian merchant topic not in the list above. Examples:
 - Temple donation collection via UPI — complete guide
 - How tuition teachers can collect fees via UPI
 - UPI payments for dairy milk delivery routes in India
-- How street food vendors can use BharatQR to increase sales
+- How street food vendors can use BharathQR to increase sales
 - Free QR code setup for medical shops in India
 - How beauty parlours can accept UPI payments without a POS machine
 
@@ -260,14 +279,14 @@ if blog_output:
             title = lines[0].replace("#", "").strip()
             body = "\n".join(lines[1:]).strip()
 
-        if title and body and len(body) > 400:
+        if title and body and len(body.split()) >= 600:
             slug = title.lower()
             for ch in ["?", "!", ":", ",", "'", '"', "/", "—", "-"]:
                 slug = slug.replace(ch, " ")
             slug = "-".join(slug.split())[:50].strip("-")
 
             filename = f"posts/{TODAY}-{slug}.md"
-            meta_desc = f"{title} — practical guide for Indian merchants on BharatQR."
+            meta_desc = f"{title} — practical guide for Indian merchants on BharathQR."
 
             content = f"""---
 title: "{title}"
@@ -285,7 +304,7 @@ keywords: ["bharathqr", "free upi qr code", "upi payments india", "merchant paym
             report_metrics["blog_title_created"] = title
             print(f"✅ Blog saved: {filename}")
         else:
-            log_error(f"Blog content too short or empty. Title: '{title}', Body length: {len(body)}")
+            log_error(f"Blog content too short or empty. Title: '{title}', Body words: {len(body.split())}")
 
     except Exception as e:
         log_error(f"Blog processing failed: {e}")

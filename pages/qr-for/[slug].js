@@ -37,7 +37,7 @@ export default function DynamicIndustryPage({ currentRouteData }) {
     "url": pageUrl,
     "publisher": {
       "@type": "Organization",
-      "name": "BharatQR",
+      "name": "BharathQR",
       "url": "https://bharathqr.com"
     }
   };
@@ -45,7 +45,7 @@ export default function DynamicIndustryPage({ currentRouteData }) {
   return (
     <>
       <Head>
-        <title>{currentRouteData.heading} | BharatQR</title>
+        <title>{currentRouteData.heading} | BharathQR</title>
         <meta name="description" content={metaDesc} />
         <meta name="keywords" content={`${currentRouteData.industry} UPI QR code, free QR code for ${currentRouteData.industry}, UPI payment ${currentRouteData.industry} India`} />
         <link rel="canonical" href={pageUrl} />
@@ -60,7 +60,7 @@ export default function DynamicIndustryPage({ currentRouteData }) {
         {/* NAV */}
         <nav style={{ padding: '1rem 1.5rem', borderBottom: '1px solid #E5E7EB', background: '#fff' }}>
           <Link href="/" style={{ color: '#1D9E75', textDecoration: 'none', fontWeight: '600', fontSize: '14px' }}>
-            ← Back to BharatQR Generator
+            ← Back to BharathQR Generator
           </Link>
         </nav>
 
@@ -96,7 +96,7 @@ export default function DynamicIndustryPage({ currentRouteData }) {
         <div style={{ padding: '3rem 1.5rem', background: '#fff' }}>
           <div style={{ maxWidth: '700px', margin: '0 auto' }}>
             <h2 style={{ fontSize: '1.4rem', fontWeight: '700', marginBottom: '1.5rem', textAlign: 'center' }}>
-              Why {currentRouteData.industry} Choose BharatQR
+              Why {currentRouteData.industry} Choose BharathQR
             </h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
               {[
@@ -130,7 +130,7 @@ export default function DynamicIndustryPage({ currentRouteData }) {
 
         {/* FOOTER */}
         <footer style={{ background: '#111827', color: '#9CA3AF', padding: '2rem 1.5rem', textAlign: 'center', fontSize: '13px' }}>
-          <p>© {new Date().getFullYear()} BharatQR — Free UPI QR Code Generator for Indian Merchants</p>
+          <p>© {new Date().getFullYear()} BharathQR — Free UPI QR Code Generator for Indian Merchants</p>
           <p style={{ marginTop: '0.5rem' }}>
             <Link href="/" style={{ color: '#6EE7B7', textDecoration: 'none' }}>Home</Link>
             {' · '}
