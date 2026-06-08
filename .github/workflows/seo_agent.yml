@@ -50,5 +50,6 @@ jobs:
             echo "Zero adjustments reported during this run window. Skipping commit procedures."
           else
             git commit -m "🤖 Autonomous SEO Loop: Synced Content Nodes [Skip CI]"
-            git push origin main
+            git pull --rebase origin main || true
+            git push origin main || echo "Push skipped due to remote conflict"
           fi
