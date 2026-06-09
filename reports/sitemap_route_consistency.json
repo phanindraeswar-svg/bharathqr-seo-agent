@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "route_count_checked": 86,
+  "errors": [],
+  "warnings": [],
+  "sample_routes": [
+    "/",
+    "/ai-tools",
+    "/ai-tools/ai-business-bio-generator",
+    "/ai-tools/ai-menu-description-generator",
+    "/ai-tools/ai-offer-generator",
+    "/ai-tools/ai-review-request-generator",
+    "/ai-tools/ai-whatsapp-message-generator",
+    "/cases",
+    "/comparisons",
+    "/comparisons/qr-code-vs-barcode",
+    "/comparisons/static-vs-dynamic-qr-code",
+    "/comparisons/upi-qr-vs-cash",
+    "/comparisons/whatsapp-qr-vs-whatsapp-link",
+    "/hi",
+    "/materials",
+    "/materials/brochures",
+    "/materials/business-cards",
+    "/materials/flyers",
+    "/materials/menus",
+    "/materials/packaging",
+    "/materials/posters",
+    "/materials/shop-counter",
+    "/materials/table-tents",
+    "/qr-for",
+    "/solutions"
+  ]
+}

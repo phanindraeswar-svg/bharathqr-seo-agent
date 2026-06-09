@@ -9,7 +9,7 @@ export default function Page() {
         <title>Privacy Policy — BharathQR</title>
         <meta name="description" content="BharathQR does not collect, store, or share your personal data. QR codes are generated in your browser." />
         <link rel="canonical" href="https://bharathqr.com/privacy" />
-      </Head>
+      <meta property="og:title" content="Privacy Policy — BharathQR" /><meta property="og:description" content="BharathQR does not collect, store, or share your personal data. QR codes are generated in your browser." /><meta property="og:url" content="https://bharathqr.com/privacy" /><meta name="twitter:title" content="Privacy Policy — BharathQR" /><meta name="twitter:description" content="BharathQR does not collect, store, or share your personal data. QR codes are generated in your browser." /></Head>
       <main style={{ maxWidth: 860, margin: '0 auto', padding: '2rem 1rem', lineHeight: 1.7 }}>
         <h1 style={{ fontSize: 'clamp(2rem, 6vw, 3rem)', marginBottom: 8 }}>Privacy Policy</h1>
         <p style={{ color: '#4B5563', fontSize: 18 }}>BharathQR does not collect, store, or share your personal data. QR codes are generated in your browser.</p>

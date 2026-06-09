@@ -1,3 +1,48 @@
 {
-  "items": []
+  "items": [
+    {
+      "id": "ff-2026-06-08-1",
+      "date": "2026-06-08",
+      "type": "note",
+      "text": "Write normal English here. The agent will read this file before the SEO agent runs.\n\nExamples:",
+      "urls": [],
+      "status": "processed"
+    },
+    {
+      "id": "ff-2026-06-08-2",
+      "date": "2026-06-08",
+      "type": "fix",
+      "text": "[FIX]\nMerchant name should be optional in UPI QR Generator.",
+      "urls": [],
+      "status": "processed"
+    },
+    {
+      "id": "ff-2026-06-08-3",
+      "date": "2026-06-08",
+      "type": "like",
+      "text": "[GOOD]\nhttps://example.com/blog\nI like this blog style. Short, practical, no AI fluff.",
+      "urls": [
+        "https://example.com/blog"
+      ],
+      "status": "processed"
+    },
+    {
+      "id": "ff-2026-06-08-4",
+      "date": "2026-06-08",
+      "type": "dislike",
+      "text": "[BAD]\nhttps://bharathqr.com/blog/example\nToo generic and boring. Rewrite future blogs with better real examples.",
+      "urls": [
+        "https://bharathqr.com/blog/example"
+      ],
+      "status": "processed"
+    },
+    {
+      "id": "ff-2026-06-08-5",
+      "date": "2026-06-08",
+      "type": "opportunity",
+      "text": "[IDEA]\nAdd Event QR Generator for weddings and business events.",
+      "urls": [],
+      "status": "processed"
+    }
+  ]
 }

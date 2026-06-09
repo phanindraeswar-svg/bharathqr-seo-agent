@@ -5,15 +5,53 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "validate": "python scripts/predeploy_check.py",
+    "route-audit": "python scripts/route_audit.py",
+    "content-quality": "python scripts/content_quality_score.py",
+    "opportunity-engine": "python scripts/opportunity_engine.py",
+    "final-audit": "python scripts/final_launch_audit.py",
+    "live-check": "python scripts/live_route_check.py",
+    "prelaunch": "python scripts/predeploy_check.py && python scripts/opportunity_engine.py && python scripts/sitemap_route_consistency.py && python scripts/release_readiness_score.py && python scripts/faq_coverage_audit.py && python scripts/search_intent_audit.py && python scripts/keyword_ownership_audit.py && python scripts/automation_guardrails.py && python scripts/content_excellence_score.py && python scripts/faq_gap_detector.py && python scripts/industry_page_audit.py && python scripts/schema_coverage_audit.py && python scripts/launch_dashboard.py && python scripts/indexing_watchlist_generator.py && python scripts/route_coverage_snapshot.py && npm run wave21-audit",
+    "route-consistency": "python scripts/sitemap_route_consistency.py",
+    "release-score": "python scripts/release_readiness_score.py",
+    "faq-audit": "python scripts/faq_coverage_audit.py",
+    "search-intent-audit": "python scripts/search_intent_audit.py",
+    "keyword-audit": "python scripts/keyword_ownership_audit.py",
+    "post-launch-report": "python scripts/post_launch_report.py",
+    "automation-guardrails": "python scripts/automation_guardrails.py",
+    "content-excellence": "python scripts/content_excellence_score.py",
+    "faq-gap": "python scripts/faq_gap_detector.py",
+    "industry-audit": "python scripts/industry_page_audit.py",
+    "schema-audit": "python scripts/schema_coverage_audit.py",
+    "launch-dashboard": "python scripts/launch_dashboard.py",
+    "indexing-watchlist": "python scripts/indexing_watchlist_generator.py",
+    "route-coverage": "python scripts/route_coverage_snapshot.py",
+    "classify-deploy-error": "python scripts/deployment_issue_classifier.py",
+    "final-freeze-audit": "python scripts/final_freeze_audit.py",
+    "deploy-packet": "python scripts/generate_deploy_packet.py",
+    "prelaunch-final": "npm run prelaunch && npm run final-freeze-audit && npm run deploy-packet",
+    "live-seo-smoke": "python scripts/live_seo_smoke_audit.py",
+    "go-live-check": "npm run prelaunch && npm run release-score && npm run live-seo-smoke",
+    "founder-digest": "python scripts/founder_review_digest.py",
+    "weekly-growth-plan": "python scripts/weekly_growth_planner.py",
+    "owner-review": "npm run founder-digest && npm run weekly-growth-plan",
+    "meta-audit": "python scripts/meta_audit.py",
+    "cannibalization-audit": "python scripts/cannibalization_audit.py",
+    "homepage-audit": "python scripts/homepage_conversion_audit.py",
+    "wave21-audit": "npm run meta-audit && npm run cannibalization-audit && npm run homepage-audit"
   },
   "dependencies": {
-    "next": "14.2.30",
+    "gray-matter": "^4.0.3",
+    "next": "14.2.35",
+    "qrcode": "^1.5.3",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "gray-matter": "^4.0.3",
     "remark": "^15.0.1",
-    "remark-html": "^16.0.1",
-    "qrcode": "^1.5.3"
+    "remark-html": "^16.0.1"
+  },
+  "engines": {
+    "node": "20.x",
+    "npm": ">=10 <11"
   }
 }

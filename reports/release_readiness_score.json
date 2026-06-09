@@ -1,0 +1,43 @@
+{
+  "release_readiness_score": 100,
+  "status": "ready",
+  "checks": [
+    {
+      "name": "Predeploy check marker",
+      "path": "reports/predeploy_check_passed.txt",
+      "status": "pass",
+      "details": ""
+    },
+    {
+      "name": "Final launch audit",
+      "path": "reports/final_launch_audit.json",
+      "status": "pass",
+      "details": "passed"
+    },
+    {
+      "name": "Route manifest",
+      "path": "reports/final_route_manifest.json",
+      "status": "pass",
+      "details": ""
+    },
+    {
+      "name": "Content quality scorecard",
+      "path": "reports/content-quality-score-v2.json",
+      "status": "pass",
+      "details": ""
+    },
+    {
+      "name": "Sitemap/route consistency",
+      "path": "reports/sitemap_route_consistency.json",
+      "status": "pass",
+      "details": "passed"
+    },
+    {
+      "name": "Opportunity engine report",
+      "path": "reports/opportunity-engine-report.md",
+      "status": "pass",
+      "details": ""
+    }
+  ],
+  "next_action": "Deploy once, then run live route check."
+}

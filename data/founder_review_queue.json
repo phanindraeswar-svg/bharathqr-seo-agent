@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "purpose": "Minimal-manual-work review queue for founder. Review only high-leverage items after deploy.",
+  "cadence": "weekly",
+  "review_items": [
+    {
+      "type": "live_route",
+      "priority": "high",
+      "item": "Homepage + top tools",
+      "action": "Confirm pages load and tool forms work on mobile"
+    },
+    {
+      "type": "content_style",
+      "priority": "high",
+      "item": "Latest 3 SEO agent posts",
+      "action": "Mark liked/disliked in feedback/inbox.md"
+    },
+    {
+      "type": "search_console",
+      "priority": "high",
+      "item": "Top impressions with low CTR",
+      "action": "Add pages to content_refresh_queue.json"
+    },
+    {
+      "type": "opportunity",
+      "priority": "medium",
+      "item": "Top 5 opportunities",
+      "action": "Approve/ignore in founder feedback"
+    }
+  ]
+}

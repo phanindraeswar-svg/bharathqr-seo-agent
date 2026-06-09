@@ -120,7 +120,7 @@ export default function Home({ suggestedRoutes }) {
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "BharathQR — Free UPI QR Code Generator",
+    "name": "BharathQR — AI-Powered QR & Business Growth Platform",
     "url": "https://bharathqr.com",
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "Web",
@@ -148,10 +148,10 @@ export default function Home({ suggestedRoutes }) {
             100% Free — Zero MDR Fees
           </span>
           <h1 style={{ fontSize: 'clamp(1.8rem, 5vw, 2.8rem)', fontWeight: '800', color: '#111827', marginTop: '1rem', marginBottom: '0.75rem', lineHeight: '1.2' }}>
-            Free UPI QR Code Generator<br />for Indian Merchants
+            India's AI-Powered QR & Business Growth Platform<br />for Indian Merchants
           </h1>
           <p style={{ fontSize: '1.1rem', color: '#4B5563', marginBottom: '2rem', lineHeight: '1.6' }}>
-            Generate your UPI QR code instantly. Accept payments via GPay, PhonePe, Paytm & BHIM with zero transaction fees.
+            Generate UPI QR, Google Review QR, WhatsApp QR, WiFi QR and business QR tools for Indian shops, restaurants, hotels, clinics and salons.
           </p>
 
           {/* UPI App Logos Strip */}
@@ -168,6 +168,19 @@ export default function Home({ suggestedRoutes }) {
 
           {/* QR Generator Tool */}
           <QRGenerator />
+
+          <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '1.25rem' }}>
+            {[
+              { href: '/tools', label: 'Explore QR Tools' },
+              { href: '/solutions', label: 'Business Solutions' },
+              { href: '/use-cases', label: 'Use Cases' },
+              { href: '/trust', label: 'QR Safety' },
+            ].map((item) => (
+              <Link key={item.href} href={item.href} style={{ background: '#fff', border: '1px solid #D1FAE5', color: '#065F46', padding: '10px 14px', borderRadius: 999, textDecoration: 'none', fontWeight: 800, fontSize: 14 }}>
+                {item.label}
+              </Link>
+            ))}
+          </div>
         </div>
       </header>
 

@@ -102,24 +102,9 @@ export default function BlogPost({ articleMetadata, htmlContent, slug }) {
 
 export async function getStaticPaths() {
   const postsDirectory = path.join(process.cwd(), 'posts');
-  
-  if (!fs.existsSync(postsDirectory)) {
-    return { paths: [], fallback: 'blocking' };
-  }
-
-  const fileNames = fs.readdirSync(postsDirectory);
-  const paths = fileNames
-    .filter(fileName => fileName.endsWith('.md'))
-    .map(fileName => ({
-      params: {
-        slug: fileName.replace(/\.md$/, ''),
-      },
-    }));
-
-  return {
-    paths,
-    fallback: 'blocking',
-  };
+  const files = fs.existsSync(postsDirectory) ? fs.readdirSync(postsDirectory) : [];
+  const paths = files.filter((file) => file.endsWith('.md')).map((file) => ({ params: { slug: file.replace(/\.md$/, '') } }));
+  return { paths, fallback: false };
 }
 
 export async function getStaticProps({ params }) {

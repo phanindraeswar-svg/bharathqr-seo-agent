@@ -1,35 +1,14 @@
 import Link from 'next/link';
 
 export default function Footer() {
-  const linkStyle = { color: '#6EE7B7', textDecoration: 'none' };
+  const linkStyle = { color: '#4B5563', textDecoration: 'none', fontWeight: 600 };
   return (
-    <footer style={{ background: '#064E3B', color: '#D1FAE5', marginTop: 48 }}>
-      <div style={{ maxWidth: 1120, margin: '0 auto', padding: '2rem 1rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 24 }}>
-        <div>
-          <div style={{ color: '#fff', fontWeight: 900, fontSize: 22, marginBottom: 8 }}>BharathQR</div>
-          <p style={{ lineHeight: 1.6, margin: 0 }}>India's fast, free digital tools platform for QR, UPI, WhatsApp and business workflows.</p>
-        </div>
-        <div>
-          <div style={{ color: '#fff', fontWeight: 800, marginBottom: 10 }}>Tools</div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <Link href="/" style={linkStyle}>UPI QR Generator</Link>
-            <Link href="/tools/google-review-qr-generator" style={linkStyle}>Google Review QR</Link>
-            <Link href="/tools" style={linkStyle}>All Tools</Link>
-          </div>
-        </div>
-        <div>
-          <div style={{ color: '#fff', fontWeight: 800, marginBottom: 10 }}>Company</div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <Link href="/about" style={linkStyle}>About</Link>
-            <Link href="/privacy" style={linkStyle}>Privacy</Link>
-            <Link href="/terms" style={linkStyle}>Terms</Link>
-            <Link href="/contact" style={linkStyle}>Contact</Link>
-            <Link href="/faq" style={linkStyle}>FAQ</Link>
-          </div>
-        </div>
-      </div>
-      <div style={{ borderTop: '1px solid rgba(255,255,255,0.15)', padding: '1rem', textAlign: 'center', fontSize: 13 }}>
-        © {new Date().getFullYear()} BharathQR. Not affiliated with NPCI, UPI, BHIM or any bank.
+    <footer style={{ marginTop: 48, borderTop: '1px solid #E5E7EB', background: '#F9FAFB' }}>
+      <div style={{ maxWidth: 1120, margin: '0 auto', padding: '2rem 1rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 20 }}>
+        <div><strong style={{ color: '#1D9E75', fontSize: 20 }}>BharathQR</strong><p style={{ color: '#6B7280', lineHeight: 1.6 }}>India's AI-powered QR and business growth platform for payments, reviews, WhatsApp, WiFi, menus and print-ready QR use cases.</p></div>
+        <div><h3>Explore</h3><p><Link href="/tools" style={linkStyle}>Tools</Link></p><p><Link href="/solutions" style={linkStyle}>Solutions</Link></p><p><Link href="/use-cases" style={linkStyle}>Use Cases</Link></p><p><Link href="/materials" style={linkStyle}>Materials</Link></p><p><Link href="/cases" style={linkStyle}>Cases</Link></p></div>
+        <div><h3>Guides</h3><p><Link href="/trust" style={linkStyle}>Trust & Safety</Link></p><p><Link href="/comparisons" style={linkStyle}>Comparisons</Link></p><p><Link href="/templates" style={linkStyle}>Templates</Link></p><p><Link href="/blog" style={linkStyle}>Blog</Link></p><p><Link href="/ai-tools" style={linkStyle}>AI Business</Link></p><p><Link href="/hi" style={linkStyle}>Hindi</Link></p></div>
+        <div><h3>Company</h3><p><Link href="/about" style={linkStyle}>About</Link></p><p><Link href="/privacy" style={linkStyle}>Privacy</Link></p><p><Link href="/terms" style={linkStyle}>Terms</Link></p><p><Link href="/contact" style={linkStyle}>Contact</Link></p><p><Link href="/faq" style={linkStyle}>FAQ</Link></p><p><Link href="/editorial-policy" style={linkStyle}>Editorial Policy</Link></p><p><Link href="/content-policy" style={linkStyle}>Content Policy</Link></p><p><Link href="/advertising-disclosure" style={linkStyle}>Advertising</Link></p></div>
       </div>
     </footer>
   );

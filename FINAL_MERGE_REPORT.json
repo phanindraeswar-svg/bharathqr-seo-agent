@@ -1,0 +1,11 @@
+{
+  "base_zip": "bharathqr-seo-agent-main (9).zip",
+  "update_zip": "bharathqr-final-deploy-candidate(1).zip",
+  "base_files": 77,
+  "update_files": 241,
+  "base_only_preserved": [
+    "posts/2026-06-08-how-petty-shop-owners-in-visakhapatnam-can-increas.md"
+  ],
+  "pycache_removed": true,
+  "merged_from": "current GitHub remote as base plus final deploy candidate overlay"
+}

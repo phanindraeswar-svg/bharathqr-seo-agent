@@ -1,0 +1,412 @@
+{
+  "version": 1,
+  "last_updated": "2026-06-09",
+  "owners": [
+    {
+      "keyword": "qr code for ca office",
+      "owner_url": "/solutions/ca-offices",
+      "section": "solutions",
+      "priority": 82,
+      "status": "owned"
+    },
+    {
+      "keyword": "qr code for car showroom",
+      "owner_url": "/solutions/car-showrooms",
+      "section": "solutions",
+      "priority": 82,
+      "status": "owned"
+    },
+    {
+      "keyword": "qr code for clinics",
+      "owner_url": "/solutions/clinics",
+      "section": "solutions",
+      "priority": 82,
+      "status": "owned"
+    },
+    {
+      "keyword": "qr code for coaching center",
+      "owner_url": "/solutions/coaching-centers",
+      "section": "solutions",
+      "priority": 82,
+      "status": "owned"
+    },
+    {
+      "keyword": "qr code for college",
+      "owner_url": "/solutions/colleges",
+      "section": "solutions",
+      "priority": 82,
+      "status": "owned"
+    },
+    {
+      "keyword": "qr code for freelancers",
+      "owner_url": "/solutions/freelancers",
+      "section": "solutions",
+      "priority": 82,
+      "status": "owned"
+    },
+    {
+      "keyword": "qr code for gym",
+      "owner_url": "/solutions/gyms",
+      "section": "solutions",
+      "priority": 82,
+      "status": "owned"
+    },
+    {
+      "keyword": "qr code for hotels",
+      "owner_url": "/solutions/hotels",
+      "section": "solutions",
+      "priority": 82,
+      "status": "owned"
+    },
+    {
+      "keyword": "qr code for kirana store",
+      "owner_url": "/solutions/kirana-stores",
+      "section": "solutions",
+      "priority": 82,
+      "status": "owned"
+    },
+    {
+      "keyword": "qr code for lawyers",
+      "owner_url": "/solutions/lawyers",
+      "section": "solutions",
+      "priority": 82,
+      "status": "owned"
+    },
+    {
+      "keyword": "qr code for medical shop",
+      "owner_url": "/solutions/medical-shops",
+      "section": "solutions",
+      "priority": 82,
+      "status": "owned"
+    },
+    {
+      "keyword": "qr code for pet clinic",
+      "owner_url": "/solutions/pet-clinics",
+      "section": "solutions",
+      "priority": 82,
+      "status": "owned"
+    },
+    {
+      "keyword": "qr code for real estate agent",
+      "owner_url": "/solutions/real-estate-agents",
+      "section": "solutions",
+      "priority": 82,
+      "status": "owned"
+    },
+    {
+      "keyword": "qr code for restaurants",
+      "owner_url": "/solutions/restaurants",
+      "section": "solutions",
+      "priority": 82,
+      "status": "owned"
+    },
+    {
+      "keyword": "qr code for retail stores",
+      "owner_url": "/solutions/retail-stores",
+      "section": "solutions",
+      "priority": 82,
+      "status": "owned"
+    },
+    {
+      "keyword": "qr code for salons",
+      "owner_url": "/solutions/salons",
+      "section": "solutions",
+      "priority": 82,
+      "status": "owned"
+    },
+    {
+      "keyword": "qr code for school",
+      "owner_url": "/solutions/schools",
+      "section": "solutions",
+      "priority": 82,
+      "status": "owned"
+    },
+    {
+      "keyword": "qr code for travel agency",
+      "owner_url": "/solutions/travel-agencies",
+      "section": "solutions",
+      "priority": 82,
+      "status": "owned"
+    },
+    {
+      "keyword": "brochure qr code template",
+      "owner_url": "/templates/brochure-qr-template",
+      "section": "templates",
+      "priority": 78,
+      "status": "owned"
+    },
+    {
+      "keyword": "clinic review qr code poster",
+      "owner_url": "/templates/clinic-review-qr-poster",
+      "section": "templates",
+      "priority": 78,
+      "status": "owned"
+    },
+    {
+      "keyword": "donation qr code poster",
+      "owner_url": "/templates/donation-qr-poster",
+      "section": "templates",
+      "priority": 78,
+      "status": "owned"
+    },
+    {
+      "keyword": "event qr code poster",
+      "owner_url": "/templates/event-qr-poster",
+      "section": "templates",
+      "priority": 78,
+      "status": "owned"
+    },
+    {
+      "keyword": "google review qr poster",
+      "owner_url": "/templates/google-review-poster",
+      "section": "templates",
+      "priority": 78,
+      "status": "owned"
+    },
+    {
+      "keyword": "restaurant qr template",
+      "owner_url": "/templates/restaurant-qr-template",
+      "section": "templates",
+      "priority": 78,
+      "status": "owned"
+    },
+    {
+      "keyword": "restaurant table qr code",
+      "owner_url": "/templates/restaurant-table-tent",
+      "section": "templates",
+      "priority": 78,
+      "status": "owned"
+    },
+    {
+      "keyword": "salon qr template",
+      "owner_url": "/templates/salon-qr-template",
+      "section": "templates",
+      "priority": 78,
+      "status": "owned"
+    },
+    {
+      "keyword": "shop counter qr code",
+      "owner_url": "/templates/shop-counter-qr-template",
+      "section": "templates",
+      "priority": 78,
+      "status": "owned"
+    },
+    {
+      "keyword": "upi qr standee",
+      "owner_url": "/templates/upi-qr-standee",
+      "section": "templates",
+      "priority": 78,
+      "status": "owned"
+    },
+    {
+      "keyword": "wifi qr sign",
+      "owner_url": "/templates/wifi-sign",
+      "section": "templates",
+      "priority": 78,
+      "status": "owned"
+    },
+    {
+      "keyword": "email qr code generator",
+      "owner_url": "/tools/email-qr-generator",
+      "section": "tools",
+      "priority": 90,
+      "status": "owned"
+    },
+    {
+      "keyword": "event qr code generator",
+      "owner_url": "/tools/event-qr-generator",
+      "section": "tools",
+      "priority": 90,
+      "status": "owned"
+    },
+    {
+      "keyword": "google review qr code generator",
+      "owner_url": "/tools/google-review-qr-generator",
+      "section": "tools",
+      "priority": 90,
+      "status": "owned"
+    },
+    {
+      "keyword": "menu qr code generator",
+      "owner_url": "/tools/menu-qr-generator",
+      "section": "tools",
+      "priority": 90,
+      "status": "owned"
+    },
+    {
+      "keyword": "pdf qr code generator",
+      "owner_url": "/tools/pdf-qr-generator",
+      "section": "tools",
+      "priority": 90,
+      "status": "owned"
+    },
+    {
+      "keyword": "phone qr code generator",
+      "owner_url": "/tools/phone-qr-generator",
+      "section": "tools",
+      "priority": 90,
+      "status": "owned"
+    },
+    {
+      "keyword": "sms qr code generator",
+      "owner_url": "/tools/sms-qr-generator",
+      "section": "tools",
+      "priority": 90,
+      "status": "owned"
+    },
+    {
+      "keyword": "text qr code generator",
+      "owner_url": "/tools/text-qr-generator",
+      "section": "tools",
+      "priority": 90,
+      "status": "owned"
+    },
+    {
+      "keyword": "upi qr code generator",
+      "owner_url": "/",
+      "section": "tools",
+      "priority": 90,
+      "status": "owned"
+    },
+    {
+      "keyword": "url qr code generator",
+      "owner_url": "/tools/url-qr-generator",
+      "section": "tools",
+      "priority": 90,
+      "status": "owned"
+    },
+    {
+      "keyword": "vcard qr code generator",
+      "owner_url": "/tools/vcard-qr-generator",
+      "section": "tools",
+      "priority": 90,
+      "status": "owned"
+    },
+    {
+      "keyword": "whatsapp qr code generator",
+      "owner_url": "/tools/whatsapp-qr-generator",
+      "section": "tools",
+      "priority": 90,
+      "status": "owned"
+    },
+    {
+      "keyword": "wifi qr code generator",
+      "owner_url": "/tools/wifi-qr-generator",
+      "section": "tools",
+      "priority": 90,
+      "status": "owned"
+    },
+    {
+      "keyword": "how to verify upi payment received",
+      "owner_url": "/trust/how-to-verify-upi-payment",
+      "section": "trust",
+      "priority": 75,
+      "status": "owned"
+    },
+    {
+      "keyword": "qr code safety tips",
+      "owner_url": "/trust/qr-safety",
+      "section": "trust",
+      "priority": 75,
+      "status": "owned"
+    },
+    {
+      "keyword": "upi qr safety",
+      "owner_url": "/trust/upi-qr-safety",
+      "section": "trust",
+      "priority": 75,
+      "status": "owned"
+    },
+    {
+      "keyword": "accept payments with qr code",
+      "owner_url": "/use-cases/accept-payments",
+      "section": "use-cases",
+      "priority": 85,
+      "status": "owned"
+    },
+    {
+      "keyword": "brochure qr code",
+      "owner_url": "/use-cases/share-brochure",
+      "section": "use-cases",
+      "priority": 85,
+      "status": "owned"
+    },
+    {
+      "keyword": "catalog qr code",
+      "owner_url": "/use-cases/share-catalog",
+      "section": "use-cases",
+      "priority": 85,
+      "status": "owned"
+    },
+    {
+      "keyword": "collect leads with qr code",
+      "owner_url": "/use-cases/collect-leads",
+      "section": "use-cases",
+      "priority": 85,
+      "status": "owned"
+    },
+    {
+      "keyword": "contact qr code",
+      "owner_url": "/use-cases/share-contact-details",
+      "section": "use-cases",
+      "priority": 85,
+      "status": "owned"
+    },
+    {
+      "keyword": "customer feedback qr code",
+      "owner_url": "/use-cases/customer-feedback",
+      "section": "use-cases",
+      "priority": 85,
+      "status": "owned"
+    },
+    {
+      "keyword": "digital visiting card qr code",
+      "owner_url": "/use-cases/digital-visiting-card",
+      "section": "use-cases",
+      "priority": 85,
+      "status": "owned"
+    },
+    {
+      "keyword": "donation qr code",
+      "owner_url": "/use-cases/accept-donations",
+      "section": "use-cases",
+      "priority": 85,
+      "status": "owned"
+    },
+    {
+      "keyword": "event qr code for registration and invitations",
+      "owner_url": "/use-cases/manage_events",
+      "section": "use-cases",
+      "priority": 85,
+      "status": "owned"
+    },
+    {
+      "keyword": "event registration qr code",
+      "owner_url": "/use-cases/event-registration",
+      "section": "use-cases",
+      "priority": 85,
+      "status": "owned"
+    },
+    {
+      "keyword": "google review qr code",
+      "owner_url": "/use-cases/collect-reviews",
+      "section": "use-cases",
+      "priority": 85,
+      "status": "owned"
+    },
+    {
+      "keyword": "menu qr code for restaurant",
+      "owner_url": "/use-cases/share-digital-menu",
+      "section": "use-cases",
+      "priority": 85,
+      "status": "owned"
+    },
+    {
+      "keyword": "whatsapp qr code for business",
+      "owner_url": "/use-cases/open-whatsapp-chat",
+      "section": "use-cases",
+      "priority": 85,
+      "status": "owned"
+    }
+  ]
+}

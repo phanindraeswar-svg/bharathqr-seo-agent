@@ -1,0 +1,298 @@
+{
+  "business-cards": {
+    "slug": "business-cards",
+    "title": "QR Codes on Business Cards",
+    "primary_keyword": "QR Code on Business Card",
+    "secondary_keywords": [
+      "digital business card QR code",
+      "vCard QR code for business card",
+      "contact QR code"
+    ],
+    "tools": [
+      "vcard_qr",
+      "whatsapp_qr",
+      "url_qr"
+    ],
+    "industries": [
+      "real estate agents",
+      "salons",
+      "clinics",
+      "consultants",
+      "retail shops"
+    ],
+    "pain_points": [
+      "people lose visiting cards",
+      "customers type phone numbers wrongly",
+      "contacts are not saved after meetings"
+    ],
+    "benefits": [
+      "save contact instantly",
+      "open WhatsApp chat quickly",
+      "share website and location from one card"
+    ],
+    "print_tips": [
+      "Keep the QR code at least 2.5 cm wide.",
+      "Place it on the back side with enough white space.",
+      "Test scan before printing 500 cards."
+    ]
+  },
+  "brochures": {
+    "slug": "brochures",
+    "title": "QR Codes on Brochures",
+    "primary_keyword": "QR Code on Brochure",
+    "secondary_keywords": [
+      "brochure QR code",
+      "QR code for marketing brochure",
+      "scan brochure QR"
+    ],
+    "tools": [
+      "url_qr",
+      "pdf_qr",
+      "whatsapp_qr"
+    ],
+    "industries": [
+      "schools",
+      "real estate agents",
+      "clinics",
+      "hotels",
+      "events"
+    ],
+    "pain_points": [
+      "printed brochures cannot hold long links",
+      "customers forget website URLs",
+      "marketing teams cannot fit all details on one page"
+    ],
+    "benefits": [
+      "send readers to websites",
+      "open enquiry forms",
+      "connect brochures to WhatsApp and Google Forms"
+    ],
+    "print_tips": [
+      "Place QR near the offer or call-to-action.",
+      "Add text like Scan for price list or Scan for enquiry.",
+      "Avoid glossy folds over the QR."
+    ]
+  },
+  "posters": {
+    "slug": "posters",
+    "title": "QR Codes on Posters",
+    "primary_keyword": "QR Code on Poster",
+    "secondary_keywords": [
+      "poster QR code",
+      "QR code for event poster",
+      "scan poster QR"
+    ],
+    "tools": [
+      "url_qr",
+      "event_qr",
+      "whatsapp_qr"
+    ],
+    "industries": [
+      "events",
+      "gyms",
+      "schools",
+      "retail stores",
+      "restaurants"
+    ],
+    "pain_points": [
+      "people see posters but do not remember links",
+      "manual registration is slow",
+      "phone numbers on posters are hard to save"
+    ],
+    "benefits": [
+      "increase registrations",
+      "open WhatsApp enquiries",
+      "send people to offers and location pages"
+    ],
+    "print_tips": [
+      "Use a large QR code for distance scanning.",
+      "Add a short CTA above the QR.",
+      "Test from 1–2 metres before printing."
+    ]
+  },
+  "flyers": {
+    "slug": "flyers",
+    "title": "QR Codes on Flyers",
+    "primary_keyword": "QR Code on Flyer",
+    "secondary_keywords": [
+      "flyer QR code",
+      "QR code for pamphlet",
+      "marketing flyer QR"
+    ],
+    "tools": [
+      "url_qr",
+      "whatsapp_qr",
+      "google_review_qr"
+    ],
+    "industries": [
+      "salons",
+      "restaurants",
+      "retail stores",
+      "coaching centres",
+      "clinics"
+    ],
+    "pain_points": [
+      "flyers get thrown away quickly",
+      "customers do not type website URLs",
+      "offers are hard to track from print material"
+    ],
+    "benefits": [
+      "drive instant visits",
+      "open WhatsApp chat",
+      "send customers to offers or menus"
+    ],
+    "print_tips": [
+      "Keep the QR visible on the front side.",
+      "Use a benefit-focused CTA like Scan for menu or Scan for offer.",
+      "Avoid placing QR too close to edges."
+    ]
+  },
+  "packaging": {
+    "slug": "packaging",
+    "title": "QR Codes on Packaging",
+    "primary_keyword": "QR Code on Packaging",
+    "secondary_keywords": [
+      "product packaging QR code",
+      "QR code on box",
+      "scan packaging QR"
+    ],
+    "tools": [
+      "url_qr",
+      "google_review_qr",
+      "whatsapp_qr"
+    ],
+    "industries": [
+      "food brands",
+      "home bakeries",
+      "retail stores",
+      "D2C sellers",
+      "cloud kitchens"
+    ],
+    "pain_points": [
+      "customers cannot easily reorder",
+      "support numbers get missed",
+      "reviews are not collected after delivery"
+    ],
+    "benefits": [
+      "enable reorders",
+      "collect reviews",
+      "share instructions and support links"
+    ],
+    "print_tips": [
+      "Place the QR on a flat area.",
+      "Keep enough contrast between QR and packaging colour.",
+      "Add short text: Scan to reorder or Scan for support."
+    ]
+  },
+  "shop-counter": {
+    "slug": "shop-counter",
+    "title": "QR Codes for Shop Counters",
+    "primary_keyword": "QR Code for Shop Counter",
+    "secondary_keywords": [
+      "UPI QR standee",
+      "shop payment QR code",
+      "counter QR code"
+    ],
+    "tools": [
+      "upi_qr",
+      "google_review_qr",
+      "whatsapp_qr"
+    ],
+    "industries": [
+      "kirana stores",
+      "tea stalls",
+      "retail shops",
+      "salons",
+      "clinics"
+    ],
+    "pain_points": [
+      "customers wait during payment",
+      "wrong UPI numbers cause confusion",
+      "shops miss reviews and repeat orders"
+    ],
+    "benefits": [
+      "accept payments faster",
+      "collect reviews at billing",
+      "open WhatsApp for repeat orders"
+    ],
+    "print_tips": [
+      "Laminate the QR standee.",
+      "Keep payment QR close to the billing counter.",
+      "Check for fake sticker tampering daily."
+    ]
+  },
+  "table-tents": {
+    "slug": "table-tents",
+    "title": "QR Codes on Table Tents",
+    "primary_keyword": "QR Code on Table Tent",
+    "secondary_keywords": [
+      "restaurant table QR code",
+      "menu QR table tent",
+      "table tent QR"
+    ],
+    "tools": [
+      "menu_qr",
+      "google_review_qr",
+      "wifi_qr"
+    ],
+    "industries": [
+      "restaurants",
+      "cafes",
+      "hotels",
+      "bars",
+      "food courts"
+    ],
+    "pain_points": [
+      "waiters repeat menu and WiFi details",
+      "printed menus become outdated",
+      "customers forget to leave reviews"
+    ],
+    "benefits": [
+      "share menu instantly",
+      "connect guests to WiFi",
+      "collect reviews after dining"
+    ],
+    "print_tips": [
+      "Use one QR per main action.",
+      "Place table tents where phones can scan easily.",
+      "Use simple CTA text: Scan Menu or Scan for WiFi."
+    ]
+  },
+  "menus": {
+    "slug": "menus",
+    "title": "QR Codes on Menus",
+    "primary_keyword": "QR Code on Menu",
+    "secondary_keywords": [
+      "menu QR code",
+      "restaurant menu QR",
+      "hotel menu QR"
+    ],
+    "tools": [
+      "menu_qr",
+      "whatsapp_qr",
+      "google_review_qr"
+    ],
+    "industries": [
+      "restaurants",
+      "cafes",
+      "hotels",
+      "cloud kitchens",
+      "dhabas"
+    ],
+    "pain_points": [
+      "menus become outdated",
+      "printing costs increase",
+      "customers want WhatsApp ordering links"
+    ],
+    "benefits": [
+      "share updated menu",
+      "reduce reprinting",
+      "open ordering chat instantly"
+    ],
+    "print_tips": [
+      "Put the menu QR on the first page.",
+      "Test scan under restaurant lighting.",
+      "Add WhatsApp QR separately for orders."
+    ]
+  }
+}

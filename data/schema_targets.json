@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "last_updated": "2026-06-09",
+  "purpose": "Schema coverage targets for BharathQR pages before and after launch.",
+  "global_required": [
+    "Organization",
+    "WebSite"
+  ],
+  "page_type_targets": {
+    "home": [
+      "WebApplication",
+      "Organization",
+      "WebSite",
+      "FAQPage"
+    ],
+    "tool": [
+      "SoftwareApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "solutions": [
+      "CollectionPage",
+      "FAQPage",
+      "BreadcrumbList",
+      "ItemList"
+    ],
+    "use_cases": [
+      "HowTo",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "materials": [
+      "HowTo",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "trust": [
+      "Article",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "comparisons": [
+      "Article",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "templates": [
+      "HowTo",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "ai_tools": [
+      "SoftwareApplication",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "blog": [
+      "BlogPosting",
+      "FAQPage",
+      "BreadcrumbList"
+    ]
+  },
+  "notes": [
+    "Do not fake reviews, ratings, prices, official affiliations or guarantees.",
+    "Only include FAQPage schema when the visible page contains matching questions and answers.",
+    "Use HowTo schema only for pages with visible step-by-step instructions.",
+    "Prefer conservative schema over aggressive rich-result spam."
+  ]
+}

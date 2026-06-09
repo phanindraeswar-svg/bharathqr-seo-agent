@@ -1,0 +1,6 @@
+{
+  "cannibalization_detection": true,
+  "duplicate_keyword_detection": true,
+  "content_refresh_queue": true,
+  "commercial_intent_required": true
+}

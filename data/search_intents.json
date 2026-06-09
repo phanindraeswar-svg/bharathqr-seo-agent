@@ -1,0 +1,446 @@
+{
+  "version": 1,
+  "last_updated": "2026-06-09",
+  "intents": [
+    {
+      "keyword": "upi qr code for shop",
+      "intent": "transactional",
+      "tool": "upi_qr",
+      "industry": "retail-stores",
+      "use_case": "accept-payments",
+      "priority": 98
+    },
+    {
+      "keyword": "free upi qr code generator",
+      "intent": "transactional",
+      "tool": "upi_qr",
+      "industry": "shops",
+      "use_case": "accept-payments",
+      "priority": 96
+    },
+    {
+      "keyword": "google review qr code for restaurant",
+      "intent": "transactional",
+      "tool": "google_review_qr",
+      "industry": "restaurants",
+      "use_case": "collect-reviews",
+      "priority": 95
+    },
+    {
+      "keyword": "how to verify upi payment received",
+      "intent": "trust",
+      "tool": "upi_qr",
+      "industry": "shops",
+      "use_case": "payment-verification",
+      "priority": 94
+    },
+    {
+      "keyword": "menu qr code for restaurant",
+      "intent": "transactional",
+      "tool": "menu_qr",
+      "industry": "restaurants",
+      "use_case": "share-digital-menu",
+      "priority": 94
+    },
+    {
+      "keyword": "whatsapp qr code for business",
+      "intent": "transactional",
+      "tool": "whatsapp_qr",
+      "industry": "retail-stores",
+      "use_case": "open-whatsapp-chat",
+      "priority": 93
+    },
+    {
+      "keyword": "wifi qr code for hotel",
+      "intent": "transactional",
+      "tool": "wifi_qr",
+      "industry": "hotels",
+      "use_case": "connect-wifi",
+      "priority": 90
+    },
+    {
+      "keyword": "qr code sticker for shop",
+      "intent": "commercial",
+      "tool": "upi_qr",
+      "industry": "retail-stores",
+      "use_case": "print-qr-for-shop",
+      "priority": 88
+    },
+    {
+      "keyword": "upi qr vs cash",
+      "intent": "comparison",
+      "tool": "upi_qr",
+      "industry": "shops",
+      "use_case": "replace-cash-at-counter",
+      "priority": 87
+    },
+    {
+      "keyword": "qr code on business card",
+      "intent": "commercial",
+      "tool": "vcard_qr",
+      "industry": "real-estate",
+      "use_case": "share-contact-card",
+      "priority": 86
+    },
+    {
+      "keyword": "accept payments with qr code",
+      "intent": "transactional",
+      "tool": "upi_qr",
+      "industry": "restaurants",
+      "use_case": "accept-payments",
+      "priority": 85
+    },
+    {
+      "keyword": "brochure qr code",
+      "intent": "transactional",
+      "tool": "pdf_qr",
+      "industry": "real-estate-agents",
+      "use_case": "share-brochure",
+      "priority": 85
+    },
+    {
+      "keyword": "catalog qr code",
+      "intent": "transactional",
+      "tool": "pdf_qr",
+      "industry": "retail-stores",
+      "use_case": "share-catalog",
+      "priority": 85
+    },
+    {
+      "keyword": "collect leads with qr code",
+      "intent": "transactional",
+      "tool": "whatsapp_qr",
+      "industry": "real-estate-agents",
+      "use_case": "collect-leads",
+      "priority": 85
+    },
+    {
+      "keyword": "contact qr code",
+      "intent": "transactional",
+      "tool": "vcard_qr",
+      "industry": "freelancers",
+      "use_case": "share-contact-details",
+      "priority": 85
+    },
+    {
+      "keyword": "customer feedback qr code",
+      "intent": "transactional",
+      "tool": "google_review_qr",
+      "industry": "restaurants",
+      "use_case": "customer-feedback",
+      "priority": 85
+    },
+    {
+      "keyword": "digital visiting card qr code",
+      "intent": "transactional",
+      "tool": "vcard_qr",
+      "industry": "freelancers",
+      "use_case": "digital-visiting-card",
+      "priority": 85
+    },
+    {
+      "keyword": "donation qr code",
+      "intent": "transactional",
+      "tool": "upi_qr",
+      "industry": "schools",
+      "use_case": "accept-donations",
+      "priority": 85
+    },
+    {
+      "keyword": "event qr code for registration and invitations",
+      "intent": "transactional",
+      "tool": "",
+      "industry": "events",
+      "use_case": "manage_events",
+      "priority": 85
+    },
+    {
+      "keyword": "event registration qr code",
+      "intent": "transactional",
+      "tool": "event_qr",
+      "industry": "colleges",
+      "use_case": "event-registration",
+      "priority": 85
+    },
+    {
+      "keyword": "google pay qr code for business",
+      "intent": "transactional",
+      "tool": "upi_qr",
+      "industry": "shops",
+      "use_case": "accept-payments",
+      "priority": 85
+    },
+    {
+      "keyword": "google review qr code",
+      "intent": "transactional",
+      "tool": "google_review_qr",
+      "industry": "restaurants",
+      "use_case": "collect-reviews",
+      "priority": 85
+    },
+    {
+      "keyword": "paytm qr code for merchant",
+      "intent": "transactional",
+      "tool": "upi_qr",
+      "industry": "shops",
+      "use_case": "accept-payments",
+      "priority": 84
+    },
+    {
+      "keyword": "phonepe qr code for shop",
+      "intent": "transactional",
+      "tool": "upi_qr",
+      "industry": "shops",
+      "use_case": "accept-payments",
+      "priority": 84
+    },
+    {
+      "keyword": "qr code for ca office",
+      "intent": "commercial",
+      "tool": "vcard_qr",
+      "industry": "ca-offices",
+      "use_case": "solution",
+      "priority": 82
+    },
+    {
+      "keyword": "qr code for car showroom",
+      "intent": "commercial",
+      "tool": "pdf_qr",
+      "industry": "car-showrooms",
+      "use_case": "solution",
+      "priority": 82
+    },
+    {
+      "keyword": "qr code for clinics",
+      "intent": "commercial",
+      "tool": "vcard_qr",
+      "industry": "clinics",
+      "use_case": "solution",
+      "priority": 82
+    },
+    {
+      "keyword": "qr code for coaching center",
+      "intent": "commercial",
+      "tool": "pdf_qr",
+      "industry": "coaching-centers",
+      "use_case": "solution",
+      "priority": 82
+    },
+    {
+      "keyword": "qr code for college",
+      "intent": "commercial",
+      "tool": "event_qr",
+      "industry": "colleges",
+      "use_case": "solution",
+      "priority": 82
+    },
+    {
+      "keyword": "qr code for freelancers",
+      "intent": "commercial",
+      "tool": "vcard_qr",
+      "industry": "freelancers",
+      "use_case": "solution",
+      "priority": 82
+    },
+    {
+      "keyword": "qr code for gym",
+      "intent": "commercial",
+      "tool": "upi_qr",
+      "industry": "gyms",
+      "use_case": "solution",
+      "priority": 82
+    },
+    {
+      "keyword": "qr code for hotels",
+      "intent": "commercial",
+      "tool": "wifi_qr",
+      "industry": "hotels",
+      "use_case": "solution",
+      "priority": 82
+    },
+    {
+      "keyword": "qr code for kirana store",
+      "intent": "commercial",
+      "tool": "upi_qr",
+      "industry": "kirana-stores",
+      "use_case": "solution",
+      "priority": 82
+    },
+    {
+      "keyword": "qr code for lawyers",
+      "intent": "commercial",
+      "tool": "vcard_qr",
+      "industry": "lawyers",
+      "use_case": "solution",
+      "priority": 82
+    },
+    {
+      "keyword": "qr code for medical shop",
+      "intent": "commercial",
+      "tool": "upi_qr",
+      "industry": "medical-shops",
+      "use_case": "solution",
+      "priority": 82
+    },
+    {
+      "keyword": "qr code for pet clinic",
+      "intent": "commercial",
+      "tool": "google_review_qr",
+      "industry": "pet-clinics",
+      "use_case": "solution",
+      "priority": 82
+    },
+    {
+      "keyword": "qr code for real estate agent",
+      "intent": "commercial",
+      "tool": "vcard_qr",
+      "industry": "real-estate-agents",
+      "use_case": "solution",
+      "priority": 82
+    },
+    {
+      "keyword": "qr code for restaurants",
+      "intent": "commercial",
+      "tool": "menu_qr",
+      "industry": "restaurants",
+      "use_case": "solution",
+      "priority": 82
+    },
+    {
+      "keyword": "qr code for retail stores",
+      "intent": "commercial",
+      "tool": "upi_qr",
+      "industry": "retail-stores",
+      "use_case": "solution",
+      "priority": 82
+    },
+    {
+      "keyword": "qr code for salons",
+      "intent": "commercial",
+      "tool": "upi_qr",
+      "industry": "salons",
+      "use_case": "solution",
+      "priority": 82
+    },
+    {
+      "keyword": "qr code for school",
+      "intent": "commercial",
+      "tool": "event_qr",
+      "industry": "schools",
+      "use_case": "solution",
+      "priority": 82
+    },
+    {
+      "keyword": "qr code for travel agency",
+      "intent": "commercial",
+      "tool": "whatsapp_qr",
+      "industry": "travel-agencies",
+      "use_case": "solution",
+      "priority": 82
+    },
+    {
+      "keyword": "qr code on brochure",
+      "intent": "commercial",
+      "tool": "url_qr",
+      "industry": "retail-stores",
+      "use_case": "share-link",
+      "priority": 82
+    },
+    {
+      "keyword": "brochure qr code template",
+      "intent": "print_asset",
+      "tool": "pdf_qr",
+      "industry": "real estate agents",
+      "use_case": "template",
+      "priority": 78
+    },
+    {
+      "keyword": "clinic review qr code poster",
+      "intent": "print_asset",
+      "tool": "google_review_qr",
+      "industry": "clinics",
+      "use_case": "template",
+      "priority": 78
+    },
+    {
+      "keyword": "donation qr code poster",
+      "intent": "print_asset",
+      "tool": "upi_qr",
+      "industry": "schools",
+      "use_case": "template",
+      "priority": 78
+    },
+    {
+      "keyword": "event qr code poster",
+      "intent": "print_asset",
+      "tool": "event_qr",
+      "industry": "events",
+      "use_case": "template",
+      "priority": 78
+    },
+    {
+      "keyword": "google review qr poster",
+      "intent": "print_asset",
+      "tool": "google_review_qr",
+      "industry": "restaurants",
+      "use_case": "template",
+      "priority": 78
+    },
+    {
+      "keyword": "restaurant qr template",
+      "intent": "print_asset",
+      "tool": "menu_qr",
+      "industry": "restaurants",
+      "use_case": "template",
+      "priority": 78
+    },
+    {
+      "keyword": "restaurant table qr code",
+      "intent": "print_asset",
+      "tool": "menu_qr",
+      "industry": "restaurants",
+      "use_case": "template",
+      "priority": 78
+    },
+    {
+      "keyword": "salon qr template",
+      "intent": "print_asset",
+      "tool": "upi_qr",
+      "industry": "salons",
+      "use_case": "template",
+      "priority": 78
+    },
+    {
+      "keyword": "shop counter qr code",
+      "intent": "print_asset",
+      "tool": "upi_qr",
+      "industry": "kirana stores",
+      "use_case": "template",
+      "priority": 78
+    },
+    {
+      "keyword": "static vs dynamic qr code",
+      "intent": "comparison",
+      "tool": "url_qr",
+      "industry": "all",
+      "use_case": "choose-qr-type",
+      "priority": 78
+    },
+    {
+      "keyword": "upi qr standee",
+      "intent": "print_asset",
+      "tool": "upi_qr",
+      "industry": "kirana stores",
+      "use_case": "template",
+      "priority": 78
+    },
+    {
+      "keyword": "wifi qr sign",
+      "intent": "print_asset",
+      "tool": "wifi_qr",
+      "industry": "hotels",
+      "use_case": "template",
+      "priority": 78
+    }
+  ]
+}

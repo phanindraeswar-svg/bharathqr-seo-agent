@@ -1,0 +1,107 @@
+{
+  "version": 1,
+  "last_updated": "2026-06-09",
+  "policy": "Tool pages own exact tool-generator keywords. Use-case pages own outcome/action keywords. Materials/templates own physical placement and print-intent keywords. Supporting pages should link back to the owner.",
+  "resolved_keywords": [
+    {
+      "keyword": "brochure qr code",
+      "owner_url": "/materials/brochures",
+      "supporting_urls": [
+        "/use-cases/share-brochure"
+      ],
+      "reason": "physical material intent"
+    },
+    {
+      "keyword": "contact qr code",
+      "owner_url": "/tools/vcard-qr-generator",
+      "supporting_urls": [
+        "/use-cases/share-contact-details",
+        "/materials/business-cards"
+      ],
+      "reason": "tool owns generic contact QR intent"
+    },
+    {
+      "keyword": "event qr code",
+      "owner_url": "/tools/event-qr-generator",
+      "supporting_urls": [
+        "/use-cases/manage-events"
+      ],
+      "reason": "tool owns generator intent"
+    },
+    {
+      "keyword": "event registration qr",
+      "owner_url": "/use-cases/event-registration",
+      "supporting_urls": [
+        "/tools/event-qr-generator",
+        "/use-cases/manage-events"
+      ],
+      "reason": "outcome owns registration intent"
+    },
+    {
+      "keyword": "google review qr code",
+      "owner_url": "/tools/google-review-qr-generator",
+      "supporting_urls": [
+        "/use-cases/collect-reviews",
+        "/templates/google-review-poster"
+      ],
+      "reason": "tool owns generator intent"
+    },
+    {
+      "keyword": "hotel menu qr",
+      "owner_url": "/tools/menu-qr-generator",
+      "supporting_urls": [
+        "/materials/menus"
+      ],
+      "reason": "tool owns generic menu QR intent"
+    },
+    {
+      "keyword": "menu qr table tent",
+      "owner_url": "/materials/table-tents",
+      "supporting_urls": [
+        "/templates/restaurant-table-tent"
+      ],
+      "reason": "material placement intent"
+    },
+    {
+      "keyword": "qr code on brochure",
+      "owner_url": "/materials/brochures",
+      "supporting_urls": [
+        "/templates/brochure-qr-template"
+      ],
+      "reason": "material placement intent"
+    },
+    {
+      "keyword": "restaurant menu qr",
+      "owner_url": "/tools/menu-qr-generator",
+      "supporting_urls": [
+        "/materials/menus",
+        "/templates/restaurant-qr-template"
+      ],
+      "reason": "tool owns generator intent"
+    },
+    {
+      "keyword": "restaurant table qr code",
+      "owner_url": "/materials/table-tents",
+      "supporting_urls": [
+        "/templates/restaurant-table-tent"
+      ],
+      "reason": "material placement intent"
+    },
+    {
+      "keyword": "upi qr standee",
+      "owner_url": "/templates/upi-qr-standee",
+      "supporting_urls": [
+        "/materials/shop-counter"
+      ],
+      "reason": "template/print asset intent"
+    },
+    {
+      "keyword": "wedding qr code",
+      "owner_url": "/tools/event-qr-generator",
+      "supporting_urls": [
+        "/use-cases/manage-events"
+      ],
+      "reason": "tool owns generator intent"
+    }
+  ]
+}

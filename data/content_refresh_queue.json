@@ -1,1 +1,67 @@
-[]
+{
+  "rules": [
+    "monitor high intent pages after indexing",
+    "refresh pages with impressions but low CTR",
+    "update tool pages when founder feedback flags generic content",
+    "avoid duplicate keyword ownership"
+  ],
+  "queue": [
+    {
+      "page": "/",
+      "priority": "high",
+      "reason": "Wave 13 target keyword and conversion page",
+      "status": "monitor_after_launch",
+      "last_reviewed": "2026-06-09"
+    },
+    {
+      "page": "/tools",
+      "priority": "high",
+      "reason": "Wave 13 target keyword and conversion page",
+      "status": "monitor_after_launch",
+      "last_reviewed": "2026-06-09"
+    },
+    {
+      "page": "/solutions/kirana-stores",
+      "priority": "medium",
+      "reason": "Wave 13 target keyword and conversion page",
+      "status": "monitor_after_launch",
+      "last_reviewed": "2026-06-09"
+    },
+    {
+      "page": "/solutions/restaurants",
+      "priority": "medium",
+      "reason": "Wave 13 target keyword and conversion page",
+      "status": "monitor_after_launch",
+      "last_reviewed": "2026-06-09"
+    },
+    {
+      "page": "/use-cases/accept-payments",
+      "priority": "medium",
+      "reason": "Wave 13 target keyword and conversion page",
+      "status": "monitor_after_launch",
+      "last_reviewed": "2026-06-09"
+    },
+    {
+      "page": "/use-cases/collect-reviews",
+      "priority": "medium",
+      "reason": "Wave 13 target keyword and conversion page",
+      "status": "monitor_after_launch",
+      "last_reviewed": "2026-06-09"
+    },
+    {
+      "page": "/templates/upi-qr-standee",
+      "priority": "medium",
+      "reason": "Wave 13 target keyword and conversion page",
+      "status": "monitor_after_launch",
+      "last_reviewed": "2026-06-09"
+    },
+    {
+      "page": "/trust/how-to-verify-upi-payment",
+      "priority": "medium",
+      "reason": "Wave 13 target keyword and conversion page",
+      "status": "monitor_after_launch",
+      "last_reviewed": "2026-06-09"
+    }
+  ],
+  "last_updated": "2026-06-09"
+}

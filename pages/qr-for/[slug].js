@@ -4,10 +4,7 @@ import seoData from '../../seo_updates.json';
 
 export async function getStaticPaths() {
   const routes = seoData?.optimized_data?.suggested_routes || [];
-  const paths = routes.map((item) => ({
-    params: { slug: item.slug },
-  }));
-  return { paths, fallback: 'blocking' };
+  return { paths: routes.map((item) => ({ params: { slug: item.slug.trim() } })), fallback: false };
 }
 
 export async function getStaticProps({ params }) {

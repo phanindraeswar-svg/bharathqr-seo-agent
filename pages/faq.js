@@ -22,7 +22,7 @@ export default function FAQ() {
         <meta name="description" content="Answers to common questions about BharathQR — UPI QR codes, supported apps, privacy, mobile use and free QR tools." />
         <link rel="canonical" href="https://bharathqr.com/faq" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-      </Head>
+      <meta property="og:title" content="FAQ — BharathQR Free QR Code and UPI Tools" /><meta property="og:description" content="Answers to common questions about BharathQR — UPI QR codes, supported apps, privacy, mobile use and free QR tools." /><meta property="og:url" content="https://bharathqr.com/faq" /><meta name="twitter:title" content="FAQ — BharathQR Free QR Code and UPI Tools" /><meta name="twitter:description" content="Answers to common questions about BharathQR — UPI QR codes, supported apps, privacy, mobile use and free QR tools." /></Head>
       <main style={{ maxWidth: 860, margin: '0 auto', padding: '2rem 1rem' }}>
         <h1 style={{ fontSize: 'clamp(2rem, 6vw, 3rem)' }}>Frequently Asked Questions</h1>
         <div style={{ display: 'grid', gap: 14 }}>

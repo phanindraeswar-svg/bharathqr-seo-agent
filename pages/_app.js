@@ -8,6 +8,9 @@ export default function App({ Component, pageProps }) {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta property="og:site_name" content="BharathQR" />
+        <meta property="og:image" content="https://bharathqr.com/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="https://bharathqr.com/og-image.png" />
         <link rel="icon" href="/favicon.svg" />
       </Head>
       <Navbar />

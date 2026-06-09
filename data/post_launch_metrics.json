@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "last_updated": null,
+  "metrics": {
+    "indexed_pages": 0,
+    "total_clicks_28d": 0,
+    "total_impressions_28d": 0,
+    "average_ctr_28d": 0,
+    "average_position_28d": 0,
+    "top_pages": [],
+    "top_queries": [],
+    "pages_to_improve": []
+  },
+  "rules": {
+    "low_ctr_threshold": 0.01,
+    "high_impression_threshold": 100,
+    "refresh_after_days": 60,
+    "priority_pages": [
+      "/",
+      "/tools/google-review-qr-generator",
+      "/tools/upi-qr-generator",
+      "/tools/url-qr-generator",
+      "/solutions/restaurants",
+      "/solutions/kirana-stores",
+      "/use-cases/accept-payments",
+      "/trust/upi-qr-safety"
+    ]
+  }
+}

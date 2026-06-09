@@ -1,0 +1,246 @@
+{
+  "scored_posts": 18,
+  "publish_ready": 14,
+  "review_needed": 4,
+  "rejected": 0,
+  "results": [
+    {
+      "file": "posts/2026-05-30-how-florists-in-ahmedabad-can-bloom-their-sales-by.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 88,
+        "readability": 100,
+        "trust_signals": 70
+      },
+      "final_score": 95,
+      "status": "publish",
+      "issues": []
+    },
+    {
+      "file": "posts/2026-05-30-how-home-bakeries-in-pune-can-sweeten-their-sales.md",
+      "scores": {
+        "commercial_intent": 87,
+        "founder_alignment": 100,
+        "keyword_coverage": 68,
+        "readability": 100,
+        "trust_signals": 30
+      },
+      "final_score": 83,
+      "status": "review",
+      "issues": []
+    },
+    {
+      "file": "posts/2026-05-30-how-kirana-store-owners-in-bengaluru-can-increase.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 90,
+        "readability": 100,
+        "trust_signals": 30
+      },
+      "final_score": 91,
+      "status": "publish",
+      "issues": []
+    },
+    {
+      "file": "posts/2026-05-30-how-small-laundry-services-in-hyderabad-can-boost.md",
+      "scores": {
+        "commercial_intent": 87,
+        "founder_alignment": 100,
+        "keyword_coverage": 68,
+        "readability": 100,
+        "trust_signals": 100
+      },
+      "final_score": 90,
+      "status": "publish",
+      "issues": []
+    },
+    {
+      "file": "posts/2026-05-30-how-street-food-vendors-in-mumbai-can-boost-sales.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 78,
+        "readability": 100,
+        "trust_signals": 70
+      },
+      "final_score": 93,
+      "status": "publish",
+      "issues": []
+    },
+    {
+      "file": "posts/2026-05-31-how-pharmacies-in-kolkata-can-increase-sales-and-r.md",
+      "scores": {
+        "commercial_intent": 87,
+        "founder_alignment": 100,
+        "keyword_coverage": 68,
+        "readability": 100,
+        "trust_signals": 70
+      },
+      "final_score": 87,
+      "status": "publish",
+      "issues": []
+    },
+    {
+      "file": "posts/2026-06-01-how-mobile-repair-shops-in-jaipur-can-fix-their-ca.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 78,
+        "readability": 100,
+        "trust_signals": 70
+      },
+      "final_score": 93,
+      "status": "publish",
+      "issues": []
+    },
+    {
+      "file": "posts/2026-06-02-how-sabziwalas-in-bangalore-can-increase-sales-by.md",
+      "scores": {
+        "commercial_intent": 87,
+        "founder_alignment": 100,
+        "keyword_coverage": 68,
+        "readability": 100,
+        "trust_signals": 70
+      },
+      "final_score": 87,
+      "status": "publish",
+      "issues": []
+    },
+    {
+      "file": "posts/2026-06-03-how-cycle-rickshaw-owners-in-varanasi-can-pedal-th.md",
+      "scores": {
+        "commercial_intent": 87,
+        "founder_alignment": 100,
+        "keyword_coverage": 68,
+        "readability": 100,
+        "trust_signals": 60
+      },
+      "final_score": 86,
+      "status": "publish",
+      "issues": []
+    },
+    {
+      "file": "posts/2026-06-04-how-panipuri-stall-owners-in-delhi-can-spice-up-th.md",
+      "scores": {
+        "commercial_intent": 87,
+        "founder_alignment": 100,
+        "keyword_coverage": 68,
+        "readability": 100,
+        "trust_signals": 100
+      },
+      "final_score": 90,
+      "status": "publish",
+      "issues": []
+    },
+    {
+      "file": "posts/2026-06-05-how-darshan-tour-operators-in-tirupati-can-increas.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 100,
+        "readability": 80,
+        "trust_signals": 100
+      },
+      "final_score": 97,
+      "status": "publish",
+      "issues": [
+        "short_body_under_450_words"
+      ]
+    },
+    {
+      "file": "posts/2026-06-06-how-barber-shops-in-coimbatore-can-cut-through-cas.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 88,
+        "readability": 100,
+        "trust_signals": 30
+      },
+      "final_score": 91,
+      "status": "publish",
+      "issues": []
+    },
+    {
+      "file": "posts/2026-06-07-how-auto-rickshaw-drivers-in-mysuru-can-increase-t.md",
+      "scores": {
+        "commercial_intent": 72,
+        "founder_alignment": 100,
+        "keyword_coverage": 57,
+        "readability": 100,
+        "trust_signals": 100
+      },
+      "final_score": 83,
+      "status": "review",
+      "issues": []
+    },
+    {
+      "file": "posts/2026-06-07-how-dhaba-owners-in-amritsar-can-boost-sales-by-ac.md",
+      "scores": {
+        "commercial_intent": 75,
+        "founder_alignment": 100,
+        "keyword_coverage": 70,
+        "readability": 100,
+        "trust_signals": 70
+      },
+      "final_score": 84,
+      "status": "review",
+      "issues": []
+    },
+    {
+      "file": "posts/2026-06-07-how-petty-shop-owners-in-nagpur-can-boost-sales-by.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 78,
+        "readability": 100,
+        "trust_signals": 70
+      },
+      "final_score": 93,
+      "status": "publish",
+      "issues": []
+    },
+    {
+      "file": "posts/2026-06-08-how-dhaba-owners-in-amritsar-can-increase-sales-by.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 78,
+        "readability": 100,
+        "trust_signals": 70
+      },
+      "final_score": 93,
+      "status": "publish",
+      "issues": []
+    },
+    {
+      "file": "posts/2026-06-08-how-petty-shop-owners-in-visakhapatnam-can-increas.md",
+      "scores": {
+        "commercial_intent": 85,
+        "founder_alignment": 100,
+        "keyword_coverage": 77,
+        "readability": 100,
+        "trust_signals": 0
+      },
+      "final_score": 81,
+      "status": "review",
+      "issues": []
+    },
+    {
+      "file": "posts/zero-fee-upi-guide.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 100,
+        "readability": 80,
+        "trust_signals": 100
+      },
+      "final_score": 97,
+      "status": "publish",
+      "issues": [
+        "short_body_under_450_words"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,266 @@
+{
+  "upi_qr": {
+    "tool_url": "/",
+    "primary_keyword": "UPI QR Code Generator",
+    "faqs": [
+      [
+        "How do I create a free UPI QR code for my shop?",
+        "Enter your UPI ID, optionally add business name or amount, generate the QR code, test it with Google Pay, PhonePe or Paytm, then download and print it."
+      ],
+      [
+        "Does a UPI QR code expire?",
+        "A static UPI QR code normally does not expire as long as the UPI ID remains active."
+      ],
+      [
+        "Can customers pay with Google Pay, PhonePe, Paytm and BHIM?",
+        "Yes. A valid UPI QR code can be scanned by common UPI apps such as Google Pay, PhonePe, Paytm, BHIM and many banking apps."
+      ],
+      [
+        "Can I print a UPI QR code for my billing counter?",
+        "Yes. Download the PNG, test scan it, then print it clearly for your shop counter, receipt desk, table tent or standee."
+      ],
+      [
+        "Is merchant name compulsory for UPI QR code?",
+        "No. On BharathQR, merchant or business name is optional. The UPI ID is the required payment identifier."
+      ],
+      [
+        "How do I verify a UPI payment was received?",
+        "Check the payment confirmation inside your UPI app or bank app, not only the customer screenshot."
+      ],
+      [
+        "Can kirana stores use this free UPI QR code?",
+        "Yes. Kirana stores, tea stalls, salons, clinics, restaurants and small shops can use a static UPI QR code for faster cashless payments."
+      ],
+      [
+        "Can I create a fixed amount UPI QR code?",
+        "Yes. Add an optional amount before generating the QR code if you want customers to pay a fixed value."
+      ],
+      [
+        "Can I use the QR code on WhatsApp or Instagram?",
+        "Yes. You can share the downloaded QR image on WhatsApp Business, Instagram posts, posters or digital invoices."
+      ],
+      [
+        "Is BharathQR an official bank or NPCI service?",
+        "No. BharathQR is an independent free QR tool platform and does not represent NPCI, any bank or payment app."
+      ]
+    ]
+  },
+  "google_review_qr": {
+    "tool_url": "/tools/google-review-qr-generator",
+    "primary_keyword": "Google Review QR Code Generator",
+    "faqs": [
+      [
+        "How do I create a Google Review QR code?",
+        "Copy your Google Business Profile review link, paste it into the BharathQR Google Review QR Generator, generate, download and print the QR code."
+      ],
+      [
+        "Where should restaurants place a Google Review QR code?",
+        "Restaurants can place review QR codes on bills, tables, takeaway packets, menu cards, reception counters and table tents."
+      ],
+      [
+        "Can hotels use a Google Review QR code at checkout?",
+        "Yes. Hotels can display the QR code at reception, room folders, breakfast areas and checkout counters to collect more Google reviews."
+      ],
+      [
+        "Does a Google Review QR code improve Google Maps visibility?",
+        "More genuine customer reviews can support trust and local visibility, but no QR tool can guarantee Google Maps ranking."
+      ],
+      [
+        "Can clinics and salons use review QR codes?",
+        "Yes. Clinics, dentists, salons and local service businesses can use review QR codes to make customer feedback easier."
+      ],
+      [
+        "Is it okay to ask every customer for a Google review?",
+        "You can ask customers politely, but reviews should be genuine and must follow Google review policies."
+      ],
+      [
+        "Can I print a review QR code on a poster?",
+        "Yes. Print it with a clear call-to-action such as Scan to review us on Google."
+      ],
+      [
+        "What if my Google review link changes?",
+        "For static QR codes, generate and print a new QR code if the destination link changes."
+      ]
+    ]
+  },
+  "whatsapp_qr": {
+    "tool_url": "/tools/whatsapp-qr-generator",
+    "primary_keyword": "WhatsApp QR Code Generator",
+    "faqs": [
+      [
+        "How do I create a WhatsApp QR code for business?",
+        "Enter your WhatsApp number with country code, add an optional message, generate the QR code and place it on your card, poster, shop counter or packaging."
+      ],
+      [
+        "What is the difference between WhatsApp QR and WhatsApp link?",
+        "A WhatsApp link is clicked online, while a WhatsApp QR code is scanned from print materials, shop counters, business cards and posters."
+      ],
+      [
+        "Can restaurants use WhatsApp QR for orders?",
+        "Yes. Restaurants and cafes can let customers scan and open a WhatsApp chat for orders, enquiries or table booking."
+      ],
+      [
+        "Can I use WhatsApp Business with this QR?",
+        "Yes. Use your WhatsApp Business number to create a QR code that opens a chat with your business."
+      ],
+      [
+        "Can I add a pre-filled WhatsApp message?",
+        "Yes. A pre-filled message helps customers start with text like I want to order or I need more details."
+      ],
+      [
+        "Where should I place WhatsApp QR code?",
+        "Use it on business cards, store posters, bills, packaging, brochures, Instagram stories and product labels."
+      ],
+      [
+        "Does the customer need to save my number first?",
+        "No. The QR code can open WhatsApp chat directly without manually saving the number."
+      ],
+      [
+        "Is WhatsApp QR useful for salons and clinics?",
+        "Yes. Salons, clinics, tutors and freelancers can use it for appointments, enquiries and follow-ups."
+      ]
+    ]
+  },
+  "wifi_qr": {
+    "tool_url": "/tools/wifi-qr-generator",
+    "primary_keyword": "WiFi QR Code Generator",
+    "faqs": [
+      [
+        "How does a WiFi QR code work?",
+        "A WiFi QR code stores the network name and password so guests can scan and connect without typing."
+      ],
+      [
+        "Can hotels use WiFi QR codes?",
+        "Yes. Hotels can place WiFi QR codes at reception, rooms, restaurants and conference halls."
+      ],
+      [
+        "Can cafes and restaurants share WiFi using QR code?",
+        "Yes. A cafe or restaurant can print a WiFi QR code for tables, counters or menu stands."
+      ],
+      [
+        "Is it safe to print my WiFi password as QR code?",
+        "Only display guest network credentials. Avoid sharing private office or admin network passwords."
+      ],
+      [
+        "Which phones can scan WiFi QR codes?",
+        "Most modern Android and iPhone cameras can scan WiFi QR codes directly."
+      ],
+      [
+        "Can I create WiFi QR without login?",
+        "Yes. BharathQR lets you generate WiFi QR codes without login or account creation."
+      ],
+      [
+        "What if my WiFi password changes?",
+        "Generate and print a new QR code after changing the password."
+      ],
+      [
+        "Where should I print WiFi QR code?",
+        "Use reception desks, room folders, cafe tables, co-working spaces and event check-in desks."
+      ]
+    ]
+  },
+  "url_qr": {
+    "tool_url": "/tools/url-qr-generator",
+    "primary_keyword": "URL QR Code Generator",
+    "faqs": [
+      [
+        "How do I create a QR code for a website link?",
+        "Paste a valid https:// URL, generate the QR code, test it and download the PNG."
+      ],
+      [
+        "Can I create a QR code for Google Forms?",
+        "Yes. Paste your Google Form link to create a QR code for surveys, registrations or feedback."
+      ],
+      [
+        "Can I use URL QR on brochures and posters?",
+        "Yes. URL QR codes are useful on brochures, posters, flyers, packaging, business cards and shop counters."
+      ],
+      [
+        "Can I change the link later?",
+        "Static QR codes cannot be edited after printing. Generate a new QR code if the link changes."
+      ],
+      [
+        "Is URL QR useful for real estate?",
+        "Yes. Real estate agents can link to property pages, Google Maps locations, WhatsApp enquiry pages or brochures."
+      ]
+    ]
+  },
+  "text_qr": {
+    "tool_url": "/tools/text-qr-generator",
+    "primary_keyword": "Text QR Code Generator",
+    "faqs": [
+      [
+        "What is a text QR code?",
+        "A text QR code stores plain text such as instructions, coupon codes, short notes or event information."
+      ],
+      [
+        "Can text QR work without internet?",
+        "Yes. Since the text is stored inside the QR code, scanning can show the text without opening a website."
+      ],
+      [
+        "Where can I use text QR codes?",
+        "Use text QR codes on product labels, classroom notices, event signs, coupons and instructions."
+      ],
+      [
+        "Can I add offers in a text QR?",
+        "Yes. You can store coupon text or offer instructions in the QR code."
+      ],
+      [
+        "Is text QR good for small shops?",
+        "Yes. Shops can print payment notes, offer codes or customer instructions as a simple QR code."
+      ]
+    ]
+  },
+  "vcard_qr": {
+    "tool_url": "/tools/vcard-qr-generator",
+    "primary_keyword": "vCard QR Code Generator",
+    "faqs": [
+      [
+        "What is a vCard QR code?",
+        "A vCard QR code lets people scan and save your contact details quickly."
+      ],
+      [
+        "Who should use vCard QR codes?",
+        "Real estate agents, doctors, freelancers, consultants, tutors and small business owners can use vCard QR codes."
+      ],
+      [
+        "Can I print vCard QR on a business card?",
+        "Yes. vCard QR codes are ideal for visiting cards, brochures, flyers, posters and email signatures."
+      ],
+      [
+        "Does a vCard QR need internet?",
+        "Saving contact details may work without opening a website because the contact information is inside the QR code."
+      ],
+      [
+        "What details can I include?",
+        "You can include name, phone, email, company and website depending on the tool fields."
+      ]
+    ]
+  },
+  "menu_qr": {
+    "tool_url": "/tools/menu-qr-generator",
+    "primary_keyword": "Menu QR Code Generator",
+    "faqs": [
+      [
+        "How do I create a menu QR code for a restaurant?",
+        "Paste your digital menu link, generate a menu QR code, download and print it for tables or counters."
+      ],
+      [
+        "Can hotels use menu QR codes?",
+        "Yes. Hotels can use menu QR codes in rooms, restaurants, cafes and room-service cards."
+      ],
+      [
+        "Can a menu QR reduce printing cost?",
+        "Yes. If your menu link stays updated, you can avoid frequent reprinting of physical menus."
+      ],
+      [
+        "Where should I place a menu QR code?",
+        "Use tables, table tents, takeaway packets, reception desks, posters and packaging."
+      ],
+      [
+        "Is menu QR useful for cafes?",
+        "Yes. Cafes can place menu QR codes near counters, tables and outdoor boards."
+      ]
+    ]
+  }
+}

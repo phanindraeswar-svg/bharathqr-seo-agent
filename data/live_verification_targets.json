@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "purpose": "Priority live URLs to verify immediately after BharathQR deployment.",
+  "base_url": "https://bharathqr.com",
+  "critical": [
+    "/",
+    "/tools",
+    "/tools/url-qr-generator",
+    "/tools/text-qr-generator",
+    "/tools/google-review-qr-generator",
+    "/tools/whatsapp-qr-generator",
+    "/tools/wifi-qr-generator",
+    "/solutions",
+    "/solutions/restaurants",
+    "/solutions/kirana-stores",
+    "/use-cases",
+    "/use-cases/accept-payments",
+    "/use-cases/collect-reviews",
+    "/materials",
+    "/materials/business-cards",
+    "/trust/upi-qr-safety",
+    "/comparisons/static-vs-dynamic-qr-code",
+    "/cases",
+    "/hi",
+    "/sitemap.xml",
+    "/robots.txt"
+  ],
+  "secondary": [
+    "/about",
+    "/privacy",
+    "/terms",
+    "/contact",
+    "/faq",
+    "/editorial-policy",
+    "/content-policy",
+    "/advertising-disclosure",
+    "/ai-tools",
+    "/templates"
+  ]
+}

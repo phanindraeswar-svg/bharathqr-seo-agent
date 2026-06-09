@@ -9,7 +9,7 @@ export default function Page() {
         <title>Contact BharathQR — Free Digital Tools for India</title>
         <meta name="description" content="Contact the BharathQR team. We are building free tools for Indian merchants and creators." />
         <link rel="canonical" href="https://bharathqr.com/contact" />
-      </Head>
+      <meta property="og:title" content="Contact BharathQR — Free Digital Tools for India" /><meta property="og:description" content="Contact the BharathQR team. We are building free tools for Indian merchants and creators." /><meta property="og:url" content="https://bharathqr.com/contact" /><meta name="twitter:title" content="Contact BharathQR — Free Digital Tools for India" /><meta name="twitter:description" content="Contact the BharathQR team. We are building free tools for Indian merchants and creators." /></Head>
       <main style={{ maxWidth: 860, margin: '0 auto', padding: '2rem 1rem', lineHeight: 1.7 }}>
         <h1 style={{ fontSize: 'clamp(2rem, 6vw, 3rem)', marginBottom: 8 }}>Contact BharathQR</h1>
         <p style={{ color: '#4B5563', fontSize: 18 }}>Contact the BharathQR team. We are building free tools for Indian merchants and creators.</p>

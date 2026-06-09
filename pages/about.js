@@ -9,7 +9,7 @@ export default function Page() {
         <title>About BharathQR — India's Free Digital Tools Platform</title>
         <meta name="description" content="BharathQR is a free browser-based platform for Indian merchants and creators. Generate UPI QR codes, WhatsApp links, barcodes and more. No account needed." />
         <link rel="canonical" href="https://bharathqr.com/about" />
-      </Head>
+      <meta property="og:title" content="About BharathQR — India's Free Digital Tools Platform" /><meta property="og:description" content="BharathQR is a free browser-based platform for Indian merchants and creators. Generate UPI QR codes, WhatsApp links, barcodes and more. No account needed." /><meta property="og:url" content="https://bharathqr.com/about" /><meta name="twitter:title" content="About BharathQR — India's Free Digital Tools Platform" /><meta name="twitter:description" content="BharathQR is a free browser-based platform for Indian merchants and creators. Generate UPI QR codes, WhatsApp links, barcodes and more. No account needed." /></Head>
       <main style={{ maxWidth: 860, margin: '0 auto', padding: '2rem 1rem', lineHeight: 1.7 }}>
         <h1 style={{ fontSize: 'clamp(2rem, 6vw, 3rem)', marginBottom: 8 }}>About BharathQR</h1>
         <p style={{ color: '#4B5563', fontSize: 18 }}>BharathQR is a free browser-based platform for Indian merchants and creators. Generate UPI QR codes, WhatsApp links, barcodes and more. No account needed.</p>

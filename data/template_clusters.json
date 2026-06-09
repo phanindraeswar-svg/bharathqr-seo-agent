@@ -1,0 +1,228 @@
+{
+  "upi-qr-standee": {
+    "slug": "upi-qr-standee",
+    "title": "UPI QR Standee Template",
+    "primary_keyword": "UPI QR Standee",
+    "secondary_keywords": [
+      "shop payment QR standee",
+      "UPI QR poster",
+      "printable UPI QR"
+    ],
+    "tools": [
+      "upi_qr"
+    ],
+    "best_for": [
+      "kirana stores",
+      "tea stalls",
+      "salons",
+      "clinics",
+      "retail counters"
+    ],
+    "copy": "Create a print-ready UPI QR standee for Google Pay, PhonePe, Paytm and BHIM customers."
+  },
+  "google-review-poster": {
+    "slug": "google-review-poster",
+    "title": "Google Review QR Poster Template",
+    "primary_keyword": "Google Review QR Poster",
+    "secondary_keywords": [
+      "review QR poster",
+      "Google review QR code",
+      "restaurant review poster"
+    ],
+    "tools": [
+      "google_review_qr"
+    ],
+    "best_for": [
+      "restaurants",
+      "hotels",
+      "clinics",
+      "salons",
+      "cafes"
+    ],
+    "copy": "Print a Google Review QR poster to collect more customer reviews at reception, billing counters and tables."
+  },
+  "wifi-sign": {
+    "slug": "wifi-sign",
+    "title": "WiFi QR Sign Template",
+    "primary_keyword": "WiFi QR Sign",
+    "secondary_keywords": [
+      "WiFi QR code sign",
+      "hotel WiFi QR",
+      "cafe WiFi QR"
+    ],
+    "tools": [
+      "wifi_qr"
+    ],
+    "best_for": [
+      "hotels",
+      "cafes",
+      "restaurants",
+      "co-working spaces",
+      "clinics"
+    ],
+    "copy": "Create a WiFi QR sign so guests can scan and connect without typing long passwords."
+  },
+  "restaurant-qr-template": {
+    "slug": "restaurant-qr-template",
+    "title": "Restaurant QR Template",
+    "primary_keyword": "Restaurant QR Template",
+    "secondary_keywords": [
+      "restaurant menu QR",
+      "restaurant review QR",
+      "restaurant WhatsApp QR"
+    ],
+    "tools": [
+      "menu_qr",
+      "google_review_qr",
+      "whatsapp_qr",
+      "upi_qr"
+    ],
+    "best_for": [
+      "restaurants",
+      "cafes",
+      "dhabas",
+      "cloud kitchens"
+    ],
+    "copy": "A simple restaurant QR template combining menu, payments, WhatsApp orders and Google reviews."
+  },
+  "salon-qr-template": {
+    "slug": "salon-qr-template",
+    "title": "Salon QR Template",
+    "primary_keyword": "Salon QR Template",
+    "secondary_keywords": [
+      "salon WhatsApp QR",
+      "salon review QR",
+      "salon payment QR"
+    ],
+    "tools": [
+      "upi_qr",
+      "whatsapp_qr",
+      "google_review_qr",
+      "vcard_qr"
+    ],
+    "best_for": [
+      "salons",
+      "beauty parlours",
+      "barber shops",
+      "spas"
+    ],
+    "copy": "A salon QR template for bookings, payments, Google reviews and repeat customer WhatsApp chats."
+  },
+  "restaurant-table-tent": {
+    "slug": "restaurant-table-tent",
+    "title": "Restaurant Table Tent QR Template",
+    "primary_keyword": "Restaurant Table QR Code",
+    "secondary_keywords": [
+      "table tent QR code",
+      "restaurant menu QR standee",
+      "menu QR table tent"
+    ],
+    "tools": [
+      "menu_qr",
+      "google_review_qr"
+    ],
+    "best_for": [
+      "restaurants",
+      "cafes",
+      "hotels"
+    ],
+    "copy": "Create a print-ready restaurant table tent QR for menus, Google reviews and WhatsApp orders."
+  },
+  "donation-qr-poster": {
+    "slug": "donation-qr-poster",
+    "title": "Donation QR Poster Template",
+    "primary_keyword": "Donation QR Code Poster",
+    "secondary_keywords": [
+      "UPI donation QR poster",
+      "charity QR poster",
+      "donation standee QR"
+    ],
+    "tools": [
+      "upi_qr"
+    ],
+    "best_for": [
+      "schools",
+      "events",
+      "clinics"
+    ],
+    "copy": "Create a simple UPI donation QR poster for events, schools and community counters."
+  },
+  "event-qr-poster": {
+    "slug": "event-qr-poster",
+    "title": "Event QR Poster Template",
+    "primary_keyword": "Event QR Code Poster",
+    "secondary_keywords": [
+      "event registration QR poster",
+      "wedding QR poster",
+      "conference QR poster"
+    ],
+    "tools": [
+      "event_qr"
+    ],
+    "best_for": [
+      "events",
+      "schools",
+      "colleges"
+    ],
+    "copy": "Create an event QR poster for registration links, venue maps and event details."
+  },
+  "shop-counter-qr-template": {
+    "slug": "shop-counter-qr-template",
+    "title": "Shop Counter QR Template",
+    "primary_keyword": "Shop Counter QR Code",
+    "secondary_keywords": [
+      "shop counter QR code",
+      "payment QR counter display",
+      "UPI QR for shop counter"
+    ],
+    "tools": [
+      "upi_qr",
+      "whatsapp_qr"
+    ],
+    "best_for": [
+      "kirana stores",
+      "retail stores",
+      "salons"
+    ],
+    "copy": "Create a shop counter QR template for UPI payments and WhatsApp customer enquiries."
+  },
+  "clinic-review-qr-poster": {
+    "slug": "clinic-review-qr-poster",
+    "title": "Clinic Review QR Poster Template",
+    "primary_keyword": "Clinic Review QR Code Poster",
+    "secondary_keywords": [
+      "clinic review QR poster",
+      "doctor Google review QR",
+      "patient feedback QR"
+    ],
+    "tools": [
+      "google_review_qr"
+    ],
+    "best_for": [
+      "clinics",
+      "pet clinics"
+    ],
+    "copy": "Create a Google Review QR poster for clinics, doctors and pet clinics."
+  },
+  "brochure-qr-template": {
+    "slug": "brochure-qr-template",
+    "title": "Brochure QR Template",
+    "primary_keyword": "Brochure QR Code Template",
+    "secondary_keywords": [
+      "QR code on brochure",
+      "brochure QR template",
+      "marketing brochure QR"
+    ],
+    "tools": [
+      "pdf_qr",
+      "url_qr",
+      "whatsapp_qr"
+    ],
+    "best_for": [
+      "real estate agents",
+      "travel agencies",
+      "car showrooms"
+    ],
+    "copy": "Create brochure QR templates that link to websites, PDFs and WhatsApp enquiries."
+  }
+}

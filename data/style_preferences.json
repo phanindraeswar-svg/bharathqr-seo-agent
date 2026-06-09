@@ -3,15 +3,53 @@
     "short paragraphs",
     "practical examples",
     "simple language",
-    "real Indian business examples"
+    "real Indian business examples",
+    "commercial intent pages",
+    "tool-first content",
+    "short crisp paragraphs",
+    "QR use cases tied to Indian businesses",
+    "search intent plus readability",
+    "QRCodePro-style commercial-intent structure",
+    "ME-QR-style use-case/cases directories",
+    "high-intent keywords used naturally",
+    "tool → industry → use case → pain point → CTA",
+    "Indian business examples with Google Pay, PhonePe, Paytm, WhatsApp and Google Maps where relevant"
   ],
   "dislikes": [
     "AI fluff",
     "generic intros",
     "keyword stuffing",
-    "forced FAQs"
+    "forced FAQs",
+    "long generic introductions",
+    "content not tied to a BharathQR tool",
+    "blogs without CTA",
+    "generic AI introductions",
+    "long vague paragraphs",
+    "content not tied to a BharathQR tool or commercial use case",
+    "corporate jargon",
+    "in today's digital landscape",
+    "in India’s rapidly evolving",
+    "seamless experience",
+    "revolutionary",
+    "paradigm shift",
+    "leverage our platform",
+    "digital transformation",
+    "generic"
   ],
   "rules": [
-    "Founder feedback overrides generic SEO prompt defaults."
-  ]
+    "Founder feedback overrides generic SEO prompt defaults.",
+    "Every blog must map to a BharathQR tool, solution, use case, material, trust topic, comparison or template.",
+    "Every paragraph should naturally include search intent, business pain point, benefit and action wording without keyword stuffing.",
+    "Use daily Indian app keywords naturally when relevant: Google Pay, PhonePe, Paytm, BHIM, WhatsApp, Google Maps.",
+    "Crisp content beats long generic content.",
+    "Title must include the primary keyword.",
+    "First 100 words must include primary keyword, business keyword, pain point and benefit.",
+    "Every article must promote exactly one primary BharathQR tool.",
+    "Every article must include a clear CTA to the matching BharathQR page.",
+    "Use intent-rich paragraphs, not keyword stuffing."
+  ],
+  "content_framework": "Primary keyword → pain point → tool solution → business use case → action CTA",
+  "target_positioning": "India’s AI-powered QR and business growth platform for payments, reviews, WhatsApp, menus, WiFi, print materials and trust.",
+  "founder_feedback_v3": true,
+  "last_synced_from_feedback_preferences": "2026-06-08"
 }

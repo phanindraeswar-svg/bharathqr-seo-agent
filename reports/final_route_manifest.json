@@ -1,0 +1,866 @@
+{
+  "generated_on": "2026-06-09",
+  "route_count": 172,
+  "routes": [
+    {
+      "route": "/",
+      "kind": "static_hub",
+      "priority": "high"
+    },
+    {
+      "route": "/",
+      "kind": "tool",
+      "priority": "high"
+    },
+    {
+      "route": "/about",
+      "kind": "static_hub",
+      "priority": "medium"
+    },
+    {
+      "route": "/ai-tools",
+      "kind": "static_hub",
+      "priority": "medium"
+    },
+    {
+      "route": "/ai-tools/ai-business-bio-generator",
+      "kind": "ai_business",
+      "priority": "medium"
+    },
+    {
+      "route": "/ai-tools/ai-menu-description-generator",
+      "kind": "ai_business",
+      "priority": "medium"
+    },
+    {
+      "route": "/ai-tools/ai-offer-generator",
+      "kind": "ai_business",
+      "priority": "medium"
+    },
+    {
+      "route": "/ai-tools/ai-review-request-generator",
+      "kind": "ai_business",
+      "priority": "medium"
+    },
+    {
+      "route": "/ai-tools/ai-whatsapp-message-generator",
+      "kind": "ai_business",
+      "priority": "medium"
+    },
+    {
+      "route": "/blog",
+      "kind": "static_hub",
+      "priority": "medium"
+    },
+    {
+      "route": "/blog/2026-05-30-how-florists-in-ahmedabad-can-bloom-their-sales-by",
+      "kind": "blog",
+      "priority": "medium"
+    },
+    {
+      "route": "/blog/2026-05-30-how-home-bakeries-in-pune-can-sweeten-their-sales",
+      "kind": "blog",
+      "priority": "medium"
+    },
+    {
+      "route": "/blog/2026-05-30-how-kirana-store-owners-in-bengaluru-can-increase",
+      "kind": "blog",
+      "priority": "medium"
+    },
+    {
+      "route": "/blog/2026-05-30-how-small-laundry-services-in-hyderabad-can-boost",
+      "kind": "blog",
+      "priority": "medium"
+    },
+    {
+      "route": "/blog/2026-05-30-how-street-food-vendors-in-mumbai-can-boost-sales",
+      "kind": "blog",
+      "priority": "medium"
+    },
+    {
+      "route": "/blog/2026-05-31-how-pharmacies-in-kolkata-can-increase-sales-and-r",
+      "kind": "blog",
+      "priority": "medium"
+    },
+    {
+      "route": "/blog/2026-06-01-how-mobile-repair-shops-in-jaipur-can-fix-their-ca",
+      "kind": "blog",
+      "priority": "medium"
+    },
+    {
+      "route": "/blog/2026-06-02-how-sabziwalas-in-bangalore-can-increase-sales-by",
+      "kind": "blog",
+      "priority": "medium"
+    },
+    {
+      "route": "/blog/2026-06-03-how-cycle-rickshaw-owners-in-varanasi-can-pedal-th",
+      "kind": "blog",
+      "priority": "medium"
+    },
+    {
+      "route": "/blog/2026-06-04-how-panipuri-stall-owners-in-delhi-can-spice-up-th",
+      "kind": "blog",
+      "priority": "medium"
+    },
+    {
+      "route": "/blog/2026-06-05-how-darshan-tour-operators-in-tirupati-can-increas",
+      "kind": "blog",
+      "priority": "medium"
+    },
+    {
+      "route": "/blog/2026-06-06-how-barber-shops-in-coimbatore-can-cut-through-cas",
+      "kind": "blog",
+      "priority": "medium"
+    },
+    {
+      "route": "/blog/2026-06-07-how-auto-rickshaw-drivers-in-mysuru-can-increase-t",
+      "kind": "blog",
+      "priority": "medium"
+    },
+    {
+      "route": "/blog/2026-06-07-how-dhaba-owners-in-amritsar-can-boost-sales-by-ac",
+      "kind": "blog",
+      "priority": "medium"
+    },
+    {
+      "route": "/blog/2026-06-07-how-petty-shop-owners-in-nagpur-can-boost-sales-by",
+      "kind": "blog",
+      "priority": "medium"
+    },
+    {
+      "route": "/blog/2026-06-08-how-dhaba-owners-in-amritsar-can-increase-sales-by",
+      "kind": "blog",
+      "priority": "medium"
+    },
+    {
+      "route": "/blog/2026-06-08-how-petty-shop-owners-in-visakhapatnam-can-increas",
+      "kind": "blog",
+      "priority": "medium"
+    },
+    {
+      "route": "/blog/zero-fee-upi-guide",
+      "kind": "blog",
+      "priority": "medium"
+    },
+    {
+      "route": "/cases",
+      "kind": "static_hub",
+      "priority": "medium"
+    },
+    {
+      "route": "/comparisons",
+      "kind": "static_hub",
+      "priority": "medium"
+    },
+    {
+      "route": "/comparisons/qr-code-vs-barcode",
+      "kind": "comparison",
+      "priority": "medium"
+    },
+    {
+      "route": "/comparisons/static-vs-dynamic-qr-code",
+      "kind": "comparison",
+      "priority": "medium"
+    },
+    {
+      "route": "/comparisons/upi-qr-vs-cash",
+      "kind": "comparison",
+      "priority": "medium"
+    },
+    {
+      "route": "/comparisons/whatsapp-qr-vs-whatsapp-link",
+      "kind": "comparison",
+      "priority": "medium"
+    },
+    {
+      "route": "/contact",
+      "kind": "static_hub",
+      "priority": "medium"
+    },
+    {
+      "route": "/faq",
+      "kind": "static_hub",
+      "priority": "medium"
+    },
+    {
+      "route": "/materials",
+      "kind": "static_hub",
+      "priority": "medium"
+    },
+    {
+      "route": "/materials/brochures",
+      "kind": "material",
+      "priority": "medium"
+    },
+    {
+      "route": "/materials/business-cards",
+      "kind": "material",
+      "priority": "medium"
+    },
+    {
+      "route": "/materials/flyers",
+      "kind": "material",
+      "priority": "medium"
+    },
+    {
+      "route": "/materials/menus",
+      "kind": "material",
+      "priority": "medium"
+    },
+    {
+      "route": "/materials/packaging",
+      "kind": "material",
+      "priority": "medium"
+    },
+    {
+      "route": "/materials/posters",
+      "kind": "material",
+      "priority": "medium"
+    },
+    {
+      "route": "/materials/shop-counter",
+      "kind": "material",
+      "priority": "medium"
+    },
+    {
+      "route": "/materials/table-tents",
+      "kind": "material",
+      "priority": "medium"
+    },
+    {
+      "route": "/privacy",
+      "kind": "static_hub",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for",
+      "kind": "static_hub",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/delivery-services",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/doctors",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/e-commerce-upi",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/events",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-astrologers",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-automobile-repair-shops",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-autorickshaw-drivers",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-ayurvedic-medicine-shops",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-banana-vendors",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-beauty-parlours",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-bicycle-repair-shop-owners",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-catering-services",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-chaat-stalls",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-chana-jor-garam-stall-owners",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-coaching-institutes",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-fruit-juice-stall-owners",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-fruit-vendors",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-gym-owners",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-home-cleaners",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-idli-dosa-stalls",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-kirana-stores",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-kulfi-stall-owners",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-mandap-decorators",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-meat-shop-owners",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-mithai-shop-owners",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-mithai-shops",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-pan-shop-owners",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-pancake-stalls",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-petrol-pumps",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-pharmaceutical-shops",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-photocopy-shop-owners",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-photography-studios",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-saloon-owners",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-school-fee-collection",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-street-food-cart-owners",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-street-food-stalls",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-tailors",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-temple-donations",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-vegetable-vendors",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/free-upi-qr-code-for-xerox-shop-owners",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/hotels",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/restaurants",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/retail-shops-qr",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/salons",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/upi-qr-code-for-bakery-owners",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/upi-qr-code-for-chaat-stall-owners",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/upi-qr-code-for-cycle-rental-services",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/upi-qr-code-for-dairy-delivery-services",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/upi-qr-code-for-event-organizers",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/upi-qr-code-for-event-planners",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/upi-qr-code-for-female-tailors",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/upi-qr-code-for-florist-shops",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/upi-qr-code-for-laundry-services",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/upi-qr-code-for-local-grocery-stores",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/upi-qr-code-for-medical-shops",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/upi-qr-code-for-milk-delivery-services",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/upi-qr-code-for-mobile-repair-shops",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/upi-qr-code-for-papad-vendors",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/upi-qr-code-for-plant-nurseries",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/upi-qr-code-for-stationery-store-owners",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/upi-qr-code-for-tiffin-service-providers",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/qr-for/upi-qr-code-for-tuition-centers",
+      "kind": "industry_qr",
+      "priority": "medium"
+    },
+    {
+      "route": "/solutions",
+      "kind": "static_hub",
+      "priority": "high"
+    },
+    {
+      "route": "/solutions/ca-offices",
+      "kind": "solution",
+      "priority": "high"
+    },
+    {
+      "route": "/solutions/car-showrooms",
+      "kind": "solution",
+      "priority": "high"
+    },
+    {
+      "route": "/solutions/clinics",
+      "kind": "solution",
+      "priority": "high"
+    },
+    {
+      "route": "/solutions/coaching-centers",
+      "kind": "solution",
+      "priority": "high"
+    },
+    {
+      "route": "/solutions/colleges",
+      "kind": "solution",
+      "priority": "high"
+    },
+    {
+      "route": "/solutions/freelancers",
+      "kind": "solution",
+      "priority": "high"
+    },
+    {
+      "route": "/solutions/gyms",
+      "kind": "solution",
+      "priority": "high"
+    },
+    {
+      "route": "/solutions/hotels",
+      "kind": "solution",
+      "priority": "high"
+    },
+    {
+      "route": "/solutions/kirana-stores",
+      "kind": "solution",
+      "priority": "high"
+    },
+    {
+      "route": "/solutions/lawyers",
+      "kind": "solution",
+      "priority": "high"
+    },
+    {
+      "route": "/solutions/medical-shops",
+      "kind": "solution",
+      "priority": "high"
+    },
+    {
+      "route": "/solutions/pet-clinics",
+      "kind": "solution",
+      "priority": "high"
+    },
+    {
+      "route": "/solutions/real-estate-agents",
+      "kind": "solution",
+      "priority": "high"
+    },
+    {
+      "route": "/solutions/restaurants",
+      "kind": "solution",
+      "priority": "high"
+    },
+    {
+      "route": "/solutions/retail-stores",
+      "kind": "solution",
+      "priority": "high"
+    },
+    {
+      "route": "/solutions/salons",
+      "kind": "solution",
+      "priority": "high"
+    },
+    {
+      "route": "/solutions/schools",
+      "kind": "solution",
+      "priority": "high"
+    },
+    {
+      "route": "/solutions/travel-agencies",
+      "kind": "solution",
+      "priority": "high"
+    },
+    {
+      "route": "/templates",
+      "kind": "static_hub",
+      "priority": "medium"
+    },
+    {
+      "route": "/templates/brochure-qr-template",
+      "kind": "template",
+      "priority": "medium"
+    },
+    {
+      "route": "/templates/clinic-review-qr-poster",
+      "kind": "template",
+      "priority": "medium"
+    },
+    {
+      "route": "/templates/donation-qr-poster",
+      "kind": "template",
+      "priority": "medium"
+    },
+    {
+      "route": "/templates/event-qr-poster",
+      "kind": "template",
+      "priority": "medium"
+    },
+    {
+      "route": "/templates/google-review-poster",
+      "kind": "template",
+      "priority": "medium"
+    },
+    {
+      "route": "/templates/restaurant-qr-template",
+      "kind": "template",
+      "priority": "medium"
+    },
+    {
+      "route": "/templates/restaurant-table-tent",
+      "kind": "template",
+      "priority": "medium"
+    },
+    {
+      "route": "/templates/salon-qr-template",
+      "kind": "template",
+      "priority": "medium"
+    },
+    {
+      "route": "/templates/shop-counter-qr-template",
+      "kind": "template",
+      "priority": "medium"
+    },
+    {
+      "route": "/templates/upi-qr-standee",
+      "kind": "template",
+      "priority": "medium"
+    },
+    {
+      "route": "/templates/wifi-sign",
+      "kind": "template",
+      "priority": "medium"
+    },
+    {
+      "route": "/terms",
+      "kind": "static_hub",
+      "priority": "medium"
+    },
+    {
+      "route": "/tools",
+      "kind": "static_hub",
+      "priority": "high"
+    },
+    {
+      "route": "/tools/email-qr-generator",
+      "kind": "tool",
+      "priority": "high"
+    },
+    {
+      "route": "/tools/event-qr-generator",
+      "kind": "tool",
+      "priority": "high"
+    },
+    {
+      "route": "/tools/google-review-qr-generator",
+      "kind": "tool",
+      "priority": "high"
+    },
+    {
+      "route": "/tools/menu-qr-generator",
+      "kind": "tool",
+      "priority": "high"
+    },
+    {
+      "route": "/tools/pdf-qr-generator",
+      "kind": "tool",
+      "priority": "high"
+    },
+    {
+      "route": "/tools/phone-qr-generator",
+      "kind": "tool",
+      "priority": "high"
+    },
+    {
+      "route": "/tools/sms-qr-generator",
+      "kind": "tool",
+      "priority": "high"
+    },
+    {
+      "route": "/tools/text-qr-generator",
+      "kind": "tool",
+      "priority": "high"
+    },
+    {
+      "route": "/tools/url-qr-generator",
+      "kind": "tool",
+      "priority": "high"
+    },
+    {
+      "route": "/tools/vcard-qr-generator",
+      "kind": "tool",
+      "priority": "high"
+    },
+    {
+      "route": "/tools/whatsapp-qr-generator",
+      "kind": "tool",
+      "priority": "high"
+    },
+    {
+      "route": "/tools/wifi-qr-generator",
+      "kind": "tool",
+      "priority": "high"
+    },
+    {
+      "route": "/trust",
+      "kind": "static_hub",
+      "priority": "medium"
+    },
+    {
+      "route": "/trust/how-to-verify-upi-payment",
+      "kind": "trust",
+      "priority": "high"
+    },
+    {
+      "route": "/trust/qr-safety",
+      "kind": "trust",
+      "priority": "high"
+    },
+    {
+      "route": "/trust/upi-qr-safety",
+      "kind": "trust",
+      "priority": "high"
+    },
+    {
+      "route": "/use-cases",
+      "kind": "static_hub",
+      "priority": "high"
+    },
+    {
+      "route": "/use-cases/accept-donations",
+      "kind": "use_case",
+      "priority": "high"
+    },
+    {
+      "route": "/use-cases/accept-payments",
+      "kind": "use_case",
+      "priority": "high"
+    },
+    {
+      "route": "/use-cases/collect-leads",
+      "kind": "use_case",
+      "priority": "high"
+    },
+    {
+      "route": "/use-cases/collect-reviews",
+      "kind": "use_case",
+      "priority": "high"
+    },
+    {
+      "route": "/use-cases/customer-feedback",
+      "kind": "use_case",
+      "priority": "high"
+    },
+    {
+      "route": "/use-cases/digital-visiting-card",
+      "kind": "use_case",
+      "priority": "high"
+    },
+    {
+      "route": "/use-cases/event-registration",
+      "kind": "use_case",
+      "priority": "high"
+    },
+    {
+      "route": "/use-cases/manage-events",
+      "kind": "use_case",
+      "priority": "high"
+    },
+    {
+      "route": "/use-cases/open-whatsapp-chat",
+      "kind": "use_case",
+      "priority": "high"
+    },
+    {
+      "route": "/use-cases/share-brochure",
+      "kind": "use_case",
+      "priority": "high"
+    },
+    {
+      "route": "/use-cases/share-catalog",
+      "kind": "use_case",
+      "priority": "high"
+    },
+    {
+      "route": "/use-cases/share-contact-details",
+      "kind": "use_case",
+      "priority": "high"
+    },
+    {
+      "route": "/use-cases/share-digital-menu",
+      "kind": "use_case",
+      "priority": "high"
+    }
+  ]
+}

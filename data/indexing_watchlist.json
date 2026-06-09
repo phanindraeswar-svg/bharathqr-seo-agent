@@ -1,0 +1,1158 @@
+{
+  "version": 1,
+  "generated_from": "wave17",
+  "total_urls": 91,
+  "watchlist": [
+    {
+      "url": "/",
+      "section": "homepage",
+      "title": "BharathQR homepage",
+      "priority": "critical",
+      "status": "verify_after_deploy",
+      "verification": [
+        "loads_200"
+      ],
+      "notes": "Core route."
+    },
+    {
+      "url": "/tools",
+      "section": "tools",
+      "title": "Tools directory",
+      "priority": "critical",
+      "status": "verify_after_deploy",
+      "verification": [
+        "loads_200"
+      ],
+      "notes": "Core route."
+    },
+    {
+      "url": "/cases",
+      "section": "cases",
+      "title": "Cases hub",
+      "priority": "high",
+      "status": "verify_after_deploy",
+      "verification": [
+        "loads_200"
+      ],
+      "notes": "Core route."
+    },
+    {
+      "url": "/sitemap.xml",
+      "section": "technical",
+      "title": "Sitemap",
+      "priority": "critical",
+      "status": "verify_after_deploy",
+      "verification": [
+        "loads_200"
+      ],
+      "notes": "Core route."
+    },
+    {
+      "url": "/robots.txt",
+      "section": "technical",
+      "title": "Robots.txt",
+      "priority": "critical",
+      "status": "verify_after_deploy",
+      "verification": [
+        "loads_200"
+      ],
+      "notes": "Core route."
+    },
+    {
+      "url": "/about",
+      "section": "trust",
+      "title": "About",
+      "priority": "high",
+      "status": "verify_after_deploy",
+      "verification": [
+        "loads_200"
+      ],
+      "notes": "Core route."
+    },
+    {
+      "url": "/contact",
+      "section": "trust",
+      "title": "Contact",
+      "priority": "high",
+      "status": "verify_after_deploy",
+      "verification": [
+        "loads_200"
+      ],
+      "notes": "Core route."
+    },
+    {
+      "url": "/privacy",
+      "section": "trust",
+      "title": "Privacy",
+      "priority": "high",
+      "status": "verify_after_deploy",
+      "verification": [
+        "loads_200"
+      ],
+      "notes": "Core route."
+    },
+    {
+      "url": "/terms",
+      "section": "trust",
+      "title": "Terms",
+      "priority": "high",
+      "status": "verify_after_deploy",
+      "verification": [
+        "loads_200"
+      ],
+      "notes": "Core route."
+    },
+    {
+      "url": "/faq",
+      "section": "trust",
+      "title": "FAQ",
+      "priority": "high",
+      "status": "verify_after_deploy",
+      "verification": [
+        "loads_200"
+      ],
+      "notes": "Core route."
+    },
+    {
+      "url": "/tools/upi_qr",
+      "section": "tools",
+      "title": "UPI QR Generator",
+      "priority": "critical",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/tools/google_review_qr",
+      "section": "tools",
+      "title": "Google Review QR Generator",
+      "priority": "critical",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/tools/whatsapp_qr",
+      "section": "tools",
+      "title": "WhatsApp QR Generator",
+      "priority": "critical",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/tools/wifi_qr",
+      "section": "tools",
+      "title": "WiFi QR Generator",
+      "priority": "critical",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/tools/url_qr",
+      "section": "tools",
+      "title": "URL QR Generator",
+      "priority": "critical",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/tools/text_qr",
+      "section": "tools",
+      "title": "Text QR Generator",
+      "priority": "critical",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/tools/vcard_qr",
+      "section": "tools",
+      "title": "vCard QR Generator",
+      "priority": "critical",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/tools/menu_qr",
+      "section": "tools",
+      "title": "Menu QR Generator",
+      "priority": "critical",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/tools/event_qr",
+      "section": "tools",
+      "title": "Event QR Generator",
+      "priority": "critical",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/tools/email_qr",
+      "section": "tools",
+      "title": "Email QR Generator",
+      "priority": "critical",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/tools/sms_qr",
+      "section": "tools",
+      "title": "SMS QR Generator",
+      "priority": "critical",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/tools/phone_qr",
+      "section": "tools",
+      "title": "Phone Call QR Generator",
+      "priority": "critical",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/tools/pdf_qr",
+      "section": "tools",
+      "title": "PDF QR Generator",
+      "priority": "critical",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/solutions/restaurants",
+      "section": "solutions",
+      "title": "QR Solutions for Restaurants",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/solutions/hotels",
+      "section": "solutions",
+      "title": "QR Solutions for Hotels",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/solutions/retail-stores",
+      "section": "solutions",
+      "title": "QR Solutions for Retail Stores",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/solutions/clinics",
+      "section": "solutions",
+      "title": "QR Solutions for Clinics",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/solutions/salons",
+      "section": "solutions",
+      "title": "QR Solutions for Salons",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/solutions/kirana-stores",
+      "section": "solutions",
+      "title": "QR Solutions for Kirana Stores",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/solutions/medical-shops",
+      "section": "solutions",
+      "title": "QR Solutions for Medical Shops",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/solutions/gyms",
+      "section": "solutions",
+      "title": "QR Solutions for Gyms",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/solutions/schools",
+      "section": "solutions",
+      "title": "QR Solutions for Schools",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/solutions/colleges",
+      "section": "solutions",
+      "title": "QR Solutions for Colleges",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/solutions/coaching-centers",
+      "section": "solutions",
+      "title": "QR Solutions for Coaching Centers",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/solutions/real-estate-agents",
+      "section": "solutions",
+      "title": "QR Solutions for Real Estate Agents",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/solutions/freelancers",
+      "section": "solutions",
+      "title": "QR Solutions for Freelancers",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/solutions/ca-offices",
+      "section": "solutions",
+      "title": "QR Solutions for CA Offices",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/solutions/lawyers",
+      "section": "solutions",
+      "title": "QR Solutions for Lawyers",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/solutions/travel-agencies",
+      "section": "solutions",
+      "title": "QR Solutions for Travel Agencies",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/solutions/car-showrooms",
+      "section": "solutions",
+      "title": "QR Solutions for Car Showrooms",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/solutions/pet-clinics",
+      "section": "solutions",
+      "title": "QR Solutions for Pet Clinics",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/use-cases/accept-payments",
+      "section": "use-cases",
+      "title": "Accept Payments with a UPI QR Code",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/use-cases/collect-reviews",
+      "section": "use-cases",
+      "title": "Collect Google Reviews with a QR Code",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/use-cases/open-whatsapp-chat",
+      "section": "use-cases",
+      "title": "Open WhatsApp Chat with a QR Code",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/use-cases/share-digital-menu",
+      "section": "use-cases",
+      "title": "Share a Digital Menu with a QR Code",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/use-cases/manage_events",
+      "section": "use-cases",
+      "title": "Manage Events with QR Codes",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/use-cases/collect-leads",
+      "section": "use-cases",
+      "title": "Collect Leads with QR Codes",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/use-cases/share-brochure",
+      "section": "use-cases",
+      "title": "Share Brochure with QR Code",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/use-cases/share-catalog",
+      "section": "use-cases",
+      "title": "Share Product Catalog with QR Code",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/use-cases/share-contact-details",
+      "section": "use-cases",
+      "title": "Share Contact Details with QR Code",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/use-cases/accept-donations",
+      "section": "use-cases",
+      "title": "Accept Donations with QR Code",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/use-cases/event-registration",
+      "section": "use-cases",
+      "title": "Event Registration with QR Code",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/use-cases/customer-feedback",
+      "section": "use-cases",
+      "title": "Customer Feedback with QR Code",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/use-cases/digital-visiting-card",
+      "section": "use-cases",
+      "title": "Digital Visiting Card QR Code",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/materials/business-cards",
+      "section": "materials",
+      "title": "QR Codes on Business Cards",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/materials/brochures",
+      "section": "materials",
+      "title": "QR Codes on Brochures",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/materials/posters",
+      "section": "materials",
+      "title": "QR Codes on Posters",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/materials/flyers",
+      "section": "materials",
+      "title": "QR Codes on Flyers",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/materials/packaging",
+      "section": "materials",
+      "title": "QR Codes on Packaging",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/materials/shop-counter",
+      "section": "materials",
+      "title": "QR Codes for Shop Counters",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/materials/table-tents",
+      "section": "materials",
+      "title": "QR Codes on Table Tents",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/materials/menus",
+      "section": "materials",
+      "title": "QR Codes on Menus",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/comparisons/static-vs-dynamic-qr-code",
+      "section": "comparisons",
+      "title": "Static vs Dynamic QR Code",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/comparisons/whatsapp-qr-vs-whatsapp-link",
+      "section": "comparisons",
+      "title": "WhatsApp QR vs WhatsApp Link",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/comparisons/qr-code-vs-barcode",
+      "section": "comparisons",
+      "title": "QR Code vs Barcode",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/comparisons/upi-qr-vs-cash",
+      "section": "comparisons",
+      "title": "UPI QR vs Cash Payments",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/templates/upi-qr-standee",
+      "section": "templates",
+      "title": "UPI QR Standee Template",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/templates/google-review-poster",
+      "section": "templates",
+      "title": "Google Review QR Poster Template",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/templates/wifi-sign",
+      "section": "templates",
+      "title": "WiFi QR Sign Template",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/templates/restaurant-qr-template",
+      "section": "templates",
+      "title": "Restaurant QR Template",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/templates/salon-qr-template",
+      "section": "templates",
+      "title": "Salon QR Template",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/templates/restaurant-table-tent",
+      "section": "templates",
+      "title": "Restaurant Table Tent QR Template",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/templates/donation-qr-poster",
+      "section": "templates",
+      "title": "Donation QR Poster Template",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/templates/event-qr-poster",
+      "section": "templates",
+      "title": "Event QR Poster Template",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/templates/shop-counter-qr-template",
+      "section": "templates",
+      "title": "Shop Counter QR Template",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/templates/clinic-review-qr-poster",
+      "section": "templates",
+      "title": "Clinic Review QR Poster Template",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/templates/brochure-qr-template",
+      "section": "templates",
+      "title": "Brochure QR Template",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/trust/qr-safety",
+      "section": "trust",
+      "title": "QR Code Safety Tips for Indian Businesses",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/trust/upi-qr-safety",
+      "section": "trust",
+      "title": "UPI QR Safety Tips for Shops and Merchants",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/trust/how-to-verify-upi-payment",
+      "section": "trust",
+      "title": "How to Verify UPI Payment Received",
+      "priority": "high",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/ai-tools/ai_review_request_generator",
+      "section": "ai-tools",
+      "title": "AI Review Request Generator",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/ai-tools/ai_whatsapp_message_generator",
+      "section": "ai-tools",
+      "title": "AI WhatsApp Message Generator",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/ai-tools/ai_menu_description_generator",
+      "section": "ai-tools",
+      "title": "AI Menu Description Generator",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/ai-tools/ai_offer_generator",
+      "section": "ai-tools",
+      "title": "AI Offer Generator",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/ai-tools/ai_business_bio_generator",
+      "section": "ai-tools",
+      "title": "AI Business Bio Generator",
+      "priority": "medium",
+      "status": "submit_after_deploy",
+      "verification": [
+        "loads_200",
+        "has_title",
+        "has_internal_links"
+      ],
+      "notes": "Generated from cluster data."
+    },
+    {
+      "url": "/hi",
+      "section": "hindi",
+      "title": "Hindi homepage",
+      "priority": "medium",
+      "status": "verify_after_deploy",
+      "verification": [
+        "loads_200"
+      ],
+      "notes": "Hindi MVP route."
+    },
+    {
+      "url": "/hi/tools/upi-qr-generator",
+      "section": "hindi",
+      "title": "Hindi UPI QR",
+      "priority": "medium",
+      "status": "verify_after_deploy",
+      "verification": [
+        "loads_200"
+      ],
+      "notes": "Hindi MVP route."
+    },
+    {
+      "url": "/hi/tools/google-review-qr-generator",
+      "section": "hindi",
+      "title": "Hindi Review QR",
+      "priority": "medium",
+      "status": "verify_after_deploy",
+      "verification": [
+        "loads_200"
+      ],
+      "notes": "Hindi MVP route."
+    },
+    {
+      "url": "/hi/solutions/kirana-store",
+      "section": "hindi",
+      "title": "Hindi kirana solution",
+      "priority": "medium",
+      "status": "verify_after_deploy",
+      "verification": [
+        "loads_200"
+      ],
+      "notes": "Hindi MVP route."
+    },
+    {
+      "url": "/hi/trust/upi-qr-safety",
+      "section": "hindi",
+      "title": "Hindi UPI QR safety",
+      "priority": "medium",
+      "status": "verify_after_deploy",
+      "verification": [
+        "loads_200"
+      ],
+      "notes": "Hindi MVP route."
+    },
+    {
+      "url": "/hi/blog",
+      "section": "hindi",
+      "title": "Hindi blog hub",
+      "priority": "medium",
+      "status": "verify_after_deploy",
+      "verification": [
+        "loads_200"
+      ],
+      "notes": "Hindi MVP route."
+    }
+  ]
+}

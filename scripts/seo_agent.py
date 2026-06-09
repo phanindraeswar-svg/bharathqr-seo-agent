@@ -136,20 +136,97 @@ if os.path.exists("used_topics.json"):
         log_error(f"used_topics.json parse error: {e}")
 
 
-# ── Founder Style Preferences ─────────────────────────────────────────────────
+# ── Founder Feedback V3 + Style Preferences ──────────────────────────────────
 style_preferences = {"likes": [], "dislikes": [], "rules": []}
+feedback_preferences = {"founder_likes": [], "founder_dislikes": [], "banned_phrases": [], "content_rules": []}
+opportunity_memory = {"opportunities": []}
+
 try:
     with open("data/style_preferences.json", "r", encoding="utf-8") as f:
         style_preferences = json.load(f)
 except Exception:
     pass
 
+try:
+    with open("feedback/preferences.json", "r", encoding="utf-8") as f:
+        feedback_preferences = json.load(f)
+except Exception:
+    pass
+
+try:
+    with open("data/opportunities.json", "r", encoding="utf-8") as f:
+        opportunity_memory = json.load(f)
+except Exception:
+    pass
+
+likes = list(dict.fromkeys(style_preferences.get("likes", []) + feedback_preferences.get("founder_likes", [])))
+dislikes = list(dict.fromkeys(style_preferences.get("dislikes", []) + feedback_preferences.get("founder_dislikes", []) + feedback_preferences.get("banned_phrases", [])))
+rules = list(dict.fromkeys(style_preferences.get("rules", []) + feedback_preferences.get("content_rules", [])))
+priority_tools = feedback_preferences.get("priority_tools", [])
+priority_industries = feedback_preferences.get("priority_industries", [])
+priority_intents = feedback_preferences.get("priority_intents", [])
+top_opportunities = opportunity_memory.get("opportunities", [])[:5]
+
 founder_style_instruction = f"""
-Founder style preferences:
-Likes: {', '.join(style_preferences.get('likes', [])) or 'practical, clear, mobile-first examples'}
-Dislikes: {', '.join(style_preferences.get('dislikes', [])) or 'generic AI fluff'}
-Rules: {', '.join(style_preferences.get('rules', [])) or 'Founder feedback overrides generic SEO defaults'}
-Write like a useful human advisor. Avoid generic AI-sounding introductions.
+FOUNDER FEEDBACK V3 — These rules override generic SEO defaults.
+Likes: {', '.join(likes[:12]) or 'practical, clear, mobile-first examples'}
+Dislikes / banned phrases: {', '.join(dislikes[:14]) or 'generic AI fluff'}
+Rules: {', '.join(rules[:10]) or 'Founder feedback overrides generic SEO defaults'}
+Priority tools: {', '.join(priority_tools[:8])}
+Priority industries: {', '.join(priority_industries[:8])}
+Priority intents: {', '.join(priority_intents[:8])}
+Top roadmap opportunities: {json.dumps(top_opportunities, ensure_ascii=False)[:900]}
+
+Write like a useful human advisor. Use crisp, high-intent paragraphs. Avoid keyword stuffing and generic AI-sounding introductions.
+"""
+
+def validate_founder_content(title, body):
+    """Return founder/content quality violations before saving."""
+    violations = []
+    low = (title + "\n" + body).lower()
+    for phrase in dislikes:
+        if isinstance(phrase, str) and phrase and phrase.lower() in low:
+            violations.append(f"Founder-banned/disliked phrase found: {phrase}")
+    required_terms = ["bharathqr", "generate", "qr"]
+    for term in required_terms:
+        if term not in low:
+            violations.append(f"Missing required commercial term: {term}")
+    if "https://bharathqr.com" not in body and "bharathqr.com" not in body:
+        violations.append("Missing BharathQR CTA link")
+    if len(body.split()) < 600:
+        violations.append("Body below 600 words")
+    if len([p for p in body.split("\n\n") if p.strip()]) < 5:
+        violations.append("Needs more short paragraphs")
+    return violations
+
+# ── Commercial Intent Cluster Brain ───────────────────────────────────────────
+def load_json_file(path, fallback):
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception as e:
+        log_error(f"Could not load {path}: {e}")
+        return fallback
+
+tool_clusters = load_json_file("data/tool_clusters.json", {})
+industry_clusters = load_json_file("data/industry_clusters.json", {})
+use_case_clusters = load_json_file("data/use_case_clusters.json", {})
+material_clusters = load_json_file("data/material_clusters.json", {})
+comparison_clusters = load_json_file("data/comparison_clusters.json", {})
+template_clusters = load_json_file("data/template_clusters.json", {})
+ai_business_clusters = load_json_file("data/ai_business_clusters.json", {})
+
+commercial_rules = """
+BharathQR commercial intent rules:
+- Never write a generic SEO article.
+- Every blog must map to one BharathQR tool, one industry, one use case or material, one pain point, and one CTA.
+- Title must contain the exact primary keyword.
+- First 100 words must include the primary keyword, one business keyword, one app keyword, one pain point, and one benefit.
+- Use intent-rich readable sentences, not keyword stuffing.
+- Mention daily-use apps naturally where relevant: Google Pay, PhonePe, Paytm, BHIM, WhatsApp, Google Maps.
+- Every article must point readers to the relevant BharathQR tool.
+- Prefer commercial-intent pages that support Solutions, Use Cases, Materials, Trust, Comparisons, Templates or AI Business foundations.
+- AI topics must support a real QR/business outcome such as reviews, WhatsApp enquiries, menus, offers or business profiles.
 """
 
 # ── 6. Generate Landing Pages ──────────────────────────────────────────────────
@@ -219,37 +296,63 @@ if landing_output:
 # The AI returns plain text with a TITLE: line and then the body.
 # This completely avoids the newline-inside-JSON bug.
 
-blog_prompt = f"""You are writing a blog article for bharathqr.com, a free UPI QR code generator for Indian merchants.
+# Select one commercial-intent cluster combination for today's blog.
+def choose_commercial_topic():
+    tools = list(tool_clusters.values()) or []
+    industries = list(industry_clusters.values()) or []
+    use_cases = list(use_case_clusters.values()) or []
+    materials = list(material_clusters.values()) or []
+    if not tools or not industries or not use_cases:
+        return {
+            "tool": {"title": "UPI QR Generator", "primary_keyword": "UPI QR Code Generator", "tool_url": "/", "apps": ["Google Pay", "PhonePe", "Paytm", "BHIM"], "pain_points": ["slow cash payments"], "benefits": ["accept payments faster"]},
+            "industry": {"title": "QR Solutions for Retail Stores", "slug": "retail-stores", "industries": ["shops"], "pain_points": ["cash shortage"], "benefits": ["cashless payments"]},
+            "use_case": {"title": "Accept Payments with a UPI QR Code", "slug": "accept-payments", "primary_keyword": "Accept Payments with QR Code", "pain_points": ["customers do not carry cash"], "benefits": ["get paid faster"]}
+        }
+    # Rotate deterministically using today's date and existing title count.
+    idx = (len(used_topics.get("titles", [])) + datetime.date.today().toordinal())
+    tool = tools[idx % len(tools)]
+    matching_industries = [i for i in industries if tool.get("slug", "").replace("-generator", "") in " ".join(i.get("tools", [])) or any(ind in tool.get("industries", []) for ind in i.get("industries", []))]
+    industry = (matching_industries or industries)[idx % len(matching_industries or industries)]
+    matching_use_cases = [u for u in use_cases if u.get("recommended_tool") in [k for k,v in tool_clusters.items() if v == tool] or tool.get("slug") in " ".join(u.get("tools", []))]
+    use_case = (matching_use_cases or use_cases)[idx % len(matching_use_cases or use_cases)]
+    material = (materials or [{}])[idx % len(materials or [{}])]
+    return {"tool": tool, "industry": industry, "use_case": use_case, "material": material}
+
+topic = choose_commercial_topic()
+blog_prompt = f"""You are writing a commercial-intent BharathQR blog for Indian businesses.
 Today is {TODAY}.
 
-Competitor topics for inspiration only (never copy): {competitor_keywords}
+{commercial_rules}
 {founder_style_instruction}
-Already written titles — DO NOT repeat any of these: {used_topics['titles']}
 
-Pick ONE hyper-specific Indian merchant topic not in the list above. Examples:
-- How autorickshaw drivers in Chennai can accept GPay payments
-- UPI QR codes for tiffin delivery services in Mumbai
-- How vegetable vendors in Delhi can go cashless
-- Temple donation collection via UPI — complete guide
-- How tuition teachers can collect fees via UPI
-- UPI payments for dairy milk delivery routes in India
-- How street food vendors can use BharathQR to increase sales
-- Free QR code setup for medical shops in India
-- How beauty parlours can accept UPI payments without a POS machine
+Selected tool: {json.dumps(topic['tool'], ensure_ascii=False)}
+Selected industry: {json.dumps(topic['industry'], ensure_ascii=False)}
+Selected use case: {json.dumps(topic['use_case'], ensure_ascii=False)}
+Selected print/material use case: {json.dumps(topic.get('material', {}), ensure_ascii=False)}
+Competitor themes for inspiration only, never copy: {competitor_keywords}
+Already written titles — DO NOT repeat: {used_topics.get('titles', [])}
+
+Write a crisp, high-intent article. It should sound like a useful BharathQR business guide, not a generic AI blog.
+Target reader: Indian shopkeeper, restaurant owner, hotel manager, clinic owner or salon owner using mobile-first tools.
 
 Format your response EXACTLY like this — two sections, nothing else:
 
-TITLE: Your article title here
+TITLE: [Primary keyword] for [Industry/Use Case]: [Clear benefit]
 
 BODY:
-Your full article here. Minimum 600 words. Include:
-- Strong opening hook paragraph
-- Exactly 3 subheadings using ## markdown
-- Practical step-by-step advice for Indian merchants
-- Mention INR amounts and Indian cities
-- Mention GPay, PhonePe, Paytm, BHIM
-- End with a call-to-action linking to https://bharathqr.com
-- Do NOT mention bharatupi.com anywhere"""
+Minimum 650 words. Include:
+- Strong first paragraph with primary keyword, business keyword, app keyword, pain point and benefit.
+- Exactly 3 subheadings using ## markdown.
+- Short paragraphs.
+- Mention practical placement using the selected print/material use case when relevant: shop counter, table tent, reception desk, brochure, poster, flyer, packaging, menu or business card.
+- Mention relevant apps naturally: Google Pay, PhonePe, Paytm, BHIM, WhatsApp, Google Maps.
+- Include one named Indian business example with city and realistic INR amount.
+- Include one numbered step-by-step section.
+- Include 5 concise FAQs.
+- End with CTA linking to https://bharathqr.com{topic['tool'].get('tool_url', '/')}
+- Never mention competitor names.
+- Never use phrases banned by founder preferences.
+"""
 
 print("✍️ Generating blog article...")
 blog_output = call_ai(blog_prompt, label="blog article")
@@ -279,7 +382,32 @@ if blog_output:
             title = lines[0].replace("#", "").strip()
             body = "\n".join(lines[1:]).strip()
 
+        violations = validate_founder_content(title, body) if title and body else ["missing title/body"]
+        if violations:
+            log_error("Founder/content quality check failed before save: " + "; ".join(violations[:5]))
+            retry_prompt = blog_prompt + "\n\nREGENERATE because the previous draft failed these checks: " + "; ".join(violations[:6]) + "\nAvoid all banned phrases, keep it crisp, include a clear BharathQR CTA, and use high-intent keywords naturally."
+            retry_output = call_ai(retry_prompt, label="blog article quality retry")
+            if retry_output:
+                retry_lines = retry_output.strip().splitlines()
+                title = ""
+                body_started = False
+                body_lines = []
+                for line in retry_lines:
+                    if line.startswith("TITLE:") and not title:
+                        title = line.replace("TITLE:", "").strip()
+                    elif line.startswith("BODY:"):
+                        body_started = True
+                    elif body_started:
+                        body_lines.append(line)
+                if not title and retry_lines:
+                    title = retry_lines[0].replace("#", "").strip()
+                    body_lines = retry_lines[1:]
+                body = "\n".join(body_lines).strip()
+                violations = validate_founder_content(title, body) if title and body else ["missing title/body after retry"]
+
         if title and body and len(body.split()) >= 600:
+            if violations:
+                log_error("Saving blog with warning after retry: " + "; ".join(violations[:5]))
             slug = title.lower()
             for ch in ["?", "!", ":", ",", "'", '"', "/", "—", "-"]:
                 slug = slug.replace(ch, " ")

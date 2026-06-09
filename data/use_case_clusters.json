@@ -1,0 +1,423 @@
+{
+  "accept-payments": {
+    "slug": "accept-payments",
+    "title": "Accept Payments with a UPI QR Code",
+    "primary_keyword": "Accept Payments with QR Code",
+    "recommended_tool": "upi_qr",
+    "tools": [
+      "upi_qr"
+    ],
+    "industries": [
+      "restaurants",
+      "retail-stores",
+      "salons",
+      "clinics"
+    ],
+    "pain_points": [
+      "customers do not carry cash",
+      "slow billing queues",
+      "wrong UPI ID typing"
+    ],
+    "benefits": [
+      "accept Google Pay PhonePe Paytm payments",
+      "reduce cash handling",
+      "get paid faster"
+    ],
+    "action_keywords": [
+      "create",
+      "generate",
+      "download",
+      "print",
+      "scan"
+    ]
+  },
+  "collect-reviews": {
+    "slug": "collect-reviews",
+    "title": "Collect Google Reviews with a QR Code",
+    "primary_keyword": "Google Review QR Code",
+    "recommended_tool": "google_review_qr",
+    "tools": [
+      "google_review_qr"
+    ],
+    "industries": [
+      "restaurants",
+      "hotels",
+      "clinics",
+      "salons"
+    ],
+    "pain_points": [
+      "happy customers forget to review",
+      "low Google Maps visibility",
+      "manual review requests"
+    ],
+    "benefits": [
+      "collect more reviews",
+      "improve local trust",
+      "make feedback easier"
+    ],
+    "action_keywords": [
+      "create",
+      "generate",
+      "print",
+      "scan",
+      "review"
+    ]
+  },
+  "open-whatsapp-chat": {
+    "slug": "open-whatsapp-chat",
+    "title": "Open WhatsApp Chat with a QR Code",
+    "primary_keyword": "WhatsApp QR Code for Business",
+    "recommended_tool": "whatsapp_qr",
+    "tools": [
+      "whatsapp_qr"
+    ],
+    "industries": [
+      "restaurants",
+      "retail-stores",
+      "salons",
+      "real-estate"
+    ],
+    "pain_points": [
+      "customers avoid saving numbers",
+      "missed WhatsApp leads",
+      "slow support"
+    ],
+    "benefits": [
+      "open chat instantly",
+      "get more enquiries",
+      "support WhatsApp Business"
+    ],
+    "action_keywords": [
+      "create",
+      "generate",
+      "share",
+      "scan",
+      "message"
+    ]
+  },
+  "share-digital-menu": {
+    "slug": "share-digital-menu",
+    "title": "Share a Digital Menu with a QR Code",
+    "primary_keyword": "Menu QR Code for Restaurant",
+    "recommended_tool": "url_qr",
+    "tools": [
+      "url_qr"
+    ],
+    "industries": [
+      "restaurants",
+      "cafes",
+      "hotels"
+    ],
+    "pain_points": [
+      "menu printing costs",
+      "outdated prices",
+      "customers wait for menus"
+    ],
+    "benefits": [
+      "share latest menu",
+      "reduce printing cost",
+      "improve table experience"
+    ],
+    "action_keywords": [
+      "create",
+      "generate",
+      "print",
+      "share",
+      "scan"
+    ]
+  },
+  "manage_events": {
+    "slug": "manage-events",
+    "title": "Manage Events with QR Codes",
+    "primary_keyword": "Event QR Code for Registration and Invitations",
+    "secondary_keywords": [
+      "event QR code",
+      "wedding QR code",
+      "QR code for invitations",
+      "event registration QR"
+    ],
+    "tools": [
+      "event_qr",
+      "url_qr",
+      "whatsapp_qr"
+    ],
+    "industries": [
+      "events",
+      "hotels",
+      "schools"
+    ],
+    "pain_points": [
+      "guests miss location links",
+      "RSVP forms are hard to share",
+      "event details get lost in WhatsApp chats"
+    ],
+    "benefits": [
+      "share venue location and RSVP links",
+      "print QR on invitations",
+      "reduce calls before the event"
+    ],
+    "cta_url": "/tools/event-qr-generator"
+  },
+  "collect-leads": {
+    "slug": "collect-leads",
+    "title": "Collect Leads with QR Codes",
+    "primary_keyword": "Collect Leads with QR Code",
+    "recommended_tool": "whatsapp_qr",
+    "tools": [
+      "whatsapp_qr"
+    ],
+    "industries": [
+      "real-estate-agents",
+      "gyms",
+      "travel-agencies",
+      "car-showrooms"
+    ],
+    "pain_points": [
+      "visitors leave without sharing contact details",
+      "manual enquiry forms are slow",
+      "missed WhatsApp leads"
+    ],
+    "benefits": [
+      "open WhatsApp chat instantly",
+      "capture customer intent faster",
+      "reduce lead leakage"
+    ],
+    "action_keywords": [
+      "create",
+      "generate",
+      "download",
+      "print",
+      "scan",
+      "share"
+    ]
+  },
+  "share-brochure": {
+    "slug": "share-brochure",
+    "title": "Share Brochure with QR Code",
+    "primary_keyword": "Brochure QR Code",
+    "recommended_tool": "pdf_qr",
+    "tools": [
+      "pdf_qr"
+    ],
+    "industries": [
+      "real-estate-agents",
+      "car-showrooms",
+      "travel-agencies",
+      "schools"
+    ],
+    "pain_points": [
+      "printed brochures become outdated",
+      "customers lose paper brochures",
+      "manual PDF sharing is slow"
+    ],
+    "benefits": [
+      "share PDF brochure instantly",
+      "reduce printing cost",
+      "let customers scan and save details"
+    ],
+    "action_keywords": [
+      "create",
+      "generate",
+      "download",
+      "print",
+      "scan",
+      "share"
+    ]
+  },
+  "share-catalog": {
+    "slug": "share-catalog",
+    "title": "Share Product Catalog with QR Code",
+    "primary_keyword": "Catalog QR Code",
+    "recommended_tool": "pdf_qr",
+    "tools": [
+      "pdf_qr"
+    ],
+    "industries": [
+      "retail-stores",
+      "medical-shops",
+      "travel-agencies"
+    ],
+    "pain_points": [
+      "customers ask for product lists repeatedly",
+      "WhatsApp files get buried",
+      "printed catalogs cost money"
+    ],
+    "benefits": [
+      "share catalog instantly",
+      "keep product information easy to access",
+      "reduce manual follow-up"
+    ],
+    "action_keywords": [
+      "create",
+      "generate",
+      "download",
+      "print",
+      "scan",
+      "share"
+    ]
+  },
+  "share-contact-details": {
+    "slug": "share-contact-details",
+    "title": "Share Contact Details with QR Code",
+    "primary_keyword": "Contact QR Code",
+    "recommended_tool": "vcard_qr",
+    "tools": [
+      "vcard_qr"
+    ],
+    "industries": [
+      "freelancers",
+      "lawyers",
+      "ca-offices",
+      "real-estate-agents"
+    ],
+    "pain_points": [
+      "visiting cards get lost",
+      "phone numbers are typed incorrectly",
+      "clients forget contact details"
+    ],
+    "benefits": [
+      "save contact instantly",
+      "reduce typing mistakes",
+      "look more professional"
+    ],
+    "action_keywords": [
+      "create",
+      "generate",
+      "download",
+      "print",
+      "scan",
+      "share"
+    ]
+  },
+  "accept-donations": {
+    "slug": "accept-donations",
+    "title": "Accept Donations with QR Code",
+    "primary_keyword": "Donation QR Code",
+    "recommended_tool": "upi_qr",
+    "tools": [
+      "upi_qr"
+    ],
+    "industries": [
+      "schools",
+      "events",
+      "clinics"
+    ],
+    "pain_points": [
+      "donation collection is manual",
+      "cash handling is difficult",
+      "donors want UPI options"
+    ],
+    "benefits": [
+      "accept UPI donations",
+      "print donation QR posters",
+      "make payment easier"
+    ],
+    "action_keywords": [
+      "create",
+      "generate",
+      "download",
+      "print",
+      "scan",
+      "share"
+    ]
+  },
+  "event-registration": {
+    "slug": "event-registration",
+    "title": "Event Registration with QR Code",
+    "primary_keyword": "Event Registration QR Code",
+    "recommended_tool": "event_qr",
+    "tools": [
+      "event_qr"
+    ],
+    "industries": [
+      "colleges",
+      "schools",
+      "gyms",
+      "events"
+    ],
+    "pain_points": [
+      "manual registrations create queues",
+      "event links are hard to share",
+      "attendees miss venue details"
+    ],
+    "benefits": [
+      "share event registration links",
+      "reduce check-in confusion",
+      "print QR on posters"
+    ],
+    "action_keywords": [
+      "create",
+      "generate",
+      "download",
+      "print",
+      "scan",
+      "share"
+    ]
+  },
+  "customer-feedback": {
+    "slug": "customer-feedback",
+    "title": "Customer Feedback with QR Code",
+    "primary_keyword": "Customer Feedback QR Code",
+    "recommended_tool": "google_review_qr",
+    "tools": [
+      "google_review_qr"
+    ],
+    "industries": [
+      "restaurants",
+      "hotels",
+      "clinics",
+      "salons"
+    ],
+    "pain_points": [
+      "customers forget to review",
+      "staff repeatedly ask for feedback",
+      "Google reviews grow slowly"
+    ],
+    "benefits": [
+      "collect reviews faster",
+      "send customers to Google Maps",
+      "improve trust signals"
+    ],
+    "action_keywords": [
+      "create",
+      "generate",
+      "download",
+      "print",
+      "scan",
+      "share"
+    ]
+  },
+  "digital-visiting-card": {
+    "slug": "digital-visiting-card",
+    "title": "Digital Visiting Card QR Code",
+    "primary_keyword": "Digital Visiting Card QR Code",
+    "recommended_tool": "vcard_qr",
+    "tools": [
+      "vcard_qr"
+    ],
+    "industries": [
+      "freelancers",
+      "real-estate-agents",
+      "lawyers",
+      "ca-offices"
+    ],
+    "pain_points": [
+      "paper cards get misplaced",
+      "manual contact saving is slow",
+      "portfolio links are hard to share"
+    ],
+    "benefits": [
+      "save contact instantly",
+      "share business profile",
+      "look professional"
+    ],
+    "action_keywords": [
+      "create",
+      "generate",
+      "download",
+      "print",
+      "scan",
+      "share"
+    ]
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "qr-safety": {
+    "slug": "qr-safety",
+    "title": "QR Code Safety Tips for Indian Businesses",
+    "primary_keyword": "QR Code Safety Tips",
+    "summary": "Learn safe QR code practices for shops, restaurants, hotels and clinics before printing payment, review, WiFi or WhatsApp QR codes.",
+    "tips": [
+      "Use official links and correct UPI IDs before printing.",
+      "Place QR codes where staff can see them.",
+      "Replace damaged or tampered stickers immediately.",
+      "Ask customers to confirm the business name before paying."
+    ],
+    "tools": [
+      "upi_qr",
+      "google_review_qr",
+      "whatsapp_qr"
+    ]
+  },
+  "upi-qr-safety": {
+    "slug": "upi-qr-safety",
+    "title": "UPI QR Safety Tips for Shops and Merchants",
+    "primary_keyword": "UPI QR Safety",
+    "summary": "Simple UPI QR safety checks for Indian merchants using Google Pay, PhonePe, Paytm and BHIM payments.",
+    "tips": [
+      "Verify the payee name shown in the customer app.",
+      "Check the payment received notification before handing goods.",
+      "Do not paste QR stickers where strangers can easily cover them.",
+      "Keep a clean backup copy of your original QR code."
+    ],
+    "tools": [
+      "upi_qr"
+    ]
+  },
+  "how-to-verify-upi-payment": {
+    "slug": "how-to-verify-upi-payment",
+    "title": "How to Verify UPI Payment Received",
+    "primary_keyword": "How to Verify UPI Payment Received",
+    "summary": "A practical guide for shopkeepers, restaurants and small businesses to confirm Google Pay, PhonePe, Paytm and BHIM payments safely.",
+    "tips": [
+      "Check your own UPI app or bank SMS, not only the customer's screenshot.",
+      "Match the amount, time and sender name.",
+      "Do not hand over expensive items until payment is confirmed.",
+      "For failed or pending payments, ask the customer to retry instead of relying on screenshots."
+    ],
+    "tools": [
+      "upi_qr"
+    ]
+  }
+}

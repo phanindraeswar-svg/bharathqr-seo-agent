@@ -1,0 +1,76 @@
+{
+  "version": "3.0",
+  "last_updated": "2026-06-08",
+  "founder_likes": [
+    "QRCodePro-style commercial-intent structure",
+    "ME-QR-style use-case/cases directories",
+    "short crisp paragraphs",
+    "high-intent keywords used naturally",
+    "tool → industry → use case → pain point → CTA",
+    "Indian business examples with Google Pay, PhonePe, Paytm, WhatsApp and Google Maps where relevant"
+  ],
+  "founder_dislikes": [
+    "generic AI introductions",
+    "keyword stuffing",
+    "long vague paragraphs",
+    "content not tied to a BharathQR tool or commercial use case",
+    "corporate jargon"
+  ],
+  "preferred_reference_sites": [
+    {
+      "url": "https://www.qrcodepro.in/",
+      "lesson": "Commercial-intent blog/tool strategy: every article maps to a tool and business use case."
+    },
+    {
+      "url": "https://me-qr.com/page/cases",
+      "lesson": "Use-case and cases directory structure for internal linking."
+    },
+    {
+      "url": "https://www.qr-code-generator.com/qr-codes-on/brochures/",
+      "lesson": "Physical material pages like brochures, posters, packaging and table tents."
+    }
+  ],
+  "banned_phrases": [
+    "in today's digital landscape",
+    "in India’s rapidly evolving",
+    "seamless experience",
+    "revolutionary",
+    "paradigm shift",
+    "leverage our platform",
+    "digital transformation",
+    "generic"
+  ],
+  "priority_tools": [
+    "upi-qr",
+    "google-review-qr",
+    "whatsapp-qr",
+    "wifi-qr",
+    "url-qr",
+    "text-qr",
+    "vcard-qr",
+    "menu-qr"
+  ],
+  "priority_industries": [
+    "restaurants",
+    "hotels",
+    "retail-stores",
+    "clinics",
+    "salons",
+    "kirana-stores"
+  ],
+  "priority_intents": [
+    "accept payments",
+    "collect reviews",
+    "open WhatsApp chat",
+    "share menu",
+    "connect WiFi",
+    "replace cash"
+  ],
+  "content_rules": [
+    "Title must include the primary keyword.",
+    "First 100 words must include primary keyword, business keyword, pain point and benefit.",
+    "Every article must promote exactly one primary BharathQR tool.",
+    "Every article must include a clear CTA to the matching BharathQR page.",
+    "Use intent-rich paragraphs, not keyword stuffing."
+  ]
+}

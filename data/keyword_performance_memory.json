@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "keywords": [
+    {
+      "keyword": "upi qr code for shop",
+      "target_url": "/solutions/kirana-stores",
+      "cluster": "merchant_qr",
+      "status": "target"
+    },
+    {
+      "keyword": "google review qr code for restaurant",
+      "target_url": "/solutions/restaurants",
+      "cluster": "review_qr",
+      "status": "target"
+    },
+    {
+      "keyword": "whatsapp qr code for business",
+      "target_url": "/tools/whatsapp-qr-generator",
+      "cluster": "whatsapp_qr",
+      "status": "target"
+    },
+    {
+      "keyword": "wifi qr code for hotel",
+      "target_url": "/solutions/hotels",
+      "cluster": "wifi_qr",
+      "status": "target"
+    },
+    {
+      "keyword": "qr code on brochure",
+      "target_url": "/materials/brochures",
+      "cluster": "materials",
+      "status": "target"
+    },
+    {
+      "keyword": "static vs dynamic qr code",
+      "target_url": "/comparisons/static-vs-dynamic-qr-code",
+      "cluster": "comparisons",
+      "status": "target"
+    },
+    {
+      "keyword": "how to verify upi payment received",
+      "target_url": "/trust/how-to-verify-upi-payment",
+      "cluster": "trust",
+      "status": "target"
+    }
+  ],
+  "learning_rules": {
+    "high_impressions_low_ctr": "rewrite title/meta and add stronger FAQ",
+    "position_11_to_20": "add internal links and improve page depth",
+    "position_4_to_10": "improve snippet, FAQ, comparison table",
+    "no_impressions_after_30_days": "check sitemap/internal links/title relevance"
+  }
+}

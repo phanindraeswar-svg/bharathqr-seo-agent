@@ -35,8 +35,47 @@ for path, typ in [
     ("data/founder_backlog.json", dict),
     ("data/style_preferences.json", dict),
     ("data/link_map.json", list),
+    ("data/tool_clusters.json", dict),
+    ("data/industry_clusters.json", dict),
+    ("data/use_case_clusters.json", dict),
+    ("data/trust_clusters.json", dict),
+    ("data/material_clusters.json", dict),
+    ("data/comparison_clusters.json", dict),
+    ("data/template_clusters.json", dict),
+    ("data/ai_business_clusters.json", dict),
+    ("data/internal_link_graph.json", dict),
 ]:
     check_json(path, typ)
+
+tools = check_json("data/tool_clusters.json", dict) or {}
+for key, item in tools.items():
+    for required in ["slug", "title", "primary_keyword", "tool_url", "pain_points", "benefits"]:
+        if required not in item:
+            errors.append(f"tool_clusters.{key} missing {required}")
+    url = item.get("tool_url", "")
+    if url.startswith("/tools/"):
+        page = Path("pages") / (url.strip("/") + ".js")
+        if not page.exists():
+            errors.append(f"Missing tool page for {url}: {page}")
+
+for file in ["data/industry_clusters.json", "data/use_case_clusters.json", "data/trust_clusters.json"]:
+    data = check_json(file, dict) or {}
+    seen = set()
+    for key, item in data.items():
+        slug = item.get("slug")
+        if not slug:
+            errors.append(f"{file}.{key} missing slug")
+        if slug in seen:
+            errors.append(f"{file} duplicate slug {slug}")
+        seen.add(slug)
+        if not item.get("title"):
+            errors.append(f"{file}.{key} missing title")
+
+# Avoid accidental old branding in source files.
+for src in list(Path("pages").rglob("*.js")) + list(Path("components").rglob("*.js")):
+    text = src.read_text(encoding="utf-8", errors="ignore")
+    if "BharatQR" in text and "BharathQR" not in text:
+        errors.append(f"Old BharatQR branding in {src}")
 
 if errors:
     print("Content validation warnings:")

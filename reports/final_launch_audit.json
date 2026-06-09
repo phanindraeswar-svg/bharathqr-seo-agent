@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "errors": [],
+  "warnings": [],
+  "counts": {
+    "tools": 13,
+    "industries": 18,
+    "use_cases": 13,
+    "materials": 8,
+    "comparisons": 4,
+    "templates": 11,
+    "trust": 3,
+    "ai_tools": 5
+  }
+}

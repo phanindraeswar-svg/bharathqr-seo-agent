@@ -1,0 +1,158 @@
+{
+  "ai_review_request_generator": {
+    "slug": "ai-review-request-generator",
+    "title": "AI Review Request Generator",
+    "primary_keyword": "AI Review Request Generator",
+    "secondary_keywords": [
+      "Google review request message",
+      "review request WhatsApp message",
+      "customer review message generator"
+    ],
+    "recommended_tools": [
+      "google_review_qr",
+      "whatsapp_qr"
+    ],
+    "industries": [
+      "restaurants",
+      "hotels",
+      "clinics",
+      "salons"
+    ],
+    "pain_points": [
+      "customers forget to leave reviews",
+      "business owners do not know what message to send",
+      "manual review requests feel awkward"
+    ],
+    "benefits": [
+      "write polite review requests faster",
+      "collect more Google reviews",
+      "share messages on WhatsApp"
+    ],
+    "status": "foundation",
+    "cta": "Use Google Review QR"
+  },
+  "ai_whatsapp_message_generator": {
+    "slug": "ai-whatsapp-message-generator",
+    "title": "AI WhatsApp Message Generator",
+    "primary_keyword": "AI WhatsApp Message Generator",
+    "secondary_keywords": [
+      "WhatsApp business message generator",
+      "WhatsApp offer message",
+      "customer message generator"
+    ],
+    "recommended_tools": [
+      "whatsapp_qr"
+    ],
+    "industries": [
+      "retail-stores",
+      "salons",
+      "restaurants"
+    ],
+    "pain_points": [
+      "slow customer replies",
+      "missed WhatsApp enquiries",
+      "unclear offer messages"
+    ],
+    "benefits": [
+      "write crisp WhatsApp messages",
+      "increase customer replies",
+      "connect messages to WhatsApp QR"
+    ],
+    "status": "foundation",
+    "cta": "Generate WhatsApp QR"
+  },
+  "ai_menu_description_generator": {
+    "slug": "ai-menu-description-generator",
+    "title": "AI Menu Description Generator",
+    "primary_keyword": "AI Menu Description Generator",
+    "secondary_keywords": [
+      "restaurant menu description generator",
+      "food description generator",
+      "menu item description"
+    ],
+    "recommended_tools": [
+      "menu_qr",
+      "url_qr"
+    ],
+    "industries": [
+      "restaurants",
+      "cafes",
+      "hotels"
+    ],
+    "pain_points": [
+      "menu items sound boring",
+      "customers do not understand dishes",
+      "menus need better descriptions"
+    ],
+    "benefits": [
+      "write better dish descriptions",
+      "improve digital menu clarity",
+      "support menu QR pages"
+    ],
+    "status": "foundation",
+    "cta": "Create Menu QR"
+  },
+  "ai_offer_generator": {
+    "slug": "ai-offer-generator",
+    "title": "AI Offer Generator",
+    "primary_keyword": "AI Offer Generator for Small Business",
+    "secondary_keywords": [
+      "business offer message generator",
+      "shop offer generator",
+      "festival offer generator"
+    ],
+    "recommended_tools": [
+      "whatsapp_qr",
+      "url_qr"
+    ],
+    "industries": [
+      "retail-stores",
+      "salons",
+      "restaurants"
+    ],
+    "pain_points": [
+      "offers are hard to write",
+      "festival promotions take time",
+      "customers ignore vague discounts"
+    ],
+    "benefits": [
+      "create clear offers",
+      "share offers by WhatsApp QR",
+      "print offers on posters"
+    ],
+    "status": "foundation",
+    "cta": "Create campaign QR"
+  },
+  "ai_business_bio_generator": {
+    "slug": "ai-business-bio-generator",
+    "title": "AI Business Bio Generator",
+    "primary_keyword": "AI Business Bio Generator",
+    "secondary_keywords": [
+      "business profile generator",
+      "small business bio",
+      "Google Business Profile description"
+    ],
+    "recommended_tools": [
+      "vcard_qr",
+      "url_qr"
+    ],
+    "industries": [
+      "clinics",
+      "salons",
+      "retail-stores",
+      "real-estate"
+    ],
+    "pain_points": [
+      "business descriptions sound weak",
+      "profiles look incomplete",
+      "customers do not understand services quickly"
+    ],
+    "benefits": [
+      "write a clear business bio",
+      "improve profiles and cards",
+      "connect bio to vCard QR"
+    ],
+    "status": "foundation",
+    "cta": "Create vCard QR"
+  }
+}

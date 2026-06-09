@@ -1,0 +1,93 @@
+{
+  "primary_hubs": [
+    {
+      "label": "Free QR Code Tools",
+      "href": "/tools",
+      "note": "Generate UPI, URL, WhatsApp, WiFi, vCard and review QR codes."
+    },
+    {
+      "label": "Business QR Solutions",
+      "href": "/solutions",
+      "note": "QR solutions for restaurants, hotels, retail stores, clinics and salons."
+    },
+    {
+      "label": "QR Use Cases",
+      "href": "/use-cases",
+      "note": "Accept payments, collect reviews, open WhatsApp chat and share menus."
+    },
+    {
+      "label": "QR Materials",
+      "href": "/materials",
+      "note": "Use QR codes on business cards, brochures, posters and shop counters."
+    },
+    {
+      "label": "QR Safety & Trust",
+      "href": "/trust",
+      "note": "Learn safe UPI QR display, fake QR warnings and payment verification."
+    },
+    {
+      "label": "QR Comparisons",
+      "href": "/comparisons",
+      "note": "Compare static vs dynamic QR, WhatsApp QR vs link and UPI QR vs cash."
+    },
+    {
+      "label": "Editorial Policy",
+      "href": "/editorial-policy",
+      "note": "How BharathQR keeps QR content useful, simple and founder-guided."
+    },
+    {
+      "label": "Content Policy",
+      "href": "/content-policy",
+      "note": "People-first rules for QR, UPI, WhatsApp, review and business content."
+    },
+    {
+      "label": "Advertising Disclosure",
+      "href": "/advertising-disclosure",
+      "note": "Future monetization transparency while keeping static QR tools free."
+    }
+  ],
+  "money_pages": [
+    {
+      "label": "UPI QR Code Generator",
+      "href": "/",
+      "note": "Accept Google Pay, PhonePe, Paytm and BHIM payments."
+    },
+    {
+      "label": "Google Review QR Code Generator",
+      "href": "/tools/google-review-qr-generator",
+      "note": "Collect Google reviews and improve Google Maps trust."
+    },
+    {
+      "label": "WhatsApp QR Code Generator",
+      "href": "/tools/whatsapp-qr-generator",
+      "note": "Open WhatsApp Business chats instantly."
+    },
+    {
+      "label": "WiFi QR Code Generator",
+      "href": "/tools/wifi-qr-generator",
+      "note": "Share guest WiFi without password typing."
+    },
+    {
+      "label": "URL QR Code Generator",
+      "href": "/tools/url-qr-generator",
+      "note": "Create QR codes for websites, menus, forms and offers."
+    },
+    {
+      "label": "Text QR Code Generator",
+      "href": "/tools/text-qr-generator",
+      "note": "Share plain text, coupons and instructions."
+    }
+  ],
+  "launch_priority_routes": [
+    "/tools",
+    "/solutions/restaurants",
+    "/solutions/hotels",
+    "/solutions/retail-stores",
+    "/use-cases/accept-payments",
+    "/use-cases/collect-reviews",
+    "/materials/shop-counter",
+    "/trust/how-to-verify-upi-payment",
+    "/comparisons/upi-qr-vs-cash",
+    "/cases"
+  ]
+}

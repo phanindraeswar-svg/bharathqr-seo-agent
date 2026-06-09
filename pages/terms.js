@@ -9,7 +9,7 @@ export default function Page() {
         <title>Terms of Use — BharathQR</title>
         <meta name="description" content="Terms of use for bharathqr.com. Free tools for Indian merchants. Not affiliated with NPCI, BHIM, UPI, or any bank." />
         <link rel="canonical" href="https://bharathqr.com/terms" />
-      </Head>
+      <meta property="og:title" content="Terms of Use — BharathQR" /><meta property="og:description" content="Terms of use for bharathqr.com. Free tools for Indian merchants. Not affiliated with NPCI, BHIM, UPI, or any bank." /><meta property="og:url" content="https://bharathqr.com/terms" /><meta name="twitter:title" content="Terms of Use — BharathQR" /><meta name="twitter:description" content="Terms of use for bharathqr.com. Free tools for Indian merchants. Not affiliated with NPCI, BHIM, UPI, or any bank." /></Head>
       <main style={{ maxWidth: 860, margin: '0 auto', padding: '2rem 1rem', lineHeight: 1.7 }}>
         <h1 style={{ fontSize: 'clamp(2rem, 6vw, 3rem)', marginBottom: 8 }}>Terms of Use</h1>
         <p style={{ color: '#4B5563', fontSize: 18 }}>Terms of use for bharathqr.com. Free tools for Indian merchants. Not affiliated with NPCI, BHIM, UPI, or any bank.</p>

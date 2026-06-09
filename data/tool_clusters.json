@@ -1,0 +1,483 @@
+{
+  "upi_qr": {
+    "slug": "upi-qr-generator",
+    "title": "UPI QR Generator",
+    "primary_keyword": "UPI QR Code Generator",
+    "secondary_keywords": [
+      "free UPI QR code",
+      "QR code for shop",
+      "Google Pay QR code",
+      "PhonePe QR code",
+      "Paytm QR code"
+    ],
+    "tool_url": "/",
+    "industries": [
+      "restaurants",
+      "retail-stores",
+      "salons",
+      "clinics"
+    ],
+    "use_cases": [
+      "accept-payments",
+      "replace-cash-at-counter"
+    ],
+    "pain_points": [
+      "slow cash payments",
+      "wrong UPI number typing",
+      "counter payment delays"
+    ],
+    "benefits": [
+      "accept payments faster",
+      "works with Google Pay PhonePe Paytm BHIM",
+      "no login required"
+    ],
+    "apps": [
+      "Google Pay",
+      "PhonePe",
+      "Paytm",
+      "BHIM"
+    ],
+    "cta": "Generate free UPI QR"
+  },
+  "google_review_qr": {
+    "slug": "google-review-qr-generator",
+    "title": "Google Review QR Generator",
+    "primary_keyword": "Google Review QR Code Generator",
+    "secondary_keywords": [
+      "Google review QR code",
+      "QR code for reviews",
+      "Google Maps review QR",
+      "restaurant review QR code"
+    ],
+    "tool_url": "/tools/google-review-qr-generator",
+    "industries": [
+      "restaurants",
+      "hotels",
+      "clinics",
+      "salons"
+    ],
+    "use_cases": [
+      "collect-reviews"
+    ],
+    "pain_points": [
+      "customers forget to review",
+      "low Google Maps visibility",
+      "manual review requests"
+    ],
+    "benefits": [
+      "collect more reviews",
+      "improve local trust",
+      "make review sharing easier"
+    ],
+    "apps": [
+      "Google Maps",
+      "Google Business Profile"
+    ],
+    "cta": "Create Google Review QR"
+  },
+  "whatsapp_qr": {
+    "slug": "whatsapp-qr-generator",
+    "title": "WhatsApp QR Generator",
+    "primary_keyword": "WhatsApp QR Code Generator",
+    "secondary_keywords": [
+      "WhatsApp Business QR",
+      "wa.me QR code",
+      "WhatsApp chat QR code",
+      "WhatsApp link QR"
+    ],
+    "tool_url": "/tools/whatsapp-qr-generator",
+    "industries": [
+      "restaurants",
+      "retail-stores",
+      "salons",
+      "real-estate"
+    ],
+    "use_cases": [
+      "open-whatsapp-chat"
+    ],
+    "pain_points": [
+      "customers do not save phone numbers",
+      "missed enquiries",
+      "slow order conversations"
+    ],
+    "benefits": [
+      "open chat instantly",
+      "get customer enquiries faster",
+      "works with WhatsApp Business"
+    ],
+    "apps": [
+      "WhatsApp",
+      "WhatsApp Business"
+    ],
+    "cta": "Generate WhatsApp QR"
+  },
+  "wifi_qr": {
+    "slug": "wifi-qr-generator",
+    "title": "WiFi QR Generator",
+    "primary_keyword": "WiFi QR Code Generator",
+    "secondary_keywords": [
+      "WiFi password QR code",
+      "guest WiFi QR",
+      "hotel WiFi QR code",
+      "restaurant WiFi QR"
+    ],
+    "tool_url": "/tools/wifi-qr-generator",
+    "industries": [
+      "hotels",
+      "cafes",
+      "restaurants",
+      "clinics"
+    ],
+    "use_cases": [
+      "connect-wifi"
+    ],
+    "pain_points": [
+      "guests ask for WiFi password",
+      "typing mistakes",
+      "staff interruptions"
+    ],
+    "benefits": [
+      "connect guests faster",
+      "reduce password sharing friction",
+      "improve customer experience"
+    ],
+    "apps": [
+      "Android Camera",
+      "iPhone Camera"
+    ],
+    "cta": "Create WiFi QR"
+  },
+  "url_qr": {
+    "slug": "url-qr-generator",
+    "title": "URL QR Generator",
+    "primary_keyword": "URL QR Code Generator",
+    "secondary_keywords": [
+      "create QR code for link",
+      "website QR code generator",
+      "free URL QR code",
+      "link to QR code"
+    ],
+    "tool_url": "/tools/url-qr-generator",
+    "industries": [
+      "retail-stores",
+      "events",
+      "schools",
+      "real-estate"
+    ],
+    "use_cases": [
+      "share-digital-menu",
+      "open-whatsapp-chat"
+    ],
+    "pain_points": [
+      "long links are hard to type",
+      "customers miss website URLs",
+      "offline marketing cannot be clicked"
+    ],
+    "benefits": [
+      "turn any link into QR",
+      "print on posters and brochures",
+      "send users to website fast"
+    ],
+    "apps": [
+      "Chrome",
+      "Safari",
+      "Google"
+    ],
+    "cta": "Generate URL QR"
+  },
+  "text_qr": {
+    "slug": "text-qr-generator",
+    "title": "Text QR Generator",
+    "primary_keyword": "Text QR Code Generator",
+    "secondary_keywords": [
+      "plain text QR code",
+      "message QR code generator",
+      "free text QR",
+      "note QR code"
+    ],
+    "tool_url": "/tools/text-qr-generator",
+    "industries": [
+      "schools",
+      "events",
+      "retail-stores"
+    ],
+    "use_cases": [
+      "share-contact-card"
+    ],
+    "pain_points": [
+      "printed notes are missed",
+      "short messages are hard to copy",
+      "manual typing creates mistakes"
+    ],
+    "benefits": [
+      "share text instantly",
+      "works offline after scan",
+      "simple static QR"
+    ],
+    "apps": [
+      "Android Camera",
+      "iPhone Camera"
+    ],
+    "cta": "Generate Text QR"
+  },
+  "vcard_qr": {
+    "slug": "vcard-qr-generator",
+    "title": "vCard QR Generator",
+    "primary_keyword": "vCard QR Code Generator",
+    "secondary_keywords": [
+      "digital business card QR",
+      "contact QR code",
+      "business card QR code",
+      "save contact QR"
+    ],
+    "tool_url": "/tools/vcard-qr-generator",
+    "industries": [
+      "real-estate",
+      "clinics",
+      "salons",
+      "retail-stores"
+    ],
+    "use_cases": [
+      "share-contact-card"
+    ],
+    "pain_points": [
+      "visiting cards get lost",
+      "phone numbers typed wrong",
+      "customers forget contact details"
+    ],
+    "benefits": [
+      "save contact instantly",
+      "print on business cards",
+      "look professional"
+    ],
+    "apps": [
+      "Contacts",
+      "Phone",
+      "WhatsApp"
+    ],
+    "cta": "Create vCard QR"
+  },
+  "menu_qr": {
+    "slug": "menu-qr-generator",
+    "title": "Menu QR Generator",
+    "primary_keyword": "Menu QR Code Generator",
+    "secondary_keywords": [
+      "restaurant menu QR code",
+      "hotel menu QR",
+      "cafe menu QR",
+      "digital menu QR code"
+    ],
+    "tool_url": "/tools/menu-qr-generator",
+    "industries": [
+      "restaurants",
+      "hotels",
+      "cafes"
+    ],
+    "use_cases": [
+      "share-digital-menu"
+    ],
+    "pain_points": [
+      "menu reprinting costs",
+      "outdated printed menus",
+      "customers asking for menu photos"
+    ],
+    "benefits": [
+      "share menu instantly",
+      "reduce printing costs",
+      "update menu link anytime"
+    ],
+    "apps": [
+      "Google Chrome",
+      "Safari",
+      "WhatsApp"
+    ],
+    "cta": "Create Menu QR"
+  },
+  "event_qr": {
+    "slug": "event-qr-generator",
+    "title": "Event QR Generator",
+    "primary_keyword": "Event QR Code Generator",
+    "secondary_keywords": [
+      "event QR code",
+      "wedding QR code",
+      "event registration QR",
+      "conference QR code"
+    ],
+    "tool_url": "/tools/event-qr-generator",
+    "industries": [
+      "events",
+      "schools",
+      "hotels",
+      "real-estate"
+    ],
+    "use_cases": [
+      "manage-events"
+    ],
+    "pain_points": [
+      "guests miss event links",
+      "manual RSVP sharing",
+      "venue details get lost"
+    ],
+    "benefits": [
+      "share event details fast",
+      "print on invitations and banners",
+      "open registration pages instantly"
+    ],
+    "apps": [
+      "Google Forms",
+      "Google Calendar",
+      "Google Maps",
+      "WhatsApp"
+    ],
+    "cta": "Create Event QR"
+  },
+  "email_qr": {
+    "slug": "email-qr-generator",
+    "title": "Email QR Generator",
+    "primary_keyword": "Email QR Code Generator",
+    "secondary_keywords": [
+      "email QR code",
+      "mailto QR code",
+      "contact email QR",
+      "business email QR code"
+    ],
+    "tool_url": "/tools/email-qr-generator",
+    "industries": [
+      "retail-stores",
+      "clinics",
+      "schools",
+      "real-estate"
+    ],
+    "use_cases": [
+      "share-contact-card"
+    ],
+    "pain_points": [
+      "customers type email addresses wrong",
+      "slow enquiry collection",
+      "missed business leads"
+    ],
+    "benefits": [
+      "open email compose instantly",
+      "reduce typing mistakes",
+      "collect enquiries faster"
+    ],
+    "apps": [
+      "Gmail",
+      "Outlook",
+      "Apple Mail"
+    ],
+    "cta": "Generate Email QR"
+  },
+  "sms_qr": {
+    "slug": "sms-qr-generator",
+    "title": "SMS QR Generator",
+    "primary_keyword": "SMS QR Code Generator",
+    "secondary_keywords": [
+      "text message QR code",
+      "SMS link QR",
+      "message QR code",
+      "business SMS QR"
+    ],
+    "tool_url": "/tools/sms-qr-generator",
+    "industries": [
+      "retail-stores",
+      "events",
+      "salons",
+      "clinics"
+    ],
+    "use_cases": [
+      "open-whatsapp-chat"
+    ],
+    "pain_points": [
+      "customers forget phone numbers",
+      "manual SMS typing",
+      "slow enquiry replies"
+    ],
+    "benefits": [
+      "open SMS app instantly",
+      "pre-fill message text",
+      "make enquiries easier"
+    ],
+    "apps": [
+      "Android Messages",
+      "iMessage",
+      "SMS"
+    ],
+    "cta": "Create SMS QR"
+  },
+  "phone_qr": {
+    "slug": "phone-qr-generator",
+    "title": "Phone Call QR Generator",
+    "primary_keyword": "Phone QR Code Generator",
+    "secondary_keywords": [
+      "call QR code",
+      "phone number QR code",
+      "click to call QR",
+      "contact number QR"
+    ],
+    "tool_url": "/tools/phone-qr-generator",
+    "industries": [
+      "clinics",
+      "real-estate",
+      "salons",
+      "retail-stores"
+    ],
+    "use_cases": [
+      "share-contact-card"
+    ],
+    "pain_points": [
+      "customers type phone numbers wrong",
+      "lost visiting cards",
+      "missed calls from leads"
+    ],
+    "benefits": [
+      "start a call after scan",
+      "print on posters and cards",
+      "make contact easier"
+    ],
+    "apps": [
+      "Phone",
+      "Contacts",
+      "WhatsApp"
+    ],
+    "cta": "Generate Phone QR"
+  },
+  "pdf_qr": {
+    "slug": "pdf-qr-generator",
+    "title": "PDF QR Generator",
+    "primary_keyword": "PDF QR Code Generator",
+    "secondary_keywords": [
+      "PDF link QR code",
+      "document QR code",
+      "menu PDF QR",
+      "catalog PDF QR"
+    ],
+    "tool_url": "/tools/pdf-qr-generator",
+    "industries": [
+      "restaurants",
+      "schools",
+      "clinics",
+      "retail-stores"
+    ],
+    "use_cases": [
+      "share-digital-menu"
+    ],
+    "pain_points": [
+      "printed documents become outdated",
+      "PDF links are hard to type",
+      "customers lose brochures"
+    ],
+    "benefits": [
+      "share PDF links instantly",
+      "print QR on posters and counters",
+      "reduce paper sharing"
+    ],
+    "apps": [
+      "Google Drive",
+      "Dropbox",
+      "Chrome",
+      "Safari"
+    ],
+    "cta": "Create PDF QR"
+  }
+}

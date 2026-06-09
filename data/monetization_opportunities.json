@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "last_updated": "2026-06-09",
+  "status": "tracking_only_no_monetization_enabled",
+  "opportunities": [
+    {
+      "name": "Google AdSense",
+      "category": "display_ads",
+      "readiness": "prepare_after_trust_pages_and_indexing",
+      "risk": "low",
+      "notes": "Apply only after core pages are indexed and content quality is stable."
+    },
+    {
+      "name": "Print-ready QR templates",
+      "category": "downloads",
+      "readiness": "future",
+      "risk": "low",
+      "notes": "Offer free poster, standee and table tent layouts before considering paid templates."
+    },
+    {
+      "name": "Affiliate business tools",
+      "category": "affiliate",
+      "readiness": "future",
+      "risk": "medium",
+      "notes": "Only promote tools that genuinely help Indian businesses; disclose clearly."
+    },
+    {
+      "name": "Sponsored business resources",
+      "category": "sponsorship",
+      "readiness": "future",
+      "risk": "medium",
+      "notes": "Keep editorial independence and use advertising disclosure."
+    },
+    {
+      "name": "Premium dynamic QR later",
+      "category": "product",
+      "readiness": "not_current_phase",
+      "risk": "high",
+      "notes": "Do not build before static platform has traffic and trust."
+    }
+  ]
+}

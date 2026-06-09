@@ -1,0 +1,589 @@
+{
+  "restaurants": {
+    "slug": "restaurants",
+    "title": "QR Solutions for Restaurants",
+    "primary_keyword": "QR Code for Restaurants",
+    "industries": [
+      "restaurants",
+      "cafes",
+      "dhabas"
+    ],
+    "tools": [
+      "menu_qr",
+      "upi_qr",
+      "google_review_qr",
+      "whatsapp_qr",
+      "wifi_qr"
+    ],
+    "pain_points": [
+      "slow billing",
+      "menu reprinting cost",
+      "low Google reviews",
+      "missed WhatsApp orders"
+    ],
+    "benefits": [
+      "accept UPI payments",
+      "share menu instantly",
+      "collect reviews",
+      "get orders on WhatsApp"
+    ],
+    "apps": [
+      "Google Pay",
+      "PhonePe",
+      "Paytm",
+      "WhatsApp",
+      "Google Maps"
+    ]
+  },
+  "hotels": {
+    "slug": "hotels",
+    "title": "QR Solutions for Hotels",
+    "primary_keyword": "QR Code for Hotels",
+    "industries": [
+      "hotels",
+      "lodges",
+      "guest houses"
+    ],
+    "tools": [
+      "wifi_qr",
+      "google_review_qr",
+      "menu_qr",
+      "whatsapp_qr",
+      "url_qr"
+    ],
+    "pain_points": [
+      "guests ask for WiFi password",
+      "low reviews",
+      "front desk questions",
+      "manual sharing"
+    ],
+    "benefits": [
+      "connect WiFi faster",
+      "collect Google reviews",
+      "share hotel information",
+      "reduce reception workload"
+    ],
+    "apps": [
+      "Google Maps",
+      "WhatsApp",
+      "Android Camera",
+      "iPhone Camera"
+    ]
+  },
+  "retail-stores": {
+    "slug": "retail-stores",
+    "title": "QR Solutions for Retail Stores",
+    "primary_keyword": "QR Code for Retail Stores",
+    "industries": [
+      "shops",
+      "kirana stores",
+      "retail stores"
+    ],
+    "tools": [
+      "upi_qr",
+      "whatsapp_qr",
+      "google_review_qr",
+      "url_qr"
+    ],
+    "pain_points": [
+      "cash shortage",
+      "wrong payment number",
+      "low repeat customers",
+      "manual phone sharing"
+    ],
+    "benefits": [
+      "accept cashless payments",
+      "share WhatsApp quickly",
+      "build local trust",
+      "print QR at counter"
+    ],
+    "apps": [
+      "Google Pay",
+      "PhonePe",
+      "Paytm",
+      "WhatsApp"
+    ]
+  },
+  "clinics": {
+    "slug": "clinics",
+    "title": "QR Solutions for Clinics",
+    "primary_keyword": "QR Code for Clinics",
+    "industries": [
+      "clinics",
+      "doctors",
+      "dental clinics"
+    ],
+    "tools": [
+      "vcard_qr",
+      "google_review_qr",
+      "upi_qr",
+      "whatsapp_qr"
+    ],
+    "pain_points": [
+      "patients lose contact details",
+      "manual appointment calls",
+      "low online reviews",
+      "counter payment delays"
+    ],
+    "benefits": [
+      "save doctor contact",
+      "collect patient reviews",
+      "accept UPI fees",
+      "share WhatsApp appointment link"
+    ],
+    "apps": [
+      "Google Maps",
+      "WhatsApp",
+      "Google Pay",
+      "PhonePe"
+    ]
+  },
+  "salons": {
+    "slug": "salons",
+    "title": "QR Solutions for Salons",
+    "primary_keyword": "QR Code for Salons",
+    "industries": [
+      "salons",
+      "beauty parlours",
+      "barber shops"
+    ],
+    "tools": [
+      "upi_qr",
+      "whatsapp_qr",
+      "google_review_qr",
+      "vcard_qr"
+    ],
+    "pain_points": [
+      "missed bookings",
+      "cash payment delays",
+      "low repeat visits",
+      "few Google reviews"
+    ],
+    "benefits": [
+      "accept UPI payments",
+      "open WhatsApp bookings",
+      "collect reviews",
+      "share contact quickly"
+    ],
+    "apps": [
+      "WhatsApp",
+      "Google Maps",
+      "Google Pay",
+      "PhonePe",
+      "Paytm"
+    ]
+  },
+  "kirana-stores": {
+    "slug": "kirana-stores",
+    "title": "QR Solutions for Kirana Stores",
+    "primary_keyword": "QR Code for Kirana Store",
+    "industries": [
+      "kirana stores",
+      "grocery shops",
+      "small retail shops"
+    ],
+    "tools": [
+      "upi_qr",
+      "google_review_qr",
+      "whatsapp_qr"
+    ],
+    "pain_points": [
+      "cash handling during rush hours",
+      "customers asking for Google Pay PhonePe Paytm payment options",
+      "low repeat customer communication"
+    ],
+    "benefits": [
+      "accept UPI payments at the counter",
+      "collect local reviews",
+      "take WhatsApp orders from regular customers"
+    ],
+    "apps": [
+      "Google Pay",
+      "PhonePe",
+      "Paytm",
+      "WhatsApp",
+      "Google Maps"
+    ]
+  },
+  "medical-shops": {
+    "slug": "medical-shops",
+    "title": "QR Solutions for Medical Shops",
+    "primary_keyword": "QR Code for Medical Shop",
+    "industries": [
+      "medical shops",
+      "pharmacies",
+      "chemist stores"
+    ],
+    "tools": [
+      "upi_qr",
+      "google_review_qr",
+      "whatsapp_qr",
+      "vcard_qr"
+    ],
+    "pain_points": [
+      "slow billing for small purchases",
+      "customers asking medicine availability by phone",
+      "low Google Maps visibility"
+    ],
+    "benefits": [
+      "accept UPI payments quickly",
+      "let customers message on WhatsApp",
+      "collect trusted local reviews"
+    ],
+    "apps": [
+      "Google Pay",
+      "PhonePe",
+      "Paytm",
+      "WhatsApp",
+      "Google Maps"
+    ]
+  },
+  "gyms": {
+    "slug": "gyms",
+    "title": "QR Solutions for Gyms",
+    "primary_keyword": "QR Code for Gym",
+    "industries": [
+      "gyms",
+      "fitness centers",
+      "yoga studios"
+    ],
+    "tools": [
+      "upi_qr",
+      "google_review_qr",
+      "whatsapp_qr",
+      "vcard_qr"
+    ],
+    "pain_points": [
+      "manual membership enquiries",
+      "low trial class bookings",
+      "missed WhatsApp leads"
+    ],
+    "benefits": [
+      "collect enquiries on WhatsApp",
+      "share contact details",
+      "collect Google reviews"
+    ],
+    "apps": [
+      "WhatsApp",
+      "Google Maps",
+      "Instagram",
+      "Google Pay",
+      "PhonePe"
+    ]
+  },
+  "schools": {
+    "slug": "schools",
+    "title": "QR Solutions for Schools",
+    "primary_keyword": "QR Code for School",
+    "industries": [
+      "schools",
+      "preschools",
+      "tuition centers"
+    ],
+    "tools": [
+      "event_qr",
+      "pdf_qr",
+      "vcard_qr",
+      "whatsapp_qr"
+    ],
+    "pain_points": [
+      "parents missing circulars",
+      "manual event details sharing",
+      "paper notice costs"
+    ],
+    "benefits": [
+      "share PDFs and notices",
+      "send parents to WhatsApp",
+      "manage event information"
+    ],
+    "apps": [
+      "WhatsApp",
+      "Google Drive",
+      "Google Maps"
+    ]
+  },
+  "colleges": {
+    "slug": "colleges",
+    "title": "QR Solutions for Colleges",
+    "primary_keyword": "QR Code for College",
+    "industries": [
+      "colleges",
+      "campus events",
+      "student clubs"
+    ],
+    "tools": [
+      "event_qr",
+      "pdf_qr",
+      "vcard_qr",
+      "whatsapp_qr"
+    ],
+    "pain_points": [
+      "event registration confusion",
+      "students losing PDF notices",
+      "manual contact sharing"
+    ],
+    "benefits": [
+      "share event details",
+      "share PDF resources",
+      "open WhatsApp groups"
+    ],
+    "apps": [
+      "WhatsApp",
+      "Google Forms",
+      "Google Drive"
+    ]
+  },
+  "coaching-centers": {
+    "slug": "coaching-centers",
+    "title": "QR Solutions for Coaching Centers",
+    "primary_keyword": "QR Code for Coaching Center",
+    "industries": [
+      "coaching centers",
+      "tuition classes",
+      "training institutes"
+    ],
+    "tools": [
+      "pdf_qr",
+      "whatsapp_qr",
+      "upi_qr",
+      "google_review_qr"
+    ],
+    "pain_points": [
+      "students losing notes",
+      "manual fee collection",
+      "low local reviews"
+    ],
+    "benefits": [
+      "share study PDFs",
+      "accept UPI fees",
+      "collect parent reviews"
+    ],
+    "apps": [
+      "WhatsApp",
+      "Google Pay",
+      "PhonePe",
+      "Paytm",
+      "Google Drive"
+    ]
+  },
+  "real-estate-agents": {
+    "slug": "real-estate-agents",
+    "title": "QR Solutions for Real Estate Agents",
+    "primary_keyword": "QR Code for Real Estate Agent",
+    "industries": [
+      "real estate agents",
+      "brokers",
+      "property consultants"
+    ],
+    "tools": [
+      "vcard_qr",
+      "whatsapp_qr",
+      "pdf_qr",
+      "google_review_qr"
+    ],
+    "pain_points": [
+      "lost visiting cards",
+      "property brochure sharing friction",
+      "missed WhatsApp enquiries"
+    ],
+    "benefits": [
+      "save contact instantly",
+      "share property PDFs",
+      "open WhatsApp chat"
+    ],
+    "apps": [
+      "WhatsApp",
+      "Google Maps",
+      "Google Drive"
+    ]
+  },
+  "freelancers": {
+    "slug": "freelancers",
+    "title": "QR Solutions for Freelancers",
+    "primary_keyword": "QR Code for Freelancers",
+    "industries": [
+      "freelancers",
+      "consultants",
+      "creators"
+    ],
+    "tools": [
+      "vcard_qr",
+      "upi_qr",
+      "whatsapp_qr",
+      "url_qr"
+    ],
+    "pain_points": [
+      "manual contact sharing",
+      "payment follow-ups",
+      "portfolio link sharing"
+    ],
+    "benefits": [
+      "share portfolio links",
+      "save contact instantly",
+      "accept UPI payments"
+    ],
+    "apps": [
+      "WhatsApp",
+      "Google Pay",
+      "PhonePe",
+      "Instagram"
+    ]
+  },
+  "ca-offices": {
+    "slug": "ca-offices",
+    "title": "QR Solutions for CA Offices",
+    "primary_keyword": "QR Code for CA Office",
+    "industries": [
+      "CA offices",
+      "tax consultants",
+      "accountants"
+    ],
+    "tools": [
+      "vcard_qr",
+      "whatsapp_qr",
+      "pdf_qr",
+      "google_review_qr"
+    ],
+    "pain_points": [
+      "clients losing contact details",
+      "document sharing confusion",
+      "low local trust signals"
+    ],
+    "benefits": [
+      "share contact details",
+      "open WhatsApp instantly",
+      "collect client reviews"
+    ],
+    "apps": [
+      "WhatsApp",
+      "Google Drive",
+      "Google Maps"
+    ]
+  },
+  "lawyers": {
+    "slug": "lawyers",
+    "title": "QR Solutions for Lawyers",
+    "primary_keyword": "QR Code for Lawyers",
+    "industries": [
+      "lawyers",
+      "legal consultants",
+      "law firms"
+    ],
+    "tools": [
+      "vcard_qr",
+      "whatsapp_qr",
+      "pdf_qr",
+      "google_review_qr"
+    ],
+    "pain_points": [
+      "clients misplacing contact numbers",
+      "manual brochure sharing",
+      "low local discovery"
+    ],
+    "benefits": [
+      "save contact instantly",
+      "open WhatsApp enquiries",
+      "share service brochures"
+    ],
+    "apps": [
+      "WhatsApp",
+      "Google Maps",
+      "Google Drive"
+    ]
+  },
+  "travel-agencies": {
+    "slug": "travel-agencies",
+    "title": "QR Solutions for Travel Agencies",
+    "primary_keyword": "QR Code for Travel Agency",
+    "industries": [
+      "travel agencies",
+      "tour operators",
+      "ticket agents"
+    ],
+    "tools": [
+      "whatsapp_qr",
+      "pdf_qr",
+      "upi_qr",
+      "google_review_qr"
+    ],
+    "pain_points": [
+      "manual itinerary sharing",
+      "slow enquiries",
+      "payment follow-up delays"
+    ],
+    "benefits": [
+      "share travel catalogues",
+      "collect enquiries",
+      "accept UPI payments"
+    ],
+    "apps": [
+      "WhatsApp",
+      "Google Pay",
+      "PhonePe",
+      "Google Maps"
+    ]
+  },
+  "car-showrooms": {
+    "slug": "car-showrooms",
+    "title": "QR Solutions for Car Showrooms",
+    "primary_keyword": "QR Code for Car Showroom",
+    "industries": [
+      "car showrooms",
+      "bike showrooms",
+      "vehicle dealers"
+    ],
+    "tools": [
+      "pdf_qr",
+      "whatsapp_qr",
+      "google_review_qr",
+      "vcard_qr"
+    ],
+    "pain_points": [
+      "brochure printing costs",
+      "missed lead follow-ups",
+      "low Google reviews"
+    ],
+    "benefits": [
+      "share brochures by QR",
+      "open WhatsApp enquiries",
+      "collect customer reviews"
+    ],
+    "apps": [
+      "WhatsApp",
+      "Google Maps",
+      "Google Drive"
+    ]
+  },
+  "pet-clinics": {
+    "slug": "pet-clinics",
+    "title": "QR Solutions for Pet Clinics",
+    "primary_keyword": "QR Code for Pet Clinic",
+    "industries": [
+      "pet clinics",
+      "veterinary clinics",
+      "pet stores"
+    ],
+    "tools": [
+      "google_review_qr",
+      "whatsapp_qr",
+      "vcard_qr",
+      "upi_qr"
+    ],
+    "pain_points": [
+      "clients losing appointment contacts",
+      "low Google reviews",
+      "manual payment friction"
+    ],
+    "benefits": [
+      "collect Google reviews",
+      "open WhatsApp bookings",
+      "accept UPI payments"
+    ],
+    "apps": [
+      "WhatsApp",
+      "Google Maps",
+      "Google Pay",
+      "PhonePe"
+    ]
+  }
+}

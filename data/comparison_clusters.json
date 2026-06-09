@@ -1,0 +1,102 @@
+{
+  "static-vs-dynamic-qr-code": {
+    "slug": "static-vs-dynamic-qr-code",
+    "title": "Static vs Dynamic QR Code",
+    "primary_keyword": "Static vs Dynamic QR Code",
+    "secondary_keywords": [
+      "static QR code",
+      "dynamic QR code",
+      "free static QR generator"
+    ],
+    "option_a": "Static QR Code",
+    "option_b": "Dynamic QR Code",
+    "best_for_a": [
+      "UPI payment QR",
+      "WiFi QR",
+      "Text QR",
+      "vCard QR when details do not change"
+    ],
+    "best_for_b": [
+      "campaign tracking",
+      "editable links",
+      "analytics dashboards"
+    ],
+    "recommendation": "Use free static QR codes for simple business needs. Choose dynamic QR only when you need editing, tracking or analytics."
+  },
+  "whatsapp-qr-vs-whatsapp-link": {
+    "slug": "whatsapp-qr-vs-whatsapp-link",
+    "title": "WhatsApp QR vs WhatsApp Link",
+    "primary_keyword": "WhatsApp QR vs WhatsApp Link",
+    "secondary_keywords": [
+      "WhatsApp QR Code",
+      "WhatsApp link generator",
+      "wa.me link"
+    ],
+    "option_a": "WhatsApp QR Code",
+    "option_b": "WhatsApp Link",
+    "best_for_a": [
+      "business cards",
+      "shop counters",
+      "posters",
+      "packaging",
+      "restaurant tables"
+    ],
+    "best_for_b": [
+      "Instagram bio",
+      "website buttons",
+      "SMS messages",
+      "email campaigns"
+    ],
+    "recommendation": "Use WhatsApp QR for printed material and WhatsApp link for online sharing. BharathQR supports both workflows."
+  },
+  "qr-code-vs-barcode": {
+    "slug": "qr-code-vs-barcode",
+    "title": "QR Code vs Barcode",
+    "primary_keyword": "QR Code vs Barcode",
+    "secondary_keywords": [
+      "QR code scanner",
+      "barcode scanner",
+      "2D QR code"
+    ],
+    "option_a": "QR Code",
+    "option_b": "Barcode",
+    "best_for_a": [
+      "payments",
+      "menus",
+      "WiFi",
+      "reviews",
+      "web links",
+      "WhatsApp chat"
+    ],
+    "best_for_b": [
+      "retail product SKUs",
+      "inventory labels",
+      "billing systems"
+    ],
+    "recommendation": "Use QR codes for customer-facing actions and barcodes for inventory or product identification."
+  },
+  "upi-qr-vs-cash": {
+    "slug": "upi-qr-vs-cash",
+    "title": "UPI QR vs Cash Payments",
+    "primary_keyword": "UPI QR vs Cash",
+    "secondary_keywords": [
+      "UPI QR Code for shop",
+      "cashless payments",
+      "QR code for business"
+    ],
+    "option_a": "UPI QR Payment",
+    "option_b": "Cash Payment",
+    "best_for_a": [
+      "shops with Google Pay customers",
+      "restaurants",
+      "salons",
+      "clinics",
+      "delivery orders"
+    ],
+    "best_for_b": [
+      "customers without smartphones",
+      "backup during network issues"
+    ],
+    "recommendation": "Use UPI QR as the default for fast cashless payments, while keeping cash as backup for customers who need it."
+  }
+}

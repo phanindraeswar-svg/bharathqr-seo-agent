@@ -1,0 +1,41 @@
+{
+  "daily": [
+    "Check Vercel latest deployment",
+    "Check GitHub Actions",
+    "Review founder feedback inbox",
+    "Confirm SEO agent output"
+  ],
+  "weekly": [
+    "Run post-launch report",
+    "Review GSC top queries",
+    "Improve 1-3 low CTR pages",
+    "Update content refresh queue"
+  ],
+  "monthly": [
+    "Review 30-day plan",
+    "Refresh weak posts",
+    "Expand clusters only from data",
+    "Review monetization readiness"
+  ],
+  "automation_boundaries": {
+    "fully_autonomous": [
+      "draft blogs",
+      "score content",
+      "log opportunities",
+      "run audits"
+    ],
+    "founder_review": [
+      "brand positioning",
+      "large homepage redesign",
+      "monetization changes",
+      "legal/payment claims"
+    ],
+    "blocked_current_phase": [
+      "login",
+      "database",
+      "payments",
+      "dynamic QR backend",
+      "subscriptions"
+    ]
+  }
+}

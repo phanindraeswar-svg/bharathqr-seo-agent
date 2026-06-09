@@ -2,8 +2,8 @@ name: Scheduled Autonomous SEO Agent Pipeline
 
 on:
   schedule:
-    # Executes precisely at 2:00 AM Indian Standard Time (IST) every single night (20:30 UTC)
-    - cron: '30 20 * * *'
+    # Weekly run: Sunday 2:00 AM IST (Saturday 20:30 UTC). Use workflow_dispatch for manual runs.
+    - cron: '30 20 * * 6'
   workflow_dispatch:
 
 jobs:
@@ -29,9 +29,10 @@ jobs:
         run: |
           pip install requests beautifulsoup4 groq
 
-      - name: Process Founder Feedback
+      - name: Process Founder Feedback and Opportunities
         run: |
           python scripts/founder_feedback_agent.py
+          python scripts/opportunity_engine.py
 
       - name: Fire Core Growth Execution Cycle
         run: |
@@ -40,6 +41,10 @@ jobs:
       - name: Validate Generated Content
         run: |
           python scripts/validate_content.py
+          python scripts/route_audit.py
+          python scripts/internal_link_audit.py
+          python scripts/content_quality_score.py
+          python scripts/final_launch_audit.py
 
       - name: Commit and Secure Generated SEO Material
         run: |
@@ -49,7 +54,7 @@ jobs:
           if git diff-index --quiet HEAD --; then
             echo "Zero adjustments reported during this run window. Skipping commit procedures."
           else
-            git commit -m "🤖 Autonomous SEO Loop: Synced Content Nodes [Skip CI]"
+            git commit -m "🤖 Autonomous SEO Loop: Synced Content Nodes [skip ci]"
             git pull --rebase origin main || true
             git push origin main || echo "Push skipped due to remote conflict"
           fi
