@@ -15,6 +15,14 @@
       "type": "opportunity",
       "task": "[IDEA]\nAdd Event QR Generator for weddings and business events.",
       "status": "todo"
+    },
+    {
+      "id": "ff-2026-06-09-6",
+      "date": "2026-06-09",
+      "source": "feedback/inbox.md",
+      "type": "opportunity",
+      "task": "Add new plain-English feedback below this line.",
+      "status": "todo"
     }
   ]
 }
