@@ -26,3 +26,4 @@ Enable GitHub Actions → Agent runs daily and auto-publishes.
 ## ✅ Final Step
 - Go to your repo → **Actions tab** → you'll see "BharathQR SEO Agent".
 - It will run daily at 2 AM IST, or you can trigger manually.
+
