@@ -19,4 +19,6 @@
 | 2026-06-07-how-petty-shop-owners-in-nagpur-can-boost-sales-by.md | 93 | publish | 100 | 100 | 78 | 100 | 70 | None |
 | 2026-06-08-how-dhaba-owners-in-amritsar-can-increase-sales-by.md | 93 | publish | 100 | 100 | 78 | 100 | 70 | None |
 | 2026-06-08-how-petty-shop-owners-in-visakhapatnam-can-increas.md | 81 | review | 85 | 100 | 77 | 100 | 0 | None |
+| 2026-06-09-upi-qr-code-generator-for-restaurants-accept-payme.md | 100 | publish | 100 | 100 | 100 | 100 | 100 | None |
+| 2026-06-10-google-review-qr-code-generator-for-restaurants-co.md | 94 | publish | 100 | 100 | 100 | 100 | 40 | None |
 | zero-fee-upi-guide.md | 97 | publish | 100 | 100 | 100 | 80 | 100 | short_body_under_450_words |

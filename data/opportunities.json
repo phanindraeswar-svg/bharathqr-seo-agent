@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-06-09",
+  "last_updated": "2026-06-10",
   "opportunities": [
     {
       "id": "opp-upi-qr-shop-counter",
@@ -563,6 +563,22 @@
       "tool": "general",
       "industry": "general",
       "opportunity": "[IDEA]\nAdd Event QR Generator for weddings and business events.",
+      "search_intent": 65,
+      "competition": 45,
+      "build_effort": 30,
+      "founder_priority": 85,
+      "confidence": 70,
+      "priority_score": 70,
+      "status": "open",
+      "source": "founder_feedback"
+    },
+    {
+      "id": "founder-opp-2026-06-10-97051",
+      "date": "2026-06-10",
+      "competitor": "Founder feedback",
+      "tool": "general",
+      "industry": "general",
+      "opportunity": "Add new plain-English feedback below this line.",
       "search_intent": 65,
       "competition": 45,
       "build_effort": 30,

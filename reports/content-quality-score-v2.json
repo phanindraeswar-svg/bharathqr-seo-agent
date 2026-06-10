@@ -1,6 +1,6 @@
 {
-  "scored_posts": 18,
-  "publish_ready": 14,
+  "scored_posts": 20,
+  "publish_ready": 16,
   "review_needed": 4,
   "rejected": 0,
   "results": [
@@ -225,6 +225,32 @@
       },
       "final_score": 81,
       "status": "review",
+      "issues": []
+    },
+    {
+      "file": "posts/2026-06-09-upi-qr-code-generator-for-restaurants-accept-payme.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 100,
+        "readability": 100,
+        "trust_signals": 100
+      },
+      "final_score": 100,
+      "status": "publish",
+      "issues": []
+    },
+    {
+      "file": "posts/2026-06-10-google-review-qr-code-generator-for-restaurants-co.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 100,
+        "readability": 100,
+        "trust_signals": 40
+      },
+      "final_score": 94,
+      "status": "publish",
       "issues": []
     },
     {

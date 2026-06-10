@@ -1,2 +1,6 @@
 # Processed Founder Feedback
 
+
+## 2026-06-10
+
+- ✅ opportunity: Add new plain-English feedback below this line.
