@@ -8,7 +8,7 @@ import json, sys
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED_FILES = [
     "package.json", "package-lock.json", "next.config.js", "vercel.json", ".npmrc", ".nvmrc", ".node-version",
-    "pages/index.js", "pages/_app.js", "public/robots.txt", "pages/sitemap.xml.js",
+    "pages/index.js", "pages/_app.js", "public/robots.txt", "public/sitemap.xml",
     "data/tool_clusters.json", "data/industry_clusters.json", "data/use_case_clusters.json",
     "data/material_clusters.json", "data/comparison_clusters.json", "data/template_clusters.json",
     "data/search_intents.json", "data/keyword_ownership_registry.json", "data/indexing_watchlist.json",

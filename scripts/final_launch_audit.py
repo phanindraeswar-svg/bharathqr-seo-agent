@@ -8,7 +8,7 @@ warnings = []
 
 REQUIRED_FILES = [
     '.npmrc', 'package.json', 'next.config.js',
-    'pages/_app.js', 'pages/index.js', 'pages/sitemap.xml.js',
+    'pages/_app.js', 'pages/index.js', 'public/sitemap.xml',
     'public/robots.txt', 'public/favicon.svg', 'public/og-image.png',
     'components/Navbar.js', 'components/Footer.js', 'components/RelatedLinks.js',
     'feedback/inbox.md', 'feedback/completed.md', 'feedback/preferences.json',
