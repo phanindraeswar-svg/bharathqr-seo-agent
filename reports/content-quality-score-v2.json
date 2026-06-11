@@ -1,6 +1,6 @@
 {
-  "scored_posts": 22,
-  "publish_ready": 18,
+  "scored_posts": 23,
+  "publish_ready": 19,
   "review_needed": 4,
   "rejected": 0,
   "results": [
@@ -265,6 +265,21 @@
       "final_score": 95,
       "status": "publish",
       "issues": []
+    },
+    {
+      "file": "posts/2026-06-11-text-qr-code-generator-for-schools-share-contact-i.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 100,
+        "readability": 85,
+        "trust_signals": 100
+      },
+      "final_score": 98,
+      "status": "publish",
+      "issues": [
+        "too_many_long_sentences"
+      ]
     },
     {
       "file": "posts/2026-06-11-url-qr-code-generator-for-schools-share-digital-no.md",
