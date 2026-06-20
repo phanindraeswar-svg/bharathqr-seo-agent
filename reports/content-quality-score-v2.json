@@ -1,6 +1,6 @@
 {
-  "scored_posts": 24,
-  "publish_ready": 20,
+  "scored_posts": 25,
+  "publish_ready": 21,
   "review_needed": 4,
   "rejected": 0,
   "results": [
@@ -304,6 +304,19 @@
         "trust_signals": 40
       },
       "final_score": 92,
+      "status": "publish",
+      "issues": []
+    },
+    {
+      "file": "posts/2026-06-20-wifi-qr-code-generator-for-hotels-connect-guests-f.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 75,
+        "readability": 100,
+        "trust_signals": 100
+      },
+      "final_score": 95,
       "status": "publish",
       "issues": []
     },
