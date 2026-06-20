@@ -159,7 +159,7 @@ function drawGoogleWord(ctx, x, y, size, align = 'center') {
     ['G', '#4285F4'], ['o', '#EA4335'], ['o', '#FBBC05'], ['g', '#4285F4'], ['l', '#34A853'], ['e', '#EA4335']
   ];
   ctx.save();
-  ctx.font = `900 ${size}px Arial, sans-serif`;
+  ctx.font = `700 ${size}px Arial, sans-serif`;
   ctx.textBaseline = 'middle';
   const widths = letters.map(([letter]) => ctx.measureText(letter).width);
   const total = widths.reduce((a, b) => a + b, 0) - size * 0.05;
@@ -176,7 +176,7 @@ function drawStars(ctx, x, y, size, show = true) {
   if (!show) return;
   ctx.save();
   ctx.fillStyle = '#f7b500';
-  ctx.font = `900 ${size}px Arial, sans-serif`;
+  ctx.font = `700 ${size}px Arial, sans-serif`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillText('★★★★★', x, y);
@@ -225,6 +225,57 @@ function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight, maxLines, option
   ctx.textBaseline = 'top';
   visible.forEach((line, i) => ctx.fillText(line, x, y + i * lineHeight));
   ctx.restore();
+}
+
+
+function drawSmartText(ctx, text, x, y, maxWidth, startSize, minSize, options = {}) {
+  const words = String(text || '').replace(/\s+/g, ' ').trim().split(' ').filter(Boolean);
+  const maxLines = options.maxLines || 2;
+  const weight = options.weight || 800;
+  const color = options.color || '#111827';
+  const align = options.align || 'center';
+  const lineHeightRatio = options.lineHeightRatio || 1.12;
+  const cleaned = words.length ? words.join(' ') : String(text || '').trim();
+  if (!cleaned) return { height: 0, size: minSize };
+
+  for (let size = startSize; size >= minSize; size -= Math.max(1, startSize * 0.045)) {
+    ctx.font = `${weight} ${Math.round(size)}px Arial, sans-serif`;
+    const lines = [];
+    let current = '';
+    if (words.length <= 1 && ctx.measureText(cleaned).width > maxWidth) {
+      lines.push(cleaned);
+    } else {
+      words.forEach((word) => {
+        const test = current ? `${current} ${word}` : word;
+        if (ctx.measureText(test).width <= maxWidth || !current) current = test;
+        else { lines.push(current); current = word; }
+      });
+      if (current) lines.push(current);
+    }
+    if (lines.length <= maxLines && lines.every((line) => ctx.measureText(line).width <= maxWidth)) {
+      const lineHeight = size * lineHeightRatio;
+      ctx.save();
+      ctx.font = `${weight} ${Math.round(size)}px Arial, sans-serif`;
+      ctx.fillStyle = color;
+      ctx.textAlign = align;
+      ctx.textBaseline = 'middle';
+      const firstY = y - ((lines.length - 1) * lineHeight) / 2;
+      lines.forEach((line, index) => ctx.fillText(line, x, firstY + index * lineHeight));
+      ctx.restore();
+      return { height: lines.length * lineHeight, size };
+    }
+  }
+
+  ctx.save();
+  ctx.font = `${weight} ${Math.round(minSize)}px Arial, sans-serif`;
+  ctx.fillStyle = color;
+  ctx.textAlign = align;
+  ctx.textBaseline = 'middle';
+  let value = cleaned;
+  while (value.length > 4 && ctx.measureText(`${value}…`).width > maxWidth) value = value.slice(0, -1);
+  ctx.fillText(value.length < cleaned.length ? `${value}…` : value, x, y);
+  ctx.restore();
+  return { height: minSize * lineHeightRatio, size: minSize };
 }
 
 function canvasDimensions(size) {
@@ -281,7 +332,7 @@ function drawQrFrame(ctx, x, y, size, qrImg, logoImg, accent, styleId, showLogo)
     ctx.stroke();
   });
   if (showLogo) {
-    const logoSize = size * 0.19;
+    const logoSize = size * 0.2;
     ctx.beginPath();
     ctx.arc(x + size / 2, y + size / 2, logoSize / 2, 0, Math.PI * 2);
     ctx.fillStyle = '#fff';
@@ -305,100 +356,134 @@ function drawQrFrame(ctx, x, y, size, qrImg, logoImg, accent, styleId, showLogo)
 
 function drawProduct(ctx, canvas, state, qrImg, logoImg) {
   const { width: w, height: h } = canvas;
-  const pad = Math.round(w * 0.075);
   const center = w / 2;
   const selectedTemplate = TEMPLATES.find((t) => t.id === state.templateId) || TEMPLATES[0];
   const isDark = selectedTemplate.id === 'premium' || selectedTemplate.id === 'feedback';
   const isRound = selectedTemplate.id === 'round' || state.printSize.id === 'round';
-  const bg = isDark ? '#050505' : '#ffffff';
+  const ink = isDark ? '#ffffff' : '#111827';
+  const muted = isDark ? '#dbe2ea' : '#374151';
+  const bg = selectedTemplate.id === 'feedback'
+    ? '#070707'
+    : selectedTemplate.id === 'premium'
+      ? '#050505'
+      : selectedTemplate.id === 'thankYou'
+        ? '#fffdf9'
+        : '#ffffff';
 
   ctx.clearRect(0, 0, w, h);
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, w, h);
+
   ctx.save();
   if (isRound) {
     ctx.beginPath();
-    ctx.arc(w / 2, h / 2, Math.min(w, h) * 0.46, 0, Math.PI * 2);
+    ctx.arc(w / 2, h / 2, Math.min(w, h) * 0.455, 0, Math.PI * 2);
+    ctx.clip();
+  } else if (isDark) {
+    const outerPad = w * 0.045;
+    roundRect(ctx, outerPad, outerPad, w - outerPad * 2, h - outerPad * 2, w * 0.045);
     ctx.clip();
   }
+
   ctx.fillStyle = bg;
   ctx.fillRect(0, 0, w, h);
 
+  if (selectedTemplate.id === 'feedback') {
+    const g = ctx.createLinearGradient(0, 0, w, h);
+    g.addColorStop(0, '#090909');
+    g.addColorStop(0.48, '#141414');
+    g.addColorStop(1, '#2a1608');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+  }
+
   if (isRound) {
-    const r = Math.min(w, h) * 0.4;
+    const r = Math.min(w, h) * 0.405;
     ctx.lineWidth = w * 0.018;
+    ctx.lineCap = 'round';
     ctx.beginPath(); ctx.strokeStyle = '#34A853'; ctx.arc(center, h / 2, r, Math.PI * 0.76, Math.PI * 1.42); ctx.stroke();
     ctx.beginPath(); ctx.strokeStyle = '#EA4335'; ctx.arc(center, h / 2, r, Math.PI * 1.42, Math.PI * 1.86); ctx.stroke();
-    ctx.beginPath(); ctx.strokeStyle = '#FBBC05'; ctx.arc(center, h / 2, r, Math.PI * 1.86, Math.PI * 0.26); ctx.stroke();
-    ctx.beginPath(); ctx.strokeStyle = '#4285F4'; ctx.arc(center, h / 2, r, Math.PI * 0.26, Math.PI * 0.76); ctx.stroke();
+    ctx.beginPath(); ctx.strokeStyle = '#FBBC05'; ctx.arc(center, h / 2, r, Math.PI * 1.86, Math.PI * 2.25); ctx.stroke();
+    ctx.beginPath(); ctx.strokeStyle = '#4285F4'; ctx.arc(center, h / 2, r, Math.PI * 0.25, Math.PI * 0.76); ctx.stroke();
   }
 
-  if (selectedTemplate.id === 'thankYou') drawLogoBadge(ctx, logoImg, center, pad + w * 0.09, w * 0.14, state.showLogo);
+  const compositionHeight = Math.min(h * 0.86, w * (isRound ? 0.9 : 1.25));
+  const top = (h - compositionHeight) / 2;
+  const logoSize = w * (isRound ? 0.12 : 0.14);
+  const headlineText = clampText(state.headline, 24) || 'Review us on';
+  const ctaText = clampText(state.ctaText, 30) || 'Scan QR to leave a review';
+  const businessText = clampText(state.businessName, 28);
 
-  const ink = isDark ? '#ffffff' : '#111827';
-  const subInk = isDark ? '#ffffff' : '#111827';
-  ctx.textAlign = 'center';
-  ctx.fillStyle = ink;
-  ctx.font = `900 ${Math.round(w * 0.058)}px Arial, sans-serif`;
-  ctx.textBaseline = 'middle';
-  let topY = pad + w * 0.12;
+  let y = top + compositionHeight * 0.08;
+
+  if (state.showLogo && !isDark) {
+    drawLogoBadge(ctx, logoImg, center, y, logoSize, true);
+    y += logoSize * 0.85;
+  }
+
   if (selectedTemplate.id === 'premium') {
-    ctx.font = `900 ${Math.round(w * 0.055)}px Arial, sans-serif`;
-    drawWrappedText(ctx, 'SHARE YOUR EXPERIENCE ON', center, pad + w * 0.03, w * 0.68, w * 0.062, 2, { color: '#fff' });
-    topY = pad + w * 0.22;
+    drawSmartText(ctx, headlineText || 'Share your experience on', center, y, w * 0.72, w * 0.045, w * 0.026, { color: '#ffffff', weight: 800, maxLines: 2 });
+    y += w * 0.1;
   } else if (selectedTemplate.id === 'feedback') {
-    ctx.font = `900 ${Math.round(w * 0.045)}px Arial, sans-serif`;
-    drawWrappedText(ctx, 'Your feedback matters!', center, pad + w * 0.03, w * 0.62, w * 0.05, 2, { color: '#ffffff' });
-    topY = pad + w * 0.16;
+    drawSmartText(ctx, headlineText || 'Your feedback matters', center, y, w * 0.7, w * 0.044, w * 0.026, { color: '#ffffff', weight: 800, maxLines: 2 });
+    y += w * 0.09;
   } else {
-    drawFittedText(ctx, state.headline, center, topY, w * 0.72, w * 0.058, w * 0.036, { color: ink });
-    topY += w * 0.09;
+    drawSmartText(ctx, headlineText, center, y, w * (isRound ? 0.56 : 0.7), w * 0.048, w * 0.024, { color: ink, weight: 800, maxLines: 2 });
+    y += w * 0.075;
   }
 
-  drawGoogleWord(ctx, center, topY, w * (selectedTemplate.id === 'feedback' ? 0.13 : 0.16));
-  drawStars(ctx, center, topY + w * 0.12, w * 0.065, state.showStars);
+  drawGoogleWord(ctx, center, y, w * (isRound ? 0.082 : isDark ? 0.096 : 0.108));
+  y += w * (isRound ? 0.074 : 0.092);
+  drawStars(ctx, center, y, w * (isRound ? 0.045 : 0.055), state.showStars);
+  y += w * (isRound ? 0.085 : 0.095);
 
-  const qrSize = Math.min(w * (isRound ? 0.39 : 0.48), h * 0.34);
-  const qrY = selectedTemplate.id === 'premium' ? topY + w * 0.19 : topY + w * 0.19;
-  drawQrFrame(ctx, center - qrSize / 2, qrY, qrSize, qrImg, logoImg, state.accent, state.qrStyle, state.showLogo);
+  const qrSize = Math.min(w * (isRound ? 0.36 : 0.44), compositionHeight * 0.36);
+  drawQrFrame(ctx, center - qrSize / 2, y, qrSize, qrImg, logoImg, state.accent, state.qrStyle, state.showLogo);
+  y += qrSize + w * 0.08;
 
-  const ctaY = qrY + qrSize + w * 0.08;
-  if (selectedTemplate.id === 'premium') {
-    ctx.fillStyle = '#ffffff';
-    ctx.font = `900 ${Math.round(w * 0.042)}px Arial, sans-serif`;
-    ctx.fillText('TO LEAVE A REVIEW', center, ctaY);
-  } else if (selectedTemplate.id === 'feedback') {
-    ctx.fillStyle = '#ffffff';
-    ctx.font = `900 ${Math.round(w * 0.032)}px Arial, sans-serif`;
-    ctx.fillText('THANK YOU!', center, ctaY);
+  if (selectedTemplate.id === 'premium' || selectedTemplate.id === 'feedback') {
+    drawSmartText(ctx, ctaText, center, y, w * 0.68, w * 0.035, w * 0.022, { color: '#ffffff', weight: 800, maxLines: 2 });
   } else if (isRound) {
-    ctx.fillStyle = subInk;
-    ctx.font = `900 ${Math.round(w * 0.03)}px Arial, sans-serif`;
-    ctx.fillText('Thank You!', center, ctaY);
+    drawSmartText(ctx, ctaText || 'Thank you!', center, y, w * 0.52, w * 0.024, w * 0.016, { color: muted, weight: 800, maxLines: 2 });
   } else {
-    const btnW = w * 0.58;
-    const btnH = w * 0.085;
-    roundRect(ctx, center - btnW / 2, ctaY - btnH / 2, btnW, btnH, btnH * 0.18);
+    const btnW = w * 0.56;
+    const btnH = w * 0.075;
+    roundRect(ctx, center - btnW / 2, y - btnH / 2, btnW, btnH, btnH * 0.18);
     ctx.fillStyle = '#1a73e8';
     ctx.fill();
-    ctx.fillStyle = '#ffffff';
-    ctx.font = `900 ${Math.round(w * 0.032)}px Arial, sans-serif`;
-    drawFittedText(ctx, state.ctaText, center, ctaY, btnW * 0.86, w * 0.032, w * 0.022, { color: '#ffffff' });
+    drawSmartText(ctx, ctaText, center, y, btnW * 0.84, w * 0.027, w * 0.018, { color: '#ffffff', weight: 800, maxLines: 1 });
+  }
+  y += w * 0.075;
+
+  if (businessText && businessText !== 'Your Business Name') {
+    drawSmartText(ctx, businessText, center, Math.min(y, top + compositionHeight * 0.92), w * 0.72, w * 0.027, w * 0.017, { color: isDark ? '#ffffff' : '#374151', weight: 700, maxLines: 2 });
   }
 
-  if (state.businessName) {
-    ctx.font = `700 ${Math.round(w * 0.025)}px Arial, sans-serif`;
-    drawWrappedText(ctx, state.businessName, center, h - pad * 0.62, w * 0.75, w * 0.035, 1, { color: isDark ? '#ffffff' : '#374151' });
-  }
   ctx.restore();
 
   if (isRound) {
     ctx.save();
-    ctx.lineWidth = w * 0.014;
+    ctx.lineWidth = w * 0.012;
     ctx.strokeStyle = '#ffffff';
     ctx.beginPath();
-    ctx.arc(w / 2, h / 2, Math.min(w, h) * 0.462, 0, Math.PI * 2);
+    ctx.arc(w / 2, h / 2, Math.min(w, h) * 0.456, 0, Math.PI * 2);
     ctx.stroke();
     ctx.restore();
   }
+}
+
+function FinishedProductMock({ template, qrDataUrl }) {
+  return (
+    <article className={styles.productCard}>
+      <div className={`${styles.productScene} ${styles[`scene_${template.id}`] || ''}`}>
+        <div className={`${styles.productAsset} ${styles[`asset_${template.id}`] || ''}`}>
+          {qrDataUrl ? <img src={qrDataUrl} alt="" /> : <span />}
+        </div>
+      </div>
+      <b>{template.name}</b>
+      <span>{template.label}</span>
+    </article>
+  );
 }
 
 function TemplateThumb({ template, active, qrDataUrl, onClick }) {
@@ -441,11 +526,12 @@ export default function GoogleReviewQRGenerator() {
   const printSize = useMemo(() => PRINT_SIZES.find((s) => s.id === printSizeId) || PRINT_SIZES[0], [printSizeId]);
   const selectedTemplate = useMemo(() => TEMPLATES.find((t) => t.id === templateId) || TEMPLATES[0], [templateId]);
   const actionUrl = useMemo(() => safeUrl(reviewUrl), [reviewUrl]);
-  const linkLooksValid = actionUrl !== DEFAULT_REVIEW_LINK && isLikelyGoogleReviewUrl(actionUrl);
+  const linkLooksValid = Boolean(parseHttpUrl(actionUrl));
   const canShareReviewLink = Boolean(qrDataUrl && linkLooksValid);
+  const shareButtonLabel = linkLooksValid ? '💬 Share Link via WhatsApp' : '💬 Paste review link to share';
   const linkStatusText = linkLooksValid
     ? 'Ready to generate review QR'
-    : 'Paste your real Google review link before sharing or printing';
+    : 'Paste a valid Google review link starting with https://';
 
   useEffect(() => {
     let active = true;
@@ -581,8 +667,8 @@ export default function GoogleReviewQRGenerator() {
   };
 
   const shareReviewLink = () => {
-    if (!linkLooksValid || actionUrl === DEFAULT_REVIEW_LINK) {
-      showToast('Paste your real Google review link first');
+    if (!linkLooksValid) {
+      showToast('Paste a valid review link first');
       return;
     }
     const text = encodeURIComponent(`Please review us on Google: ${actionUrl}`);
@@ -735,7 +821,7 @@ export default function GoogleReviewQRGenerator() {
             <label>Upload logo (optional)</label>
             <label className={styles.uploadBox}>
               <input type="file" accept="image/png,image/jpeg,image/webp" onChange={onLogoUpload} />
-              <span>▧</span><b>Upload logo<small>PNG/JPG/WebP · appears in QR + template</small></b><i>›</i>
+              <span className={styles.uploadIcon}>{logoDataUrl ? <img src={logoDataUrl} alt="Uploaded logo preview" /> : '▧'}</span><b>{logoDataUrl ? 'Change Logo' : 'Upload logo'}<small>PNG/JPG/WebP · appears in QR + template</small></b><i>›</i>
             </label>
             {logoDataUrl && <button type="button" className={styles.clearLogoBtn} onClick={clearLogo}>Remove logo</button>}
           </div>
@@ -759,7 +845,7 @@ export default function GoogleReviewQRGenerator() {
           </div>
           <div className={styles.qrActions}>
             <button type="button" onClick={downloadQrPng} disabled={!qrPreviewDataUrl}>⇩ Download QR PNG</button>
-            <button type="button" onClick={shareReviewLink} disabled={!canShareReviewLink}>💬 Share Link via WhatsApp</button>
+            <button type="button" onClick={shareReviewLink} className={!canShareReviewLink ? styles.needsLink : ''}>{shareButtonLabel}</button>
           </div>
         </section>
 
@@ -776,9 +862,9 @@ export default function GoogleReviewQRGenerator() {
             </div>
             {activeEditorTab === 'text' ? (
               <div className={styles.editorGrid}>
-                <label>Business / shop name<input maxLength={36} value={businessName} onChange={(e) => setBusinessName(e.target.value)} /></label>
-                <label>Headline<input maxLength={28} value={headline} onChange={(e) => setHeadline(e.target.value)} /></label>
-                <label>CTA text<input maxLength={32} value={ctaText} onChange={(e) => setCtaText(e.target.value)} /></label>
+                <label>Business / shop name<input maxLength={28} value={businessName} onChange={(e) => setBusinessName(e.target.value)} /></label>
+                <label>Headline<input maxLength={24} value={headline} onChange={(e) => setHeadline(e.target.value)} /></label>
+                <label>CTA text<input maxLength={30} value={ctaText} onChange={(e) => setCtaText(e.target.value)} /></label>
                 <label>Show stars<select value={showStars ? 'show' : 'hide'} onChange={(e) => setShowStars(e.target.value === 'show')}><option value="show">Show stars</option><option value="hide">Hide stars</option></select></label>
                 <label>Show logo area<select value={showLogo ? 'show' : 'hide'} onChange={(e) => setShowLogo(e.target.value === 'show')}><option value="show">Show logo</option><option value="hide">Hide logo</option></select></label>
               </div>
@@ -795,15 +881,24 @@ export default function GoogleReviewQRGenerator() {
             <div className={styles.productHead}><h2>LIVE PRODUCT PREVIEW</h2><span>LIVE</span></div>
             <div className={styles.canvasShell}><canvas id="templateCanvas" ref={canvasRef} className={styles.templateCanvas} role="img" aria-label="Live Google Review QR product preview" /></div>
             <div className={styles.productMeta}><span>{printSize.name} {printSize.label}</span><i /> <span>{printSize.mm}</span><br /><b>Template: {selectedTemplate.label}</b></div>
-            <div className={styles.finalShare}><button type="button" onClick={shareReviewLink} disabled={!canShareReviewLink}>💬 Share Link via WhatsApp</button></div>
+            <div className={styles.finalShare}><button type="button" onClick={shareReviewLink} className={!canShareReviewLink ? styles.needsLink : ''}>{shareButtonLabel}</button></div>
             <div className={styles.finalActions}><button type="button" onClick={downloadFinalPng} disabled={!qrDataUrl || !isCanvasReady}>⇩ Download PNG</button><button type="button" onClick={downloadFinalPdf} disabled={!qrDataUrl || !isCanvasReady}>⇩ Download PDF</button></div>
           </aside>
         </section>
 
+        <section className={styles.featurePanel} aria-label="Google Review QR generator benefits">
+          <article><span>📱</span><b>Mobile Friendly</b><p>Clean stacked layout that stays readable on small screens.</p></article>
+          <article><span>🖼️</span><b>Your Logo, Clear & Visible</b><p>Larger logo preview with safe contain-fit placement.</p></article>
+          <article><span>▦</span><b>Bigger QR Preview</b><p>Preview the QR clearly before downloading or printing.</p></article>
+          <article><span>T</span><b>Simple & Clean UI</b><p>Less clutter, better spacing and stronger visual hierarchy.</p></article>
+          <article><span>⇩</span><b>Print-Ready Downloads</b><p>Export high-quality PNG and PDF files from the live canvas.</p></article>
+          <article><span>💬</span><b>Share via WhatsApp</b><p>Share your Google review link instantly with customers.</p></article>
+        </section>
+
         <section id="finished-products" className={styles.products}>
-          <h2>Finished Products You Can Print</h2>
+          <div className={styles.productsHead}><h2>Finished Products You Can Print</h2><a href="#template-studio">View All Templates</a></div>
           <div>
-            {TEMPLATES.map((template) => <article key={template.id}><div className={`${styles.productMock} ${styles[`mock_${template.id}`] || ''}`}>{qrPreviewDataUrl && <img src={qrPreviewDataUrl} alt="" />}</div><b>{template.name}</b><span>{template.label}</span></article>)}
+            {TEMPLATES.map((template) => <FinishedProductMock key={template.id} template={template} qrDataUrl={qrPreviewDataUrl} />)}
           </div>
         </section>
 
