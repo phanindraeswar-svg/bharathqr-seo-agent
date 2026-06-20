@@ -1,6 +1,6 @@
 {
-  "scored_posts": 23,
-  "publish_ready": 19,
+  "scored_posts": 24,
+  "publish_ready": 20,
   "review_needed": 4,
   "rejected": 0,
   "results": [
@@ -291,6 +291,19 @@
         "trust_signals": 70
       },
       "final_score": 97,
+      "status": "publish",
+      "issues": []
+    },
+    {
+      "file": "posts/2026-06-20-whatsapp-qr-code-generator-for-restaurants-open-ch.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 90,
+        "readability": 100,
+        "trust_signals": 40
+      },
+      "final_score": 92,
       "status": "publish",
       "issues": []
     },
