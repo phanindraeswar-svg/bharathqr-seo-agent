@@ -24,6 +24,7 @@
 | 2026-06-10-whatsapp-qr-code-generator-for-salons-open-chat-in.md | 95 | publish | 100 | 100 | 90 | 100 | 70 | None |
 | 2026-06-11-text-qr-code-generator-for-schools-share-contact-i.md | 98 | publish | 100 | 100 | 100 | 85 | 100 | too_many_long_sentences |
 | 2026-06-11-url-qr-code-generator-for-schools-share-digital-no.md | 97 | publish | 100 | 100 | 100 | 100 | 70 | None |
+| 2026-06-20-url-qr-code-generator-for-schools-share-digital-no.md | 95 | publish | 100 | 100 | 90 | 100 | 70 | None |
 | 2026-06-20-whatsapp-qr-code-generator-for-restaurants-open-ch.md | 92 | publish | 100 | 100 | 90 | 100 | 40 | None |
 | 2026-06-20-wifi-qr-code-generator-for-hotels-connect-guests-f.md | 95 | publish | 100 | 100 | 75 | 100 | 100 | None |
 | zero-fee-upi-guide.md | 97 | publish | 100 | 100 | 100 | 80 | 100 | short_body_under_450_words |
