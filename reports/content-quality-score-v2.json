@@ -5,19 +5,6 @@
   "rejected": 0,
   "results": [
     {
-      "file": "posts/2026-05-30-how-florists-in-ahmedabad-can-bloom-their-sales-by.md",
-      "scores": {
-        "commercial_intent": 100,
-        "founder_alignment": 100,
-        "keyword_coverage": 88,
-        "readability": 100,
-        "trust_signals": 70
-      },
-      "final_score": 95,
-      "status": "publish",
-      "issues": []
-    },
-    {
       "file": "posts/2026-05-30-how-home-bakeries-in-pune-can-sweeten-their-sales.md",
       "scores": {
         "commercial_intent": 87,
@@ -360,6 +347,19 @@
       "issues": [
         "too_many_long_sentences"
       ]
+    },
+    {
+      "file": "posts/2026-06-23-pdf-qr-code-generator-for-clinics-share-medical-re.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 100,
+        "readability": 100,
+        "trust_signals": 40
+      },
+      "final_score": 94,
+      "status": "publish",
+      "issues": []
     },
     {
       "file": "posts/2026-06-23-phone-qr-code-generator-for-salons-make-contact-ea.md",
