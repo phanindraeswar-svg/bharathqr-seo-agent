@@ -1,7 +1,7 @@
 {
-  "scored_posts": 28,
+  "scored_posts": 29,
   "publish_ready": 24,
-  "review_needed": 4,
+  "review_needed": 5,
   "rejected": 0,
   "results": [
     {
@@ -357,6 +357,21 @@
       },
       "final_score": 95,
       "status": "publish",
+      "issues": [
+        "too_many_long_sentences"
+      ]
+    },
+    {
+      "file": "posts/2026-06-23-sms-qr-code-generator-for-clinics-instantly-connec.md",
+      "scores": {
+        "commercial_intent": 85,
+        "founder_alignment": 100,
+        "keyword_coverage": 54,
+        "readability": 85,
+        "trust_signals": 40
+      },
+      "final_score": 78,
+      "status": "review",
       "issues": [
         "too_many_long_sentences"
       ]
