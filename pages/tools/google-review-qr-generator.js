@@ -2,121 +2,150 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import QRCode from 'qrcode';
 import styles from '../../styles/GoogleReviewQRGenerator.module.css';
 
 const CANONICAL_URL = 'https://www.bharathqr.com/tools/google-review-qr-generator';
 const DEFAULT_REVIEW_LINK = 'https://g.page/r/your-business/review';
-
-const QR_STYLES = [
-  { id: 'clean', label: 'Clean', icon: '▦' },
-  { id: 'google', label: 'Google Colors', icon: 'G' },
-  { id: 'gradient', label: 'Gradient', icon: '▧' },
-  { id: 'badge', label: 'Badge', icon: '★' },
-  { id: 'rounded', label: 'Rounded', icon: '▣' },
-  { id: 'dots', label: 'Dots', icon: '⠿' }
-];
-
-const PRINT_SIZES = [
-  { id: 'a6', name: 'A6 Postcard', short: 'A6', label: 'Postcard', mm: '105 × 148 mm', inch: '4.13 × 5.83 in', widthMm: 105, heightMm: 148 },
-  { id: 'a5', name: 'A5 Flyer', short: 'A5', label: 'Flyer', mm: '148 × 210 mm', inch: '5.83 × 8.27 in', widthMm: 148, heightMm: 210 },
-  { id: 'square', name: 'Square Sticker', short: 'Square', label: 'Sticker', mm: '100 × 100 mm', inch: '3.94 × 3.94 in', widthMm: 100, heightMm: 100 },
-  { id: 'round', name: 'Round Sticker', short: 'Round', label: 'Sticker', mm: '90 × 90 mm', inch: '3.54 × 3.54 in', widthMm: 90, heightMm: 90 },
-  { id: 'tent', name: 'Table Tent / Standee', short: 'Tent', label: 'Standee', mm: '100 × 150 mm', inch: '3.94 × 5.91 in', widthMm: 100, heightMm: 150 }
-];
-
-const PRINT_SIZE_BY_ID = PRINT_SIZES.reduce((acc, item) => ({ ...acc, [item.id]: item }), {});
+const INCH_PER_MM = 1 / 25.4;
 
 const TEMPLATES = [
-  { id: 'simple', name: 'Table Tent', label: 'Simple', fullName: 'Table Tent Simple', defaultSize: 'tent', tone: 'light' },
-  { id: 'premium', name: 'Acrylic Standee', label: 'Premium', fullName: 'Acrylic Standee Premium', defaultSize: 'tent', tone: 'dark' },
-  { id: 'thankYou', name: 'Review Card', label: 'Thank You', fullName: 'Review Card Thank You', defaultSize: 'a6', tone: 'light' },
-  { id: 'round', name: 'Round Sticker', label: 'Circle', fullName: 'Round Sticker Circle', defaultSize: 'round', tone: 'round' },
-  { id: 'feedback', name: 'Black Feedback Card', label: 'Elegant', fullName: 'Black Feedback Card Elegant', defaultSize: 'a6', tone: 'dark' }
+  {
+    id: 'table',
+    name: 'Table Tent / Standee',
+    shortName: 'Table Tent',
+    label: 'Standee',
+    sizeLabel: '100 × 150 mm',
+    inchLabel: '3.94 × 5.91 in',
+    widthMm: 100,
+    heightMm: 150,
+    type: 'portrait',
+    colorMode: 'white',
+    useCase: 'Perfect for tables and counters',
+    icon: 'tent'
+  },
+  {
+    id: 'acrylic',
+    name: 'Acrylic Standee',
+    shortName: 'Acrylic Standee',
+    label: 'Standee',
+    sizeLabel: '100 × 150 mm',
+    inchLabel: '3.94 × 5.91 in',
+    widthMm: 100,
+    heightMm: 150,
+    type: 'portrait',
+    colorMode: 'white',
+    useCase: 'Elegant look for any place',
+    icon: 'acrylic'
+  },
+  {
+    id: 'beige',
+    name: 'Beige / White-Gold',
+    shortName: 'Beige / White-Gold',
+    label: 'Premium',
+    sizeLabel: '100 × 150 mm',
+    inchLabel: '3.94 × 5.91 in',
+    widthMm: 100,
+    heightMm: 150,
+    type: 'portrait',
+    colorMode: 'beige',
+    useCase: 'Premium & elegant style',
+    icon: 'card'
+  },
+  {
+    id: 'credit',
+    name: 'Credit Card / NFC Review Card',
+    shortName: 'Credit Card / NFC',
+    label: 'Review Card',
+    sizeLabel: '85.6 × 54 mm',
+    inchLabel: '3.37 × 2.12 in',
+    widthMm: 85.6,
+    heightMm: 54,
+    type: 'landscape',
+    colorMode: 'white',
+    useCase: 'Carry anywhere, tap or scan',
+    icon: 'nfc'
+  },
+  {
+    id: 'round',
+    name: 'Round Sticker',
+    shortName: 'Round Sticker',
+    label: 'Circle',
+    sizeLabel: '100 × 100 mm circle',
+    inchLabel: '3.94 × 3.94 in',
+    widthMm: 100,
+    heightMm: 100,
+    type: 'round',
+    colorMode: 'white',
+    useCase: 'Perfect for glass, walls & more',
+    icon: 'round'
+  }
 ];
 
-const ACCENTS = ['#ff4a1c', '#1a73e8', '#7c3aed', '#f59e0b', '#111827'];
+const TEMPLATE_BY_ID = TEMPLATES.reduce((acc, item) => ({ ...acc, [item.id]: item }), {});
 
 const RELATED_LINKS = [
   { href: '/tools/whatsapp-qr-generator', title: 'WhatsApp QR Generator' },
   { href: '/tools/url-qr-generator', title: 'URL QR Generator' },
-  { href: '/templates/google-review-poster', title: 'Google Review Poster Template' },
-  { href: '/templates/clinic-review-qr-poster', title: 'Clinic Review QR Poster' },
   { href: '/solutions/restaurants', title: 'Restaurant QR Solutions' },
   { href: '/solutions/clinics', title: 'Clinic QR Solutions' },
-  { href: '/solutions/salons', title: 'Salon QR Solutions' },
-  { href: '/blog/2026-06-10-google-review-qr-code-generator-for-restaurants-co', title: 'Restaurant Google Review QR Guide' }
+  { href: '/templates/google-review-poster', title: 'Google Review Poster Template' }
 ];
 
-function clampText(value, max = 80) {
+function safeUrl(value) {
+  const trimmed = String(value || '').trim();
+  if (!trimmed) return DEFAULT_REVIEW_LINK;
+  return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+}
+
+function clampText(value, max) {
   return String(value || '').replace(/\s+/g, ' ').trim().slice(0, max);
 }
 
-function safeUrl(value) {
-  const clean = clampText(value, 400);
-  if (!clean) return DEFAULT_REVIEW_LINK;
-  return /^https?:\/\//i.test(clean) ? clean : `https://${clean}`;
+function mmToInches(mm) {
+  return (Number(mm || 0) * INCH_PER_MM).toFixed(2);
 }
 
-function parseHttpUrl(value) {
-  try {
-    const url = new URL(value);
-    if (url.protocol !== 'https:' && url.protocol !== 'http:') return null;
-    return url;
-  } catch (error) {
-    return null;
-  }
-}
-
-function isLikelyGoogleReviewUrl(value) {
-  const url = parseHttpUrl(value);
-  if (!url) return false;
-  const host = url.hostname.replace(/^www\./, '').toLowerCase();
-  const text = `${host}${url.pathname}${url.search}`.toLowerCase();
-  return host === 'g.page' || host.endsWith('.g.page') || host === 'maps.app.goo.gl' || host.endsWith('.google.com') || text.includes('writereview') || text.includes('/review') || text.includes('lrd=');
+function formatSize(widthMm, heightMm, type) {
+  const w = Number(widthMm || 0);
+  const h = Number(heightMm || 0);
+  if (type === 'round') return `${Math.round(w)} × ${Math.round(w)} mm circle / ${mmToInches(w)} × ${mmToInches(w)} in`;
+  return `${w % 1 ? w.toFixed(1) : Math.round(w)} × ${h % 1 ? h.toFixed(1) : Math.round(h)} mm / ${mmToInches(w)} × ${mmToInches(h)} in`;
 }
 
 function downloadBlob(blob, filename) {
   const url = URL.createObjectURL(blob);
-  const anchor = document.createElement('a');
-  anchor.href = url;
-  anchor.download = filename;
-  document.body.appendChild(anchor);
-  anchor.click();
-  anchor.remove();
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1200);
 }
 
 function downloadDataUrl(dataUrl, filename) {
-  const anchor = document.createElement('a');
-  anchor.href = dataUrl;
-  anchor.download = filename;
-  document.body.appendChild(anchor);
-  anchor.click();
-  anchor.remove();
-}
-
-function canvasToBlob(canvas, type = 'image/png', quality = 0.96) {
-  return new Promise((resolve, reject) => {
-    canvas.toBlob((blob) => {
-      if (blob) resolve(blob);
-      else reject(new Error('Canvas export failed'));
-    }, type, quality);
-  });
+  const a = document.createElement('a');
+  a.href = dataUrl;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
 }
 
 function dataUrlToBytes(dataUrl) {
   const base64 = dataUrl.split(',')[1] || '';
   const binary = atob(base64);
   const bytes = new Uint8Array(binary.length);
-  for (let index = 0; index < binary.length; index += 1) bytes[index] = binary.charCodeAt(index);
+  for (let i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
   return bytes;
 }
 
-function createPdfBlobFromCanvas(canvas, printSize) {
+function createPdfBlobFromCanvas(canvas, size) {
   const jpegUrl = canvas.toDataURL('image/jpeg', 0.96);
   const imageBytes = dataUrlToBytes(jpegUrl);
-  const pageWidth = (printSize.widthMm * 72) / 25.4;
-  const pageHeight = (printSize.heightMm * 72) / 25.4;
+  const pageWidth = (size.widthMm * 72) / 25.4;
+  const pageHeight = (size.heightMm * 72) / 25.4;
   const encoder = new TextEncoder();
   const chunks = [];
   const offsets = [0];
@@ -124,7 +153,6 @@ function createPdfBlobFromCanvas(canvas, printSize) {
   const addText = (text) => { const bytes = encoder.encode(text); chunks.push(bytes); offset += bytes.length; };
   const addBytes = (bytes) => { chunks.push(bytes); offset += bytes.length; };
   const startObj = (id) => { offsets[id] = offset; addText(`${id} 0 obj\n`); };
-
   addText('%PDF-1.4\n');
   startObj(1); addText('<< /Type /Catalog /Pages 2 0 R >>\nendobj\n');
   startObj(2); addText('<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n');
@@ -135,23 +163,14 @@ function createPdfBlobFromCanvas(canvas, printSize) {
   startObj(5); addText(`<< /Length ${encoder.encode(content).length} >>\nstream\n${content}endstream\nendobj\n`);
   const xrefOffset = offset;
   addText('xref\n0 6\n0000000000 65535 f \n');
-  for (let id = 1; id <= 5; id += 1) addText(`${String(offsets[id]).padStart(10, '0')} 00000 n \n`);
+  for (let i = 1; i <= 5; i += 1) addText(`${String(offsets[i]).padStart(10, '0')} 00000 n \n`);
   addText(`trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n${xrefOffset}\n%%EOF`);
   return new Blob(chunks, { type: 'application/pdf' });
 }
 
-function createSvgBlobFromCanvas(canvas, printSize) {
-  const dataUrl = canvas.toDataURL('image/png');
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${printSize.widthMm}mm" height="${printSize.heightMm}mm" viewBox="0 0 ${canvas.width} ${canvas.height}"><image href="${dataUrl}" x="0" y="0" width="${canvas.width}" height="${canvas.height}" preserveAspectRatio="xMidYMid meet"/></svg>`;
-  return new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
-}
-
 function loadImage(src) {
   return new Promise((resolve) => {
-    if (!src) {
-      resolve(null);
-      return;
-    }
+    if (!src) return resolve(null);
     const img = new Image();
     img.onload = () => resolve(img);
     img.onerror = () => resolve(null);
@@ -159,112 +178,71 @@ function loadImage(src) {
   });
 }
 
-function roundRect(ctx, x, y, width, height, radius) {
-  const r = Math.min(radius, width / 2, height / 2);
+function roundRect(ctx, x, y, w, h, r) {
+  const radius = Math.min(r, w / 2, h / 2);
   ctx.beginPath();
-  ctx.moveTo(x + r, y);
-  ctx.arcTo(x + width, y, x + width, y + height, r);
-  ctx.arcTo(x + width, y + height, x, y + height, r);
-  ctx.arcTo(x, y + height, x, y, r);
-  ctx.arcTo(x, y, x + width, y, r);
+  ctx.moveTo(x + radius, y);
+  ctx.arcTo(x + w, y, x + w, y + h, radius);
+  ctx.arcTo(x + w, y + h, x, y + h, radius);
+  ctx.arcTo(x, y + h, x, y, radius);
+  ctx.arcTo(x, y, x + w, y, radius);
   ctx.closePath();
 }
 
-function drawContainedImage(ctx, img, x, y, width, height, radius = 0) {
-  if (!img) return;
+function drawContainedImage(ctx, img, x, y, w, h) {
+  if (!img || !img.width || !img.height) return;
+  const ratio = Math.min(w / img.width, h / img.height);
+  const dw = img.width * ratio;
+  const dh = img.height * ratio;
+  ctx.drawImage(img, x + (w - dw) / 2, y + (h - dh) / 2, dw, dh);
+}
+
+function drawDefaultLogo(ctx, x, y, size, color = '#f59e0b') {
   ctx.save();
-  if (radius) {
-    roundRect(ctx, x, y, width, height, radius);
-    ctx.clip();
+  ctx.translate(x, y);
+  ctx.strokeStyle = color;
+  ctx.fillStyle = color;
+  ctx.lineWidth = Math.max(3, size * 0.055);
+  ctx.beginPath();
+  ctx.arc(0, size * 0.04, size * 0.22, Math.PI, 0);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(-size * 0.34, size * 0.22);
+  ctx.lineTo(size * 0.34, size * 0.22);
+  ctx.lineTo(size * 0.24, size * 0.4);
+  ctx.lineTo(-size * 0.24, size * 0.4);
+  ctx.closePath();
+  ctx.stroke();
+  ctx.beginPath();
+  for (let i = -3; i <= 3; i += 1) {
+    const angle = (-90 + i * 16) * (Math.PI / 180);
+    ctx.moveTo(Math.cos(angle) * size * 0.34, Math.sin(angle) * size * 0.34);
+    ctx.lineTo(Math.cos(angle) * size * 0.48, Math.sin(angle) * size * 0.48);
   }
-  const ratio = Math.min(width / img.width, height / img.height);
-  const targetWidth = img.width * ratio;
-  const targetHeight = img.height * ratio;
-  const targetX = x + (width - targetWidth) / 2;
-  const targetY = y + (height - targetHeight) / 2;
-  ctx.drawImage(img, targetX, targetY, targetWidth, targetHeight);
+  ctx.stroke();
   ctx.restore();
 }
 
-function applyFont(ctx, size, weight = 800, family = 'Arial, Helvetica, sans-serif') {
-  ctx.font = `${weight} ${Math.round(size)}px ${family}`;
-}
-
-function drawFittedText(ctx, text, x, y, maxWidth, startSize, minSize, options = {}) {
-  const value = clampText(text, options.maxChars || 80);
-  if (!value) return minSize;
-  const weight = options.weight || 800;
-  const family = options.family || 'Arial, Helvetica, sans-serif';
-  let size = startSize;
-  applyFont(ctx, size, weight, family);
-  while (size > minSize && ctx.measureText(value).width > maxWidth) {
-    size -= 1;
-    applyFont(ctx, size, weight, family);
-  }
-  let output = value;
-  while (output.length > 4 && ctx.measureText(`${output}…`).width > maxWidth) output = output.slice(0, -1);
+function drawLogoBadge(ctx, x, y, size, logoImg, options = {}) {
+  const border = options.border || '#f59e0b';
+  const innerPad = size * 0.24;
   ctx.save();
-  ctx.fillStyle = options.color || '#111827';
-  ctx.textAlign = options.align || 'center';
-  ctx.textBaseline = options.baseline || 'middle';
-  applyFont(ctx, size, weight, family);
-  ctx.fillText(output.length < value.length ? `${output}…` : output, x, y);
+  ctx.beginPath();
+  ctx.arc(x, y, size / 2, 0, Math.PI * 2);
+  ctx.fillStyle = '#fff';
+  ctx.shadowColor = 'rgba(15, 23, 42, 0.18)';
+  ctx.shadowBlur = size * 0.14;
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  ctx.lineWidth = Math.max(2, size * 0.045);
+  ctx.strokeStyle = border;
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(x, y, size / 2 - innerPad * 0.42, 0, Math.PI * 2);
+  ctx.clip();
+  if (logoImg) drawContainedImage(ctx, logoImg, x - size / 2 + innerPad, y - size / 2 + innerPad, size - innerPad * 2, size - innerPad * 2);
+  else drawDefaultLogo(ctx, x, y - size * 0.06, size * 0.9, border);
   ctx.restore();
-  return size;
-}
-
-function splitLines(ctx, text, maxWidth, maxLines) {
-  const words = clampText(text, 140).split(' ').filter(Boolean);
-  if (!words.length) return [];
-  const lines = [];
-  let line = '';
-  words.forEach((word) => {
-    const candidate = line ? `${line} ${word}` : word;
-    if (ctx.measureText(candidate).width <= maxWidth || !line) {
-      line = candidate;
-    } else {
-      lines.push(line);
-      line = word;
-    }
-  });
-  if (line) lines.push(line);
-  const output = lines.slice(0, maxLines);
-  if (lines.length > maxLines && output.length) {
-    let last = output[output.length - 1];
-    while (last.length > 4 && ctx.measureText(`${last}…`).width > maxWidth) last = last.slice(0, -1);
-    output[output.length - 1] = `${last}…`;
-  }
-  return output;
-}
-
-function drawSmartText(ctx, text, x, y, maxWidth, startSize, minSize, options = {}) {
-  const value = clampText(text, options.maxChars || 100);
-  if (!value) return { height: 0, size: minSize, lines: 0 };
-  const maxLines = options.maxLines || 2;
-  const weight = options.weight || 800;
-  const color = options.color || '#111827';
-  const align = options.align || 'center';
-  const family = options.family || 'Arial, Helvetica, sans-serif';
-  const lineRatio = options.lineRatio || 1.16;
-
-  for (let size = startSize; size >= minSize; size -= 1) {
-    applyFont(ctx, size, weight, family);
-    const lines = splitLines(ctx, value, maxWidth, maxLines);
-    if (lines.length <= maxLines && lines.every((line) => ctx.measureText(line).width <= maxWidth)) {
-      const lineHeight = size * lineRatio;
-      const firstY = y - ((lines.length - 1) * lineHeight) / 2;
-      ctx.save();
-      ctx.fillStyle = color;
-      ctx.textAlign = align;
-      ctx.textBaseline = 'middle';
-      applyFont(ctx, size, weight, family);
-      lines.forEach((line, index) => ctx.fillText(line, x, firstY + index * lineHeight));
-      ctx.restore();
-      return { height: lineHeight * lines.length, size, lines: lines.length };
-    }
-  }
-  drawFittedText(ctx, value, x, y, maxWidth, minSize, minSize, { weight, color, align, family });
-  return { height: minSize * lineRatio, size: minSize, lines: 1 };
 }
 
 function drawGoogleWord(ctx, x, y, size, align = 'center') {
@@ -272,11 +250,11 @@ function drawGoogleWord(ctx, x, y, size, align = 'center') {
     ['G', '#4285F4'], ['o', '#EA4335'], ['o', '#FBBC05'], ['g', '#4285F4'], ['l', '#34A853'], ['e', '#EA4335']
   ];
   ctx.save();
-  applyFont(ctx, size, 700, 'Arial, Helvetica, sans-serif');
+  ctx.font = `700 ${Math.round(size)}px Arial, Helvetica, sans-serif`;
   ctx.textBaseline = 'middle';
-  const spacing = size * 0.065;
   const widths = letters.map(([letter]) => ctx.measureText(letter).width);
-  const total = widths.reduce((sum, width) => sum + width, 0) + spacing * (letters.length - 1);
+  const spacing = size * 0.02;
+  const total = widths.reduce((a, b) => a + b, 0) + spacing * (letters.length - 1);
   let current = align === 'center' ? x - total / 2 : x;
   letters.forEach(([letter, color], index) => {
     ctx.fillStyle = color;
@@ -286,651 +264,365 @@ function drawGoogleWord(ctx, x, y, size, align = 'center') {
   ctx.restore();
 }
 
-function drawStars(ctx, x, y, size, show = true) {
-  if (!show) return;
+function drawStars(ctx, x, y, size, color = '#f5a400') {
   ctx.save();
-  ctx.fillStyle = '#f7b500';
+  ctx.fillStyle = color;
+  ctx.font = `700 ${Math.round(size)}px Arial, sans-serif`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  applyFont(ctx, size, 760, 'Arial, Helvetica, sans-serif');
   ctx.fillText('★★★★★', x, y);
   ctx.restore();
 }
 
-function canvasDimensions(printSize) {
-  if (printSize.id === 'round' || printSize.id === 'square') return { width: 1400, height: 1400 };
-  const width = 1400;
-  return { width, height: Math.round(width * (printSize.heightMm / printSize.widthMm)) };
+function fittedFontSize(ctx, text, maxWidth, startSize, minSize, fontFamily, weight = 700) {
+  const value = String(text || '');
+  let size = startSize;
+  while (size > minSize) {
+    ctx.font = `${weight} ${Math.round(size)}px ${fontFamily}`;
+    if (ctx.measureText(value).width <= maxWidth) return size;
+    size -= 2;
+  }
+  return minSize;
 }
 
-function drawLogoBadge(ctx, logoImg, x, y, size, options = {}) {
-  const visible = options.visible !== false;
-  if (!visible) return;
+function drawFittedText(ctx, text, x, y, maxWidth, startSize, minSize, options = {}) {
+  const fontFamily = options.fontFamily || 'Inter, Arial, sans-serif';
+  const weight = options.weight || 700;
+  const value = clampText(text, options.maxChars || 80);
+  const size = fittedFontSize(ctx, value, maxWidth, startSize, minSize, fontFamily, weight);
   ctx.save();
-  ctx.shadowColor = options.shadow || 'rgba(17,24,39,.10)';
-  ctx.shadowBlur = size * 0.075;
-  ctx.shadowOffsetY = size * 0.03;
-  ctx.fillStyle = '#ffffff';
-  ctx.beginPath();
-  ctx.arc(x, y, size / 2, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.shadowColor = 'transparent';
-  ctx.lineWidth = Math.max(3, size * 0.032);
-  ctx.strokeStyle = options.stroke || '#ff4a1c';
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.arc(x, y, size * 0.34, 0, Math.PI * 2);
-  ctx.clip();
-  if (logoImg) {
-    drawContainedImage(ctx, logoImg, x - size * 0.31, y - size * 0.31, size * 0.62, size * 0.62);
+  ctx.font = `${weight} ${Math.round(size)}px ${fontFamily}`;
+  ctx.fillStyle = options.color || '#111827';
+  ctx.textAlign = options.align || 'center';
+  ctx.textBaseline = options.baseline || 'middle';
+  if (options.letterSpacing) {
+    const chars = value.split('');
+    const total = chars.reduce((sum, char) => sum + ctx.measureText(char).width, 0) + options.letterSpacing * (chars.length - 1);
+    let cx = x - total / 2;
+    chars.forEach((char) => {
+      ctx.fillText(char, cx, y);
+      cx += ctx.measureText(char).width + options.letterSpacing;
+    });
   } else {
-    ctx.fillStyle = '#111827';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    applyFont(ctx, size * 0.135, 850);
-    ctx.fillText('YOUR', x, y - size * 0.065);
-    ctx.fillText('LOGO', x, y + size * 0.11);
+    ctx.fillText(value, x, y);
   }
   ctx.restore();
+  return size;
 }
 
-function drawCornerMarks(ctx, x, y, size, styleId, accent) {
-  const cornerLength = size * 0.22;
-  const line = Math.max(10, size * 0.035);
-  const radius = line * 0.55;
-  const colors = styleId === 'clean'
-    ? ['#111827', '#111827', '#111827', '#111827']
-    : styleId === 'gradient'
-      ? [accent, '#f59e0b', '#22c55e', '#1a73e8']
-      : ['#EA4335', '#FBBC05', '#34A853', '#1A73E8'];
-  const corners = [
-    { color: colors[0], sx: x, sy: y, kind: 'tl' },
-    { color: colors[1], sx: x + size - cornerLength, sy: y, kind: 'tr' },
-    { color: colors[2], sx: x, sy: y + size - cornerLength, kind: 'bl' },
-    { color: colors[3], sx: x + size - cornerLength, sy: y + size - cornerLength, kind: 'br' }
-  ];
-  ctx.save();
-  ctx.lineWidth = line;
-  ctx.lineCap = styleId === 'rounded' ? 'round' : 'square';
-  corners.forEach((corner) => {
-    ctx.strokeStyle = corner.color;
-    ctx.beginPath();
-    if (corner.kind === 'tl') {
-      ctx.moveTo(corner.sx, corner.sy + cornerLength); ctx.lineTo(corner.sx, corner.sy + radius); ctx.arcTo(corner.sx, corner.sy, corner.sx + radius, corner.sy, radius); ctx.lineTo(corner.sx + cornerLength, corner.sy);
-    }
-    if (corner.kind === 'tr') {
-      ctx.moveTo(corner.sx, corner.sy); ctx.lineTo(corner.sx + cornerLength - radius, corner.sy); ctx.arcTo(corner.sx + cornerLength, corner.sy, corner.sx + cornerLength, corner.sy + radius, radius); ctx.lineTo(corner.sx + cornerLength, corner.sy + cornerLength);
-    }
-    if (corner.kind === 'bl') {
-      ctx.moveTo(corner.sx + cornerLength, corner.sy + cornerLength); ctx.lineTo(corner.sx + radius, corner.sy + cornerLength); ctx.arcTo(corner.sx, corner.sy + cornerLength, corner.sx, corner.sy + cornerLength - radius, radius); ctx.lineTo(corner.sx, corner.sy);
-    }
-    if (corner.kind === 'br') {
-      ctx.moveTo(corner.sx, corner.sy + cornerLength); ctx.lineTo(corner.sx + cornerLength - radius, corner.sy + cornerLength); ctx.arcTo(corner.sx + cornerLength, corner.sy + cornerLength, corner.sx + cornerLength, corner.sy + cornerLength - radius, radius); ctx.lineTo(corner.sx + cornerLength, corner.sy);
-    }
-    ctx.stroke();
+function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight, maxLines, options = {}) {
+  const value = clampText(text, options.maxChars || 120);
+  const words = value.split(' ').filter(Boolean);
+  const lines = [];
+  let current = '';
+  words.forEach((word) => {
+    const test = current ? `${current} ${word}` : word;
+    if (ctx.measureText(test).width <= maxWidth || !current) current = test;
+    else { lines.push(current); current = word; }
   });
-  ctx.restore();
-}
-
-function drawQrFrame(ctx, x, y, size, qrImg, logoImg, accent, styleId, showLogo) {
+  if (current) lines.push(current);
+  const visible = lines.slice(0, maxLines);
+  if (lines.length > maxLines && visible.length) visible[visible.length - 1] = `${visible[visible.length - 1].replace(/\.*$/, '')}…`;
   ctx.save();
-  if (styleId === 'gradient') {
-    const glow = ctx.createRadialGradient(x + size / 2, y + size / 2, size * 0.2, x + size / 2, y + size / 2, size * 0.72);
-    glow.addColorStop(0, 'rgba(255,74,28,0.15)');
-    glow.addColorStop(1, 'rgba(26,115,232,0)');
-    ctx.fillStyle = glow;
-    ctx.fillRect(x - size * 0.08, y - size * 0.08, size * 1.16, size * 1.16);
-  }
-
-  const radius = styleId === 'rounded' ? size * 0.08 : size * 0.035;
-  ctx.fillStyle = '#ffffff';
-  roundRect(ctx, x, y, size, size, radius);
-  ctx.fill();
-
-  if (styleId === 'dots') {
-    ctx.save();
-    ctx.fillStyle = 'rgba(17,24,39,.08)';
-    for (let px = x + size * 0.06; px < x + size * 0.94; px += size * 0.12) {
-      for (let py = y + size * 0.06; py < y + size * 0.94; py += size * 0.12) {
-        ctx.beginPath();
-        ctx.arc(px, py, size * 0.006, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-    ctx.restore();
-  }
-
-  const quiet = size * 0.085;
-  const qrSize = size - quiet * 2;
-  if (qrImg) {
-    ctx.drawImage(qrImg, x + quiet, y + quiet, qrSize, qrSize);
-  } else {
-    ctx.fillStyle = '#111827';
-    roundRect(ctx, x + quiet, y + quiet, qrSize, qrSize, size * 0.02);
-    ctx.fill();
-    ctx.fillStyle = '#ffffff';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    applyFont(ctx, size * 0.08, 900);
-    ctx.fillText('QR', x + size / 2, y + size / 2);
-  }
-
-  drawCornerMarks(ctx, x, y, size, styleId, accent);
-
-  if (styleId === 'badge') {
-    ctx.save();
-    ctx.fillStyle = accent;
-    ctx.beginPath();
-    ctx.arc(x + size * 0.82, y + size * 0.18, size * 0.08, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = '#ffffff';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    applyFont(ctx, size * 0.07, 900);
-    ctx.fillText('★', x + size * 0.82, y + size * 0.18 + size * 0.004);
-    ctx.restore();
-  }
-
-  if (showLogo) {
-    const badgeSize = size * 0.235;
-    drawLogoBadge(ctx, logoImg, x + size / 2, y + size / 2, badgeSize, { stroke: accent });
-  }
+  ctx.fillStyle = options.color || '#111827';
+  ctx.textAlign = options.align || 'center';
+  ctx.textBaseline = 'middle';
+  visible.forEach((line, index) => ctx.fillText(line, x, y + index * lineHeight));
   ctx.restore();
 }
 
-function drawBusinessSignature(ctx, text, x, y, maxWidth, baseSize, color, dark = false) {
-  const value = clampText(text, 36);
-  if (!value || value === 'Your Business Name') return;
-  ctx.save();
-  const size = drawFittedText(ctx, value, x, y, maxWidth, baseSize, baseSize * 0.62, {
-    color,
-    weight: 760,
-    family: 'Trebuchet MS, Arial, Helvetica, sans-serif',
-    maxChars: 36
-  });
-  const underlineWidth = Math.min(maxWidth * 0.45, ctx.measureText(value).width * 0.72);
-  ctx.strokeStyle = dark ? 'rgba(255,255,255,.32)' : 'rgba(255,74,28,.38)';
-  ctx.lineWidth = Math.max(2, size * 0.06);
-  ctx.lineCap = 'round';
-  ctx.beginPath();
-  ctx.moveTo(x - underlineWidth / 2, y + size * 0.74);
-  ctx.lineTo(x + underlineWidth / 2, y + size * 0.74);
-  ctx.stroke();
-  ctx.restore();
-}
-
-function drawProductBackground(ctx, w, h, template, accent) {
-  const isDark = template.id === 'premium' || template.id === 'feedback';
-  const isRound = template.id === 'round';
+function drawPrintDesign(ctx, canvas, template, opts) {
+  const { qrImg, logoImg, businessName, headline, subText, starColor, textColor } = opts;
+  const w = canvas.width;
+  const h = canvas.height;
+  const min = Math.min(w, h);
+  const isRound = template.type === 'round';
+  const isCredit = template.type === 'landscape';
+  const isBeige = template.colorMode === 'beige';
+  const accent = isBeige ? '#c58a25' : '#f97316';
+  const navy = '#0f172a';
   ctx.clearRect(0, 0, w, h);
-  ctx.fillStyle = '#ffffff';
+  ctx.save();
+  ctx.fillStyle = isBeige ? '#fff8ee' : '#ffffff';
   ctx.fillRect(0, 0, w, h);
 
   if (isRound) {
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(w / 2, h / 2, Math.min(w, h) * 0.465, 0, Math.PI * 2);
-    ctx.clip();
-    const grad = ctx.createLinearGradient(0, 0, w, h);
-    grad.addColorStop(0, '#ffffff');
-    grad.addColorStop(0.55, '#fffaf4');
-    grad.addColorStop(1, '#fff1e8');
-    ctx.fillStyle = grad;
+    ctx.fillStyle = '#fffaf2';
     ctx.fillRect(0, 0, w, h);
+    ctx.beginPath();
+    ctx.arc(w / 2, h / 2, min * 0.47, 0, Math.PI * 2);
+    ctx.fillStyle = '#fffdf9';
+    ctx.fill();
+    ctx.lineWidth = min * 0.018;
+    ctx.strokeStyle = '#e5ba68';
+    ctx.stroke();
+    ctx.clip();
+  }
+
+  if (isBeige) {
+    const pad = min * 0.05;
+    ctx.strokeStyle = '#d9aa4b';
+    ctx.lineWidth = min * 0.012;
+    roundRect(ctx, pad, pad, w - pad * 2, h - pad * 2, min * 0.025);
+    ctx.stroke();
+    ctx.globalAlpha = 0.25;
+    ctx.fillStyle = '#fff1d6';
+    ctx.beginPath();
+    ctx.arc(w * 0.86, h * 0.14, min * 0.22, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+
+  if (isCredit) {
+    const margin = w * 0.08;
+    const logoSize = h * 0.18;
+    drawLogoBadge(ctx, margin + logoSize * 0.55, h * 0.24, logoSize, logoImg, { border: accent });
+    drawFittedText(ctx, businessName, w * 0.5, h * 0.2, w * 0.54, h * 0.12, h * 0.06, {
+      color: '#7c2d12', fontFamily: 'Georgia, serif', weight: 700, maxChars: 34
+    });
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.font = `700 ${Math.round(h * 0.06)}px Inter, Arial, sans-serif`;
+    ctx.fillStyle = textColor || navy;
+    ctx.fillText('Tap or Scan', w * 0.5, h * 0.34);
+    ctx.font = `500 ${Math.round(h * 0.045)}px Inter, Arial, sans-serif`;
+    ctx.fillStyle = '#475569';
+    ctx.fillText('to review us on', w * 0.5, h * 0.41);
+    ctx.restore();
+    drawGoogleWord(ctx, w * 0.5, h * 0.49, h * 0.13);
+    const qrSize = h * 0.38;
+    ctx.drawImage(qrImg, w * 0.54, h * 0.54, qrSize, qrSize);
+    drawLogoBadge(ctx, w * 0.54 + qrSize / 2, h * 0.54 + qrSize / 2, qrSize * 0.26, logoImg, { border: accent });
+    drawStars(ctx, w * 0.28, h * 0.78, h * 0.06, starColor);
+    drawWrappedText(ctx, subText, w * 0.28, h * 0.64, w * 0.3, h * 0.06, 2, { color: '#334155', maxChars: 48 });
     ctx.restore();
     return;
   }
 
-  const pad = Math.max(20, w * 0.035);
+  const topY = isRound ? h * 0.15 : h * 0.075;
+  const logoSize = isRound ? min * 0.16 : min * 0.18;
+  drawLogoBadge(ctx, w / 2, topY + logoSize / 2, logoSize, logoImg, { border: accent });
+
+  const bizY = isRound ? h * 0.29 : h * 0.22;
+  drawFittedText(ctx, businessName, w / 2, bizY, w * 0.72, isRound ? min * 0.075 : min * 0.09, min * 0.04, {
+    color: '#7c2d12', fontFamily: 'Georgia, serif', weight: 700, maxChars: 34
+  });
   ctx.save();
-  roundRect(ctx, pad, pad, w - pad * 2, h - pad * 2, w * 0.03);
-  ctx.clip();
-  if (isDark) {
-    const darkGrad = ctx.createLinearGradient(0, 0, w, h);
-    darkGrad.addColorStop(0, '#050505');
-    darkGrad.addColorStop(0.58, template.id === 'feedback' ? '#121212' : '#08080b');
-    darkGrad.addColorStop(1, template.id === 'feedback' ? '#321406' : '#191018');
-    ctx.fillStyle = darkGrad;
-  } else if (template.id === 'thankYou') {
-    const lightGrad = ctx.createLinearGradient(0, 0, w, h);
-    lightGrad.addColorStop(0, '#ffffff');
-    lightGrad.addColorStop(0.55, '#fffdf8');
-    lightGrad.addColorStop(1, '#fff5ec');
-    ctx.fillStyle = lightGrad;
-  } else {
-    ctx.fillStyle = '#ffffff';
-  }
-  ctx.fillRect(0, 0, w, h);
-
-  if (!isDark) {
-    ctx.strokeStyle = 'rgba(255,74,28,.10)';
-    ctx.lineWidth = Math.max(4, w * 0.005);
-    roundRect(ctx, pad + w * 0.025, pad + w * 0.025, w - pad * 2 - w * 0.05, h - pad * 2 - w * 0.05, w * 0.022);
-    ctx.stroke();
-  } else {
-    ctx.strokeStyle = 'rgba(255,255,255,.12)';
-    ctx.lineWidth = Math.max(4, w * 0.006);
-    roundRect(ctx, pad + w * 0.025, pad + w * 0.025, w - pad * 2 - w * 0.05, h - pad * 2 - w * 0.05, w * 0.022);
-    ctx.stroke();
-  }
-
-  if (template.id === 'premium') {
-    ctx.fillStyle = 'rgba(251,188,5,.12)';
-    ctx.beginPath();
-    ctx.arc(w * 0.88, h * 0.12, w * 0.16, 0, Math.PI * 2);
-    ctx.fill();
-  }
-  if (template.id === 'feedback') {
-    ctx.fillStyle = 'rgba(255,74,28,.16)';
-    ctx.beginPath();
-    ctx.arc(w * 0.16, h * 0.16, w * 0.13, 0, Math.PI * 2);
-    ctx.fill();
-  }
+  ctx.strokeStyle = isBeige ? '#d9aa4b' : '#eab308';
+  ctx.lineWidth = Math.max(2, min * 0.006);
+  ctx.beginPath();
+  ctx.moveTo(w * 0.28, bizY + min * 0.055);
+  ctx.lineTo(w * 0.72, bizY + min * 0.055);
+  ctx.stroke();
   ctx.restore();
 
-  if (isRound) {
-    const r = Math.min(w, h) * 0.405;
-    ctx.lineWidth = w * 0.018;
-    ctx.lineCap = 'round';
-    ctx.beginPath(); ctx.strokeStyle = '#34A853'; ctx.arc(w / 2, h / 2, r, Math.PI * 0.74, Math.PI * 1.38); ctx.stroke();
-    ctx.beginPath(); ctx.strokeStyle = '#EA4335'; ctx.arc(w / 2, h / 2, r, Math.PI * 1.40, Math.PI * 1.86); ctx.stroke();
-    ctx.beginPath(); ctx.strokeStyle = '#FBBC05'; ctx.arc(w / 2, h / 2, r, Math.PI * 1.87, Math.PI * 2.24); ctx.stroke();
-    ctx.beginPath(); ctx.strokeStyle = '#4285F4'; ctx.arc(w / 2, h / 2, r, Math.PI * 0.24, Math.PI * 0.72); ctx.stroke();
-  }
-}
+  const headlineY = isRound ? h * 0.39 : h * 0.34;
+  drawFittedText(ctx, headline, w / 2, headlineY, w * 0.76, min * 0.07, min * 0.035, {
+    color: textColor || navy, fontFamily: 'Inter, Arial, sans-serif', weight: 700, maxChars: 42
+  });
+  drawGoogleWord(ctx, w / 2, headlineY + min * 0.095, min * (isRound ? 0.12 : 0.15));
+  drawStars(ctx, w / 2, headlineY + min * (isRound ? 0.19 : 0.225), min * (isRound ? 0.055 : 0.065), starColor);
 
-function drawProduct(ctx, canvas, state, qrImg, logoImg) {
-  const w = canvas.width;
-  const h = canvas.height;
-  const template = TEMPLATES.find((item) => item.id === state.templateId) || TEMPLATES[0];
-  const isDark = template.id === 'premium' || template.id === 'feedback';
-  const isRound = template.id === 'round' || state.printSize.id === 'round';
-  const isCompact = h <= w * 1.15;
-  const ink = isDark ? '#ffffff' : '#111827';
-  const muted = isDark ? '#e5e7eb' : '#334155';
-  const center = w / 2;
+  const qrSize = isRound ? min * 0.27 : min * 0.46;
+  const qrX = (w - qrSize) / 2;
+  const qrY = isRound ? h * 0.6 : h * 0.6;
+  ctx.fillStyle = '#fff';
+  roundRect(ctx, qrX - min * 0.018, qrY - min * 0.018, qrSize + min * 0.036, qrSize + min * 0.036, min * 0.024);
+  ctx.fill();
+  ctx.drawImage(qrImg, qrX, qrY, qrSize, qrSize);
+  drawLogoBadge(ctx, w / 2, qrY + qrSize / 2, qrSize * 0.22, logoImg, { border: accent });
 
-  drawProductBackground(ctx, w, h, template, state.accent);
-
-  ctx.save();
-  if (isRound) {
-    ctx.beginPath();
-    ctx.arc(center, h / 2, Math.min(w, h) * 0.465, 0, Math.PI * 2);
-    ctx.clip();
-  } else {
-    const clipPad = Math.max(22, w * 0.034);
-    roundRect(ctx, clipPad, clipPad, w - clipPad * 2, h - clipPad * 2, w * 0.03);
-    ctx.clip();
-  }
-
-  const businessText = clampText(state.businessName, 36);
-  const headlineText = clampText(state.headline, 34) || (isDark ? 'Share your experience on' : 'Review us on');
-  const ctaText = clampText(state.ctaText, 42) || 'Scan QR to leave a review';
-
-  let logoY;
-  let logoSize;
-  let businessY;
-  let headlineY;
-  let googleY;
-  let starsY;
-  let qrY;
-  let qrSize;
-  let ctaY;
-
-  if (isRound) {
-    logoY = h * 0.185;
-    logoSize = w * 0.105;
-    businessY = h * 0.285;
-    headlineY = h * 0.365;
-    googleY = h * 0.445;
-    starsY = h * 0.515;
-    qrSize = Math.min(w * 0.37, h * 0.31);
-    qrY = h * 0.56;
-    ctaY = Math.min(h * 0.86, qrY + qrSize + w * 0.075);
-  } else if (isCompact) {
-    logoY = h * 0.105;
-    logoSize = w * 0.095;
-    businessY = h * 0.195;
-    headlineY = h * 0.285;
-    googleY = h * 0.37;
-    starsY = h * 0.445;
-    qrSize = Math.min(w * 0.40, h * 0.30);
-    qrY = h * 0.505;
-    ctaY = Math.min(h * 0.86, qrY + qrSize + w * 0.07);
-  } else {
-    logoY = h * 0.105;
-    logoSize = w * 0.118;
-    businessY = h * 0.205;
-    headlineY = h * 0.275;
-    googleY = h * 0.345;
-    starsY = h * 0.405;
-    qrSize = Math.min(w * 0.49, h * 0.325);
-    qrY = h * 0.465;
-    ctaY = Math.min(h * 0.84, qrY + qrSize + w * 0.075);
-  }
-
-  if (state.showLogo) {
-    drawLogoBadge(ctx, logoImg, center, logoY, logoSize, {
-      stroke: state.accent,
-      shadow: isDark ? 'rgba(0,0,0,.34)' : 'rgba(17,24,39,.12)'
-    });
-  }
-
-  if (businessText && businessText !== 'Your Business Name') {
-    drawBusinessSignature(ctx, businessText, center, businessY, w * (isRound ? 0.52 : 0.66), w * (isRound ? 0.032 : 0.034), isDark ? '#ffffff' : '#8f2f11', isDark);
-  }
-
-  if (template.id === 'feedback') {
-    drawSmartText(ctx, 'YOUR FEEDBACK MATTERS!', center, headlineY - w * 0.035, w * 0.66, w * 0.042, w * 0.023, { color: ink, weight: 780, maxLines: 2, maxChars: 30 });
-    drawSmartText(ctx, headlineText, center, headlineY + w * 0.045, w * 0.64, w * 0.028, w * 0.019, { color: muted, weight: 690, maxLines: 1, maxChars: 34 });
-  } else {
-    drawSmartText(ctx, headlineText, center, headlineY, w * (isRound ? 0.56 : 0.72), w * (isRound ? 0.034 : 0.039), w * 0.021, { color: ink, weight: 720, maxLines: 2, maxChars: 34 });
-  }
-
-  drawGoogleWord(ctx, center, googleY, w * (isRound ? 0.078 : isCompact ? 0.076 : 0.092));
-  drawStars(ctx, center, starsY, w * (isRound ? 0.036 : isCompact ? 0.040 : 0.045), state.showStars);
-
-  drawQrFrame(ctx, center - qrSize / 2, qrY, qrSize, qrImg, logoImg, state.accent, state.qrStyle, state.showLogo);
-
-  if (isDark) {
-    drawSmartText(ctx, ctaText, center, ctaY, w * 0.64, w * 0.030, w * 0.018, { color: '#ffffff', weight: 740, maxLines: 2, maxChars: 42 });
-  } else if (isRound) {
-    drawSmartText(ctx, ctaText, center, ctaY, w * 0.50, w * 0.024, w * 0.016, { color: muted, weight: 720, maxLines: 2, maxChars: 38 });
-  } else {
-    const pillWidth = w * (isCompact ? 0.56 : 0.58);
-    const pillHeight = w * (isCompact ? 0.062 : 0.064);
-    roundRect(ctx, center - pillWidth / 2, ctaY - pillHeight / 2, pillWidth, pillHeight, pillHeight * 0.22);
-    ctx.fillStyle = '#1a73e8';
-    ctx.fill();
-    drawFittedText(ctx, ctaText, center, ctaY, pillWidth * 0.84, w * 0.0235, w * 0.016, { color: '#ffffff', weight: 740, maxChars: 42 });
-  }
-
-  if (template.id === 'feedback') {
-    drawSmartText(ctx, 'THANK YOU', center, Math.min(h * 0.93, ctaY + w * 0.09), w * 0.54, w * 0.024, w * 0.017, { color: '#fbbf24', weight: 760, maxLines: 1 });
-  }
-
+  const ctaY = isRound ? h * 0.91 : Math.min(h - min * 0.08, qrY + qrSize + min * 0.09);
+  const ctaW = isRound ? w * 0.52 : w * 0.72;
+  const ctaH = isRound ? min * 0.06 : min * 0.075;
+  ctx.fillStyle = isBeige ? '#c58a25' : '#1266e3';
+  roundRect(ctx, (w - ctaW) / 2, ctaY - ctaH / 2, ctaW, ctaH, ctaH * 0.28);
+  ctx.fill();
+  drawFittedText(ctx, subText, w / 2, ctaY, ctaW * 0.82, min * 0.036, min * 0.022, {
+    color: '#fff', fontFamily: 'Inter, Arial, sans-serif', weight: 700, maxChars: 45
+  });
   ctx.restore();
-
-  if (isRound) {
-    ctx.save();
-    ctx.lineWidth = w * 0.012;
-    ctx.strokeStyle = '#ffffff';
-    ctx.beginPath();
-    ctx.arc(center, h / 2, Math.min(w, h) * 0.466, 0, Math.PI * 2);
-    ctx.stroke();
-    ctx.restore();
-  }
 }
 
-function GoogleWord() {
-  return <span className={styles.googleWord}><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></span>;
-}
-
-function TemplateThumb({ template, active, qrDataUrl, onClick }) {
-  const dark = template.tone === 'dark';
-  const round = template.id === 'round';
-  return (
-    <button type="button" onClick={onClick} className={`${styles.templateCard} ${active ? styles.activeTemplate : ''}`} aria-pressed={active} aria-label={`Select ${template.fullName}`}>
-      <span className={`${styles.templatePreview} ${dark ? styles.darkTemplatePreview : ''} ${round ? styles.roundTemplatePreview : ''} ${template.id === 'feedback' ? styles.feedbackTemplatePreview : ''}`}>
-        <span className={styles.tinyLogo}>YOUR<br />LOGO</span>
-        <span className={styles.tinyHeadline}>{template.id === 'feedback' ? 'YOUR FEEDBACK MATTERS!' : 'Review us on'}</span>
-        <GoogleWord />
-        <span className={styles.tinyStars}>★★★★★</span>
-        {qrDataUrl ? <img src={qrDataUrl} alt="" className={styles.tinyQr} /> : <span className={styles.tinyQrBlank} />}
-        <span className={styles.tinyCta}>{template.id === 'feedback' ? 'Thank you!' : 'Scan QR to review'}</span>
-      </span>
-      <strong>{template.name}</strong>
-      <small>{template.label}</small>
-    </button>
-  );
-}
-
-function FinishedProductMock({ template, qrDataUrl }) {
-  const size = PRINT_SIZE_BY_ID[template.defaultSize] || PRINT_SIZE_BY_ID.a6;
-  return (
-    <article className={styles.productCard}>
-      <div className={`${styles.productScene} ${styles[`scene_${template.id}`] || ''}`}>
-        <div className={styles.sceneLight} />
-        <div className={`${styles.productAsset} ${styles[`asset_${template.id}`] || ''}`}>
-          <div className={styles.assetLogo}>YOUR<br />LOGO</div>
-          <GoogleWord />
-          <div className={styles.assetStars}>★★★★★</div>
-          {qrDataUrl ? <img src={qrDataUrl} alt="" /> : <span />}
-        </div>
-      </div>
-      <b>{template.fullName}</b>
-      <span>{size.mm} | {size.inch}</span>
-    </article>
-  );
-}
-
-export default function GoogleReviewQRGenerator() {
+function GoogleReviewQRGeneratorPage() {
   const canvasRef = useRef(null);
-  const [reviewUrl, setReviewUrl] = useState(DEFAULT_REVIEW_LINK);
-  const [qrDataUrl, setQrDataUrl] = useState('');
-  const [qrPreviewDataUrl, setQrPreviewDataUrl] = useState('');
+  const qrPreviewRef = useRef(null);
+  const [reviewLink, setReviewLink] = useState(DEFAULT_REVIEW_LINK);
+  const [businessName, setBusinessName] = useState('Sunri Cafe Mountain View');
+  const [headline, setHeadline] = useState('Review Us on Google');
+  const [subText, setSubText] = useState('Scan QR code to leave a review');
+  const [selectedTemplate, setSelectedTemplate] = useState('table');
   const [logoDataUrl, setLogoDataUrl] = useState('');
-  const [qrStyle, setQrStyle] = useState('gradient');
-  const [templateId, setTemplateId] = useState('simple');
-  const [businessName, setBusinessName] = useState('Sunrise Cafe');
-  const [headline, setHeadline] = useState('Review us on Google');
-  const [ctaText, setCtaText] = useState('Scan QR to leave a review');
-  const [accent, setAccent] = useState('#ff4a1c');
-  const [showStars, setShowStars] = useState(true);
-  const [showLogo, setShowLogo] = useState(true);
-  const [printSizeId, setPrintSizeId] = useState('tent');
-  const [activeEditorTab, setActiveEditorTab] = useState('text');
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [qrDataUrl, setQrDataUrl] = useState('');
   const [toast, setToast] = useState('');
-  const [isCanvasReady, setIsCanvasReady] = useState(false);
+  const [starColor, setStarColor] = useState('#f5a400');
+  const [textColor, setTextColor] = useState('#111827');
+  const [useCustom, setUseCustom] = useState(false);
+  const [customWidth, setCustomWidth] = useState(100);
+  const [customHeight, setCustomHeight] = useState(150);
+  const [customDiameter, setCustomDiameter] = useState(100);
 
-  const selectedTemplate = useMemo(() => TEMPLATES.find((template) => template.id === templateId) || TEMPLATES[0], [templateId]);
-  const printSize = useMemo(() => PRINT_SIZE_BY_ID[printSizeId] || PRINT_SIZE_BY_ID.tent, [printSizeId]);
-  const actionUrl = useMemo(() => safeUrl(reviewUrl), [reviewUrl]);
-  const linkIsHttp = Boolean(parseHttpUrl(actionUrl));
-  const linkLooksGoogle = isLikelyGoogleReviewUrl(actionUrl);
-  const shareLinkLabel = linkIsHttp ? 'Share Link via WhatsApp' : 'Paste link to share';
+  const template = TEMPLATE_BY_ID[selectedTemplate] || TEMPLATES[0];
+  const printSize = useMemo(() => {
+    if (!useCustom) return template;
+    if (template.type === 'round') return { ...template, widthMm: Number(customDiameter) || template.widthMm, heightMm: Number(customDiameter) || template.heightMm };
+    return { ...template, widthMm: Number(customWidth) || template.widthMm, heightMm: Number(customHeight) || template.heightMm };
+  }, [customDiameter, customHeight, customWidth, template, useCustom]);
 
-  useEffect(() => {
-    let active = true;
-    const generate = async () => {
-      try {
-        const QRCodeModule = await import('qrcode');
-        const QRCode = QRCodeModule.default || QRCodeModule;
-        const data = await QRCode.toDataURL(actionUrl, {
-          width: 1024,
-          margin: 2,
-          errorCorrectionLevel: 'H',
-          color: { dark: '#050505', light: '#ffffff' }
-        });
-        if (active) setQrDataUrl(data);
-      } catch (error) {
-        if (active) setQrDataUrl('');
-      }
-    };
-    generate();
-    return () => { active = false; };
-  }, [actionUrl]);
+  const cleanReviewUrl = useMemo(() => safeUrl(reviewLink), [reviewLink]);
 
   useEffect(() => {
-    let active = true;
-    const draw = async () => {
-      if (!qrDataUrl) {
-        if (active) setQrPreviewDataUrl('');
-        return;
-      }
-      const [qrImg, logoImg] = await Promise.all([loadImage(qrDataUrl), loadImage(logoDataUrl)]);
-      if (!active) return;
-      const previewCanvas = document.createElement('canvas');
-      previewCanvas.width = 1024;
-      previewCanvas.height = 1024;
-      const ctx = previewCanvas.getContext('2d');
-      if (!ctx) return;
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(0, 0, previewCanvas.width, previewCanvas.height);
-      drawQrFrame(ctx, 46, 46, 932, qrImg, logoImg, accent, qrStyle, showLogo);
-      setQrPreviewDataUrl(previewCanvas.toDataURL('image/png'));
-    };
-    draw();
-    return () => { active = false; };
-  }, [qrDataUrl, logoDataUrl, accent, qrStyle, showLogo]);
+    let alive = true;
+    QRCode.toDataURL(cleanReviewUrl, { width: 1024, margin: 2, errorCorrectionLevel: 'H', color: { dark: '#000000', light: '#ffffff' } })
+      .then((url) => { if (alive) setQrDataUrl(url); })
+      .catch(() => { if (alive) setQrDataUrl(''); });
+    return () => { alive = false; };
+  }, [cleanReviewUrl]);
 
   useEffect(() => {
-    let active = true;
-    const draw = async () => {
-      const canvas = canvasRef.current;
-      if (!canvas) return;
-      setIsCanvasReady(false);
-      const dimensions = canvasDimensions(printSize);
-      canvas.width = dimensions.width;
-      canvas.height = dimensions.height;
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
-      const [qrImg, logoImg] = await Promise.all([loadImage(qrDataUrl), loadImage(logoDataUrl)]);
-      if (!active) return;
-      drawProduct(ctx, canvas, {
-        templateId,
-        businessName,
-        headline,
-        ctaText,
-        accent,
-        qrStyle,
-        showStars,
-        showLogo,
-        printSize
-      }, qrImg, logoImg);
-      setIsCanvasReady(true);
-    };
-    draw();
-    return () => { active = false; };
-  }, [qrDataUrl, logoDataUrl, templateId, businessName, headline, ctaText, accent, qrStyle, showStars, showLogo, printSize]);
+    if (!selectedTemplate) return;
+    const next = TEMPLATE_BY_ID[selectedTemplate];
+    setUseCustom(false);
+    setCustomWidth(next.widthMm);
+    setCustomHeight(next.heightMm);
+    setCustomDiameter(next.widthMm);
+  }, [selectedTemplate]);
 
   useEffect(() => {
     if (!toast) return undefined;
-    const timer = setTimeout(() => setToast(''), 2200);
+    const timer = setTimeout(() => setToast(''), 2600);
     return () => clearTimeout(timer);
   }, [toast]);
 
-  const showToast = (message) => setToast(message);
+  useEffect(() => {
+    async function drawAll() {
+      if (!qrDataUrl) return;
+      const canvas = canvasRef.current;
+      const qrPreview = qrPreviewRef.current;
+      if (!canvas) return;
+      const [qrImg, logoImg] = await Promise.all([loadImage(qrDataUrl), loadImage(logoDataUrl)]);
+      if (!qrImg) return;
+      const wMm = Number(printSize.widthMm) || 100;
+      const hMm = Number(printSize.heightMm) || 150;
+      const longSide = 2200;
+      const aspect = wMm / hMm;
+      if (aspect >= 1) {
+        canvas.width = longSide;
+        canvas.height = Math.max(1200, Math.round(longSide / aspect));
+      } else {
+        canvas.height = longSide;
+        canvas.width = Math.max(1200, Math.round(longSide * aspect));
+      }
+      drawPrintDesign(canvas.getContext('2d'), canvas, template, { qrImg, logoImg, businessName, headline, subText, starColor, textColor });
 
-  const onLogoUpload = (event) => {
-    const input = event.target;
-    const file = input.files?.[0];
-    if (!file) return;
-    const allowedTypes = ['image/png', 'image/jpeg', 'image/webp'];
-    if (!allowedTypes.includes(file.type)) {
-      showToast('Upload PNG, JPG or WebP only');
-      input.value = '';
-      return;
+      if (qrPreview) {
+        qrPreview.width = 1024;
+        qrPreview.height = 1024;
+        const qctx = qrPreview.getContext('2d');
+        qctx.clearRect(0, 0, 1024, 1024);
+        qctx.fillStyle = '#fff';
+        qctx.fillRect(0, 0, 1024, 1024);
+        qctx.drawImage(qrImg, 82, 82, 860, 860);
+        drawLogoBadge(qctx, 512, 512, 190, logoImg, { border: '#f59e0b' });
+      }
     }
-    if (file.size > 3 * 1024 * 1024) {
-      showToast('Logo must be under 3 MB');
-      input.value = '';
+    drawAll();
+  }, [businessName, headline, logoDataUrl, printSize, qrDataUrl, starColor, subText, template, textColor]);
+
+  function showToast(message) {
+    setToast(message);
+  }
+
+  function handleLogoUpload(event) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    if (!/^image\//.test(file.type) || file.type === 'image/svg+xml') {
+      showToast('Please upload a PNG, JPG or WebP logo.');
       return;
     }
     const reader = new FileReader();
-    reader.onload = () => {
-      setLogoDataUrl(String(reader.result || ''));
-      input.value = '';
-      showToast('Logo added to QR and template');
-    };
-    reader.onerror = () => {
-      input.value = '';
-      showToast('Logo upload failed. Try another file.');
-    };
+    reader.onload = () => setLogoDataUrl(String(reader.result || ''));
     reader.readAsDataURL(file);
-  };
+  }
 
-  const handleTemplateSelect = (template) => {
-    setTemplateId(template.id);
-    setPrintSizeId(template.defaultSize);
-    showToast(`${template.fullName} selected`);
-  };
+  function downloadQrPng() {
+    const canvas = qrPreviewRef.current;
+    if (!canvas) return;
+    downloadDataUrl(canvas.toDataURL('image/png'), 'bharathqr-google-review-qr.png');
+  }
 
-  const shareReviewLink = () => {
-    if (!linkIsHttp) {
-      showToast('Paste a valid review link first');
-      return;
-    }
-    const message = encodeURIComponent(`Please review us on Google: ${actionUrl}`);
-    window.open(`https://wa.me/?text=${message}`, '_blank', 'noopener,noreferrer');
-  };
+  function downloadQrSvg() {
+    const canvas = qrPreviewRef.current;
+    if (!canvas) return;
+    const png = canvas.toDataURL('image/png');
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024"><image width="1024" height="1024" href="${png}"/></svg>`;
+    downloadBlob(new Blob([svg], { type: 'image/svg+xml' }), 'bharathqr-google-review-qr.svg');
+  }
 
-  const downloadQrPng = () => {
-    if (!qrPreviewDataUrl) {
-      showToast('QR is still generating');
-      return;
-    }
-    downloadDataUrl(qrPreviewDataUrl, 'bharathqr-google-review-qr.png');
-  };
+  function downloadQrPdf() {
+    const canvas = qrPreviewRef.current;
+    if (!canvas) return;
+    downloadBlob(createPdfBlobFromCanvas(canvas, { widthMm: 100, heightMm: 100 }), 'bharathqr-google-review-qr.pdf');
+  }
 
-  const downloadFinalPng = async () => {
+  function downloadFinalPng() {
     const canvas = canvasRef.current;
-    if (!canvas || !isCanvasReady) {
-      showToast('Preview is still loading');
-      return;
-    }
-    const blob = await canvasToBlob(canvas, 'image/png');
-    downloadBlob(blob, `bharathqr-google-review-${selectedTemplate.id}.png`);
-  };
+    if (!canvas) return;
+    downloadDataUrl(canvas.toDataURL('image/png'), `bharathqr-${template.id}-review-template.png`);
+  }
 
-  const downloadFinalSvg = () => {
+  function downloadFinalSvg() {
     const canvas = canvasRef.current;
-    if (!canvas || !isCanvasReady) {
-      showToast('Preview is still loading');
-      return;
-    }
-    const blob = createSvgBlobFromCanvas(canvas, printSize);
-    downloadBlob(blob, `bharathqr-google-review-${selectedTemplate.id}.svg`);
-  };
+    if (!canvas) return;
+    const png = canvas.toDataURL('image/png');
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${canvas.width}" height="${canvas.height}" viewBox="0 0 ${canvas.width} ${canvas.height}"><image width="${canvas.width}" height="${canvas.height}" href="${png}"/></svg>`;
+    downloadBlob(new Blob([svg], { type: 'image/svg+xml' }), `bharathqr-${template.id}-review-template.svg`);
+  }
 
-  const downloadFinalPdf = () => {
+  function downloadFinalPdf() {
     const canvas = canvasRef.current;
-    if (!canvas || !isCanvasReady) {
-      showToast('Preview is still loading');
-      return;
-    }
-    const blob = createPdfBlobFromCanvas(canvas, printSize);
-    downloadBlob(blob, `bharathqr-google-review-${selectedTemplate.id}.pdf`);
-  };
+    if (!canvas) return;
+    downloadBlob(createPdfBlobFromCanvas(canvas, printSize), `bharathqr-${template.id}-review-template.pdf`);
+  }
 
-  const shareFinalDesign = async () => {
-    const canvas = canvasRef.current;
-    if (!canvas || !isCanvasReady) {
-      showToast('Preview is still loading');
-      return;
-    }
+  async function copyLink() {
     try {
-      const blob = await canvasToBlob(canvas, 'image/png');
-      const file = new File([blob], `bharathqr-google-review-${selectedTemplate.id}.png`, { type: 'image/png' });
-      const sharePayload = {
-        files: [file],
-        title: 'Google Review QR Design',
-        text: `Google Review QR design for ${businessName || 'my business'}`
-      };
-      if (navigator.canShare && navigator.canShare({ files: [file] }) && navigator.share) {
-        await navigator.share(sharePayload);
-        showToast('Design shared');
-        return;
-      }
-      downloadBlob(blob, `bharathqr-google-review-${selectedTemplate.id}.png`);
-      const fallback = encodeURIComponent(`I downloaded my Google Review QR design. Please attach the downloaded PNG here and share it. Review link: ${actionUrl}`);
-      window.open(`https://wa.me/?text=${fallback}`, '_blank', 'noopener,noreferrer');
-      showToast('PNG downloaded. Attach it in WhatsApp.');
+      await navigator.clipboard.writeText(cleanReviewUrl);
+      showToast('Review link copied.');
     } catch (error) {
-      showToast('Design sharing failed. Use Download PNG.');
+      showToast('Could not copy link.');
     }
-  };
+  }
+
+  function shareLinkViaWhatsApp() {
+    const message = `Please leave us a Google review: ${cleanReviewUrl}`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+  }
+
+  async function shareDesignViaWhatsApp() {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png', 0.96));
+    if (!blob) return;
+    const file = new File([blob], `bharathqr-${template.id}-review-template.png`, { type: 'image/png' });
+    if (navigator.canShare && navigator.canShare({ files: [file] }) && navigator.share) {
+      await navigator.share({ title: 'Google Review QR Design', text: 'Share this Google Review QR design.', files: [file] });
+      return;
+    }
+    downloadBlob(blob, `bharathqr-${template.id}-review-template.png`);
+    const message = `I downloaded my Google Review QR design. Please attach/share the downloaded PNG. Review link: ${cleanReviewUrl}`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+  }
 
   const softwareSchema = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'BharathQR Google Review QR Generator',
+    name: 'BharathQR Google Review QR Code Generator',
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Web',
     url: CANONICAL_URL,
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
-    featureList: ['Google Review QR code generator', 'Logo upload', 'Print-ready templates', 'PNG download', 'SVG download', 'PDF download', 'WhatsApp sharing']
+    description: 'Create print-ready Google Review QR codes with business logo, premium templates and WhatsApp sharing.'
   };
 
   const breadcrumbSchema = {
@@ -947,257 +639,211 @@ export default function GoogleReviewQRGenerator() {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: [
-      { '@type': 'Question', name: 'Is the BharathQR Google Review QR Generator free?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Indian businesses can create a Google Review QR code with logo and print-ready templates for free.' } },
-      { '@type': 'Question', name: 'Can I add my logo to the QR and template?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. You can upload a PNG, JPG or WebP logo. It is centered, contain-fit and placed on a clean background so it does not get cropped.' } },
-      { '@type': 'Question', name: 'Can I download PNG, SVG and PDF files?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. The live product preview canvas is the source for PNG, SVG and PDF exports, so downloads match the preview.' } },
-      { '@type': 'Question', name: 'Can I share the final design on WhatsApp?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. On browsers that support Web Share file sharing, the PNG design can be shared directly. Other browsers download the PNG and open WhatsApp with a fallback message.' } }
+      { '@type': 'Question', name: 'Is BharathQR Google Review QR Generator free?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. You can create a Google Review QR code and print-ready review templates without login.' } },
+      { '@type': 'Question', name: 'Can I add my logo?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Your logo appears in the QR center and template with safe padding so it is not cropped.' } },
+      { '@type': 'Question', name: 'Which print formats are available?', acceptedAnswer: { '@type': 'Answer', text: 'Table Tent, Acrylic Standee, Beige White-Gold, Credit Card/NFC Review Card and Round Sticker are available with recommended sizes and custom sizing.' } }
     ]
   };
 
   return (
     <>
       <Head>
-        <title>Google Review QR Code Generator with Logo & Templates | BharathQR</title>
+        <title>Google Review QR Code Generator With Logo | BharathQR</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="Create a premium Google Review QR code with logo. Choose 5 print-ready templates, preview live, and download PNG, SVG or PDF files for Indian businesses." />
+        <meta name="description" content="Create premium Google Review QR codes with logo, print-ready templates, WhatsApp sharing and PNG, SVG, PDF downloads." />
         <link rel="canonical" href={CANONICAL_URL} />
-        <meta property="og:title" content="Google Review QR Code Generator with Logo & Templates | BharathQR" />
-        <meta property="og:description" content="Turn every customer visit into a Google review with a free QR generator, live template preview and print-ready downloads." />
+        <meta property="og:title" content="Google Review QR Code Generator With Logo | BharathQR" />
+        <meta property="og:description" content="Turn every customer visit into a 5-star Google Review with premium printable QR templates." />
         <meta property="og:url" content={CANONICAL_URL} />
-        <meta property="og:image" content="https://www.bharathqr.com/og-image.png" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Google Review QR Code Generator with Logo & Templates | BharathQR" />
-        <meta name="twitter:description" content="Create a Google Review QR code with logo, choose a template, and download PNG, SVG or PDF files." />
+        <meta property="og:type" content="website" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       </Head>
-      <style jsx global>{`
-        #__next > header:first-child { display: none !important; }
-        #__next > footer { display: none !important; }
-        html, body { overflow-x: hidden; }
-      `}</style>
 
-      <header className={styles.localTopbar}>
-        <nav className={styles.localNav} aria-label="Google review QR generator navigation">
-          <Link href="/" className={styles.localBrand} aria-label="BharathQR home"><span className={styles.localMark} />Bharath<span>QR</span></Link>
-          <div className={styles.localNavActions}>
-            <a href="#template-studio">▦ View Templates</a>
-            <button type="button" onClick={() => setMenuOpen((value) => !value)} aria-label="Open menu" aria-expanded={menuOpen}>☰</button>
-          </div>
-          {menuOpen && (
-            <div className={styles.localMenu}>
-              <a href="#qr-generator">Create QR</a>
-              <a href="#template-studio">Template Studio</a>
-              <a href="#finished-products">Finished Products</a>
-              <a href="#review-guide">Review Guide</a>
-            </div>
-          )}
-        </nav>
-      </header>
+      <main className={styles.pageShell}>
+        <header className={styles.topbar}>
+          <Link href="/" className={styles.brand} aria-label="BharathQR Home">
+            <span className={styles.brandMark}>⌗</span><span>Bharath<span>QR</span></span>
+          </Link>
+          <nav className={styles.navLinks} aria-label="Primary navigation">
+            <Link href="/">Home</Link>
+            <Link href="/tools">Tools</Link>
+            <Link href="/templates">Templates</Link>
+            <Link href="/blog">Blog</Link>
+          </nav>
+          <Link className={styles.templateButton} href="/templates">▦ View Templates</Link>
+          <button className={styles.menuButton} type="button" aria-label="Open menu">☰</button>
+        </header>
 
-      <main className={styles.page}>
         <section className={styles.hero}>
           <div className={styles.heroCopy}>
-            <h1>Turn Every Customer Visit Into a <span>5★</span> <GoogleWord /> Review</h1>
+            <h1>Turn Every Customer Visit Into a <span>5★ Google</span> Review</h1>
             <p>Create a premium Google Review QR code with your logo. Choose from beautiful templates and download print-ready assets in seconds.</p>
+            <div className={styles.trustPills}>
+              <span>🎁 100% Free</span><span>👤 No Sign-up</span><span>🖨️ Print Ready</span>
+            </div>
           </div>
-
-          <div className={styles.heroArt} aria-hidden="true">
-            <div className={styles.heroCircle} />
-            <div className={styles.heroStandee}>
-              <div className={styles.heroLogo}>{logoDataUrl ? <img src={logoDataUrl} alt="" /> : <>YOUR<br />LOGO</>}</div>
-              <strong>Review us on</strong>
-              <span className={styles.heroGoogle}><GoogleWord /></span>
-              <span className={styles.heroStars}>★★★★★</span>
-              <span className={styles.heroQrBox}>{qrPreviewDataUrl ? <img src={qrPreviewDataUrl} alt="" /> : null}</span>
+          <div className={styles.heroVisual}>
+            <div className={styles.heroCardMock}>
+              <div className={styles.heroLogo}>SUNRI<br />CAFE</div>
+              <strong>Sunri Cafe<br />Mountain View</strong>
+              <small>Review us on</small>
+              <b className={styles.googleMini}>Google</b>
+              <span className={styles.starMini}>★★★★★</span>
+              {qrDataUrl ? <img src={qrDataUrl} alt="Google Review QR preview" /> : <span className={styles.qrSkeleton} />}
               <em>Scan QR to leave a review</em>
             </div>
-            <div className={styles.plant}><span /><span /><span /><span /><b /></div>
-          </div>
-
-          <div className={styles.trustPills}>
-            <span>🎁 100% Free</span>
-            <span>👤 No Sign-up</span>
-            <span>🖨️ Print Ready</span>
+            <div className={styles.heroPlant} aria-hidden="true"><span /></div>
           </div>
         </section>
 
-        <section className={styles.workflow} aria-label="Workflow">
-          <div>
-            <strong>1</strong>
-            <span>▦</span>
-            <h2>Create QR<br />With Logo</h2>
-            <p>Generate your Google Review QR code with your logo.</p>
-          </div>
-          <i />
-          <div>
-            <strong>2</strong>
-            <span>▧</span>
-            <h2>Choose<br />Template</h2>
-            <p>Pick an eye-catching template that fits your business.</p>
-          </div>
-          <i />
-          <div>
-            <strong>3</strong>
-            <span>▤</span>
-            <h2>Print<br />Ready</h2>
-            <p>Download print-ready files and start getting reviews.</p>
-          </div>
-        </section>
-
-        <section id="qr-generator" className={styles.qrPanel} aria-label="QR generator">
-          <article className={styles.qrForm}>
-            <div className={styles.sectionTitle}><span>1</span><h2>QR Generator</h2></div>
-            <label htmlFor="reviewUrl">Google review link</label>
-            <div className={styles.inputShell}>
-              <span>🔗</span>
-              <input id="reviewUrl" value={reviewUrl} onChange={(event) => setReviewUrl(event.target.value)} placeholder="https://g.page/your-business/review" aria-invalid={!linkIsHttp} />
+        <section className={styles.workflow} aria-label="How it works">
+          {[['1', 'Enter Review Link', 'Add your Google review link'], ['2', 'Customize Template', 'Choose template, edit details and colors'], ['3', 'Preview & Download', 'Download print-ready files'], ['4', 'Print & Display', 'Print and start getting more reviews']].map((step, index) => (
+            <div className={styles.workflowStep} key={step[0]}>
+              <span>{step[0]}</span><b>{step[1]}</b><small>{step[2]}</small>{index < 3 && <i>······›</i>}
             </div>
-            <p className={`${styles.statusLine} ${linkLooksGoogle ? styles.goodLine : ''}`}><span />{linkIsHttp ? (linkLooksGoogle ? 'Looks like a Google review link.' : 'Valid link. Use your exact Google review link before printing.') : 'Paste a valid Google review link before sharing or printing.'}</p>
+          ))}
+        </section>
 
-            <label>Upload logo <small>(optional)</small></label>
-            <label className={styles.uploadBox}>
-              <input type="file" accept="image/png,image/jpeg,image/webp" onChange={onLogoUpload} />
-              <span className={styles.uploadIcon}>{logoDataUrl ? <img src={logoDataUrl} alt="Uploaded logo preview" /> : '▧'}</span>
-              <b>{logoDataUrl ? 'Change logo' : 'Upload logo'}<small>PNG / JPG / WebP · appears in QR + template</small></b>
-              <i>›</i>
+        <section className={styles.builderGrid}>
+          <aside className={`${styles.panel} ${styles.qrPanel}`}>
+            <div className={styles.panelTitle}><span>1</span><div><h2>QR Generator</h2><p>Enter your Google review link</p></div></div>
+            <label className={styles.inputLabel}>Google review link
+              <input value={reviewLink} onChange={(e) => setReviewLink(e.target.value)} placeholder="https://g.page/r/your-business/review" />
             </label>
-            {logoDataUrl && <button type="button" className={styles.clearLogoBtn} onClick={() => { setLogoDataUrl(''); showToast('Logo removed'); }}>Remove logo</button>}
-          </article>
-
-          <article className={styles.qrPreviewBlock}>
-            <div className={styles.qrPreviewCard}>
-              <span>LIVE QR PREVIEW</span>
-              {qrPreviewDataUrl ? <img src={qrPreviewDataUrl} alt="Generated Google Review QR code" /> : <div className={styles.qrLoading}>Generating QR…</div>}
-              <small>High-resolution QR · 1024 × 1024 px</small>
+            <p className={styles.helperText}>Paste your real Google review link. It redirects directly to printing and sharing.</p>
+            <label className={styles.inputLabel}>Business / Location name
+              <input value={businessName} onChange={(e) => setBusinessName(e.target.value)} maxLength={50} />
+            </label>
+            <label className={styles.uploadTile}>
+              <input type="file" accept="image/png,image/jpeg,image/webp" onChange={handleLogoUpload} />
+              <span className={styles.uploadIcon}>☕</span>
+              <strong>{logoDataUrl ? 'Logo uploaded' : 'Upload logo'}</strong>
+              <small>PNG / JPG / WEBP</small>
+            </label>
+            <div className={styles.qrPreviewBox}>
+              <canvas ref={qrPreviewRef} aria-label="QR preview" />
+              <small>✅ High-resolution QR<br />Size: 1024 × 1024 px</small>
             </div>
-          </article>
+            <div className={styles.qrActions}>
+              <button type="button" onClick={downloadQrPng}>⬇ Download QR</button>
+              <button type="button" onClick={copyLink}>🔗 Copy Link</button>
+            </div>
+            <div className={styles.readyNote}>✓ QR code is ready to use!</div>
+          </aside>
 
-          <article className={styles.qrControls}>
-            <h2>Eye-catching QR style</h2>
-            <div className={styles.qrStyles}>
-              {QR_STYLES.map((style) => (
-                <button key={style.id} type="button" onClick={() => setQrStyle(style.id)} className={qrStyle === style.id ? styles.activeStyle : ''} aria-pressed={qrStyle === style.id}>
-                  <span>{style.icon}</span>
-                  {style.label}
+          <section className={`${styles.panel} ${styles.studioPanel}`}>
+            <div className={styles.panelTitle}><span>2</span><div><h2>Template Studio</h2><p>Choose a template and customize it your way</p></div><button type="button" className={styles.resetButton} onClick={() => { setSelectedTemplate('table'); setBusinessName('Sunri Cafe Mountain View'); setHeadline('Review Us on Google'); setSubText('Scan QR code to leave a review'); setUseCustom(false); }}>↻ Reset All</button></div>
+
+            <div className={styles.templateGrid}>
+              {TEMPLATES.map((item) => (
+                <button type="button" key={item.id} className={`${styles.templateCard} ${selectedTemplate === item.id ? styles.activeTemplate : ''} ${item.colorMode === 'beige' ? styles.beigeTemplateCard : ''}`} onClick={() => setSelectedTemplate(item.id)}>
+                  <span className={styles.selectDot}>{selectedTemplate === item.id ? '●' : '○'}</span>
+                  <strong>{item.name}</strong>
+                  <div className={`${styles.templateMini} ${styles[`mini_${item.id}`]}`}>
+                    <span className={styles.miniLogo}>SUNRI</span>
+                    <i>{item.id === 'beige' ? 'Thank You!' : item.id === 'credit' ? 'Tap or Scan' : 'Review Us'}</i>
+                    <b>Google</b>
+                    <em>★★★★★</em>
+                    <span className={styles.miniQr}>▦</span>
+                    <small>Scan QR code</small>
+                  </div>
+                  <span className={styles.templateSize}>{item.sizeLabel}<br />{item.inchLabel}</span>
                 </button>
               ))}
             </div>
-            <div className={styles.qrActions}>
-              <button type="button" onClick={downloadQrPng} disabled={!qrPreviewDataUrl}>⇩ Download QR PNG</button>
-              <button type="button" className={styles.whatsappBtn} onClick={shareReviewLink} disabled={!linkIsHttp}>💬 {shareLinkLabel}</button>
-            </div>
-          </article>
-        </section>
 
-        <section id="template-studio" className={styles.studioGrid}>
-          <article className={styles.studioPanel}>
-            <div className={styles.sectionTitle}><span>2</span><h2>Template Studio</h2></div>
-            <p className={styles.studioLead}>Choose a template and customize it</p>
-            <div className={styles.templateGrid}>
-              {TEMPLATES.map((template) => (
-                <TemplateThumb key={template.id} template={template} qrDataUrl={qrPreviewDataUrl || qrDataUrl} active={template.id === templateId} onClick={() => handleTemplateSelect(template)} />
-              ))}
+            <div className={styles.controlsGrid}>
+              <label>Business Name<input value={businessName} onChange={(e) => setBusinessName(e.target.value)} maxLength={50} /></label>
+              <label>Headline<input value={headline} onChange={(e) => setHeadline(e.target.value)} maxLength={48} /></label>
+              <label>Sub Text<input value={subText} onChange={(e) => setSubText(e.target.value)} maxLength={60} /></label>
+              <label>Star Color<select value={starColor} onChange={(e) => setStarColor(e.target.value)}><option value="#f5a400">Gold</option><option value="#f97316">Orange</option><option value="#c58a25">White-Gold</option></select></label>
+              <label>Text Color<select value={textColor} onChange={(e) => setTextColor(e.target.value)}><option value="#111827">Black</option><option value="#7c2d12">Brown</option><option value="#1e3a8a">Blue</option></select></label>
             </div>
 
-            <div className={styles.editorTabs} role="tablist" aria-label="Template controls">
-              <button type="button" role="tab" onClick={() => setActiveEditorTab('text')} className={activeEditorTab === 'text' ? styles.activeEditorTab : ''} aria-selected={activeEditorTab === 'text'}>Edit Text</button>
-              <button type="button" role="tab" onClick={() => setActiveEditorTab('colors')} className={activeEditorTab === 'colors' ? styles.activeEditorTab : ''} aria-selected={activeEditorTab === 'colors'}>Colors</button>
-              <button type="button" role="tab" onClick={() => setActiveEditorTab('size')} className={activeEditorTab === 'size' ? styles.activeEditorTab : ''} aria-selected={activeEditorTab === 'size'}>Print Size</button>
+            <div className={styles.printTabs}>
+              <button type="button" className={!useCustom ? styles.tabActive : ''} onClick={() => setUseCustom(false)}>Print Size</button>
+              <button type="button" className={useCustom ? styles.tabActive : ''} onClick={() => setUseCustom(true)}>Custom Size</button>
             </div>
 
-            {activeEditorTab === 'text' && (
-              <div className={styles.editorGrid}>
-                <label>Business / shop name<input maxLength={36} value={businessName} onChange={(event) => setBusinessName(event.target.value)} /></label>
-                <label>Headline<input maxLength={34} value={headline} onChange={(event) => setHeadline(event.target.value)} /></label>
-                <label>CTA text<input maxLength={42} value={ctaText} onChange={(event) => setCtaText(event.target.value)} /></label>
-                <label>Show stars<select value={showStars ? 'show' : 'hide'} onChange={(event) => setShowStars(event.target.value === 'show')}><option value="show">Show stars</option><option value="hide">Hide stars</option></select></label>
-                <label>Show logo<select value={showLogo ? 'show' : 'hide'} onChange={(event) => setShowLogo(event.target.value === 'show')}><option value="show">Show logo</option><option value="hide">Hide logo</option></select></label>
+            <div className={styles.sizePanel}>
+              <div className={styles.recommendedSize}>
+                <strong>Recommended Size</strong>
+                <b>{formatSize(template.widthMm, template.heightMm, template.type)}</b>
+                <span>{template.useCase}</span>
               </div>
-            )}
-
-            {activeEditorTab === 'colors' && (
-              <div className={styles.colorEditor}>
-                <div>
-                  <label>Accent color</label>
-                  <div className={styles.swatches}>{ACCENTS.map((color) => <button key={color} type="button" aria-label={`Use accent ${color}`} onClick={() => setAccent(color)} className={accent === color ? styles.activeSwatch : ''} style={{ backgroundColor: color }} />)}</div>
-                </div>
-                <p>QR pixels stay black-on-white for scan safety. Accent colors update the frame, badge, signature and template details.</p>
+              <div className={styles.customSizeBox}>
+                <strong>Custom Size</strong>
+                {template.type === 'round' ? (
+                  <label>Diameter (mm)<input type="number" min="60" max="300" value={customDiameter} onChange={(e) => { setCustomDiameter(e.target.value); setUseCustom(true); }} /></label>
+                ) : (
+                  <div className={styles.customInputs}>
+                    <label>Width<input type="number" min="60" max="300" value={customWidth} onChange={(e) => { setCustomWidth(e.target.value); setUseCustom(true); }} /></label>
+                    <label>Height<input type="number" min="60" max="400" value={customHeight} onChange={(e) => { setCustomHeight(e.target.value); setUseCustom(true); }} /></label>
+                  </div>
+                )}
               </div>
-            )}
+            </div>
+          </section>
 
-            {activeEditorTab === 'size' && (
-              <div className={styles.printSizePanel}>
-                {PRINT_SIZES.map((size) => (
-                  <button key={size.id} type="button" onClick={() => setPrintSizeId(size.id)} className={printSizeId === size.id ? styles.activeSize : ''} aria-pressed={printSizeId === size.id}>
-                    <b>{size.name}</b>
-                    <span>{size.mm}</span>
-                    <small>{size.inch}</small>
-                  </button>
-                ))}
-              </div>
-            )}
-          </article>
-
-          <aside className={styles.productPanel} aria-label="Live product preview">
-            <div className={styles.productHead}><h2>LIVE PRODUCT PREVIEW</h2><span>LIVE</span></div>
-            <div className={styles.canvasShell}><canvas id="templateCanvas" ref={canvasRef} className={styles.templateCanvas} role="img" aria-label="Live Google Review QR product preview" /></div>
-            <div className={styles.productMeta}>
-              <b>{selectedTemplate.fullName}</b>
-              <span>{printSize.mm} <i /> {printSize.inch}</span>
-              <small>Template: {selectedTemplate.label}</small>
+          <aside className={`${styles.panel} ${styles.previewPanel}`}>
+            <div className={styles.panelTitle}><span>3</span><div><h2>Live Product Preview</h2><p>See how your design looks</p></div><b className={styles.liveBadge}>LIVE</b></div>
+            <div className={styles.canvasStage}>
+              <canvas id="templateCanvas" ref={canvasRef} aria-label="Final printable product preview" />
             </div>
-            <div className={styles.finalShare}>
-              <button type="button" onClick={shareReviewLink} disabled={!linkIsHttp}>💬 Share Link via WhatsApp</button>
-              <button type="button" onClick={shareFinalDesign} disabled={!qrDataUrl || !isCanvasReady}>💬 Share Design via WhatsApp</button>
+            <div className={styles.previewMeta}>
+              <strong>{template.name}</strong>
+              <span>{formatSize(printSize.widthMm, printSize.heightMm, template.type)}</span>
+              <small>{useCustom ? 'Custom Print Size' : 'Recommended Print Size'}</small>
             </div>
-            <div className={styles.finalActions}>
-              <button type="button" onClick={downloadFinalPng} disabled={!qrDataUrl || !isCanvasReady}>⇩ Download PNG</button>
-              <button type="button" onClick={downloadFinalSvg} disabled={!qrDataUrl || !isCanvasReady}>⇩ Download SVG</button>
-              <button type="button" onClick={downloadFinalPdf} disabled={!qrDataUrl || !isCanvasReady}>⇩ Download PDF</button>
+            <button type="button" className={styles.downloadDesign} onClick={downloadFinalPng}>⬇ Download Design</button>
+            <div className={styles.fileButtons}>
+              <button type="button" onClick={downloadFinalPng}>PNG</button>
+              <button type="button" onClick={downloadFinalSvg}>SVG</button>
+              <button type="button" onClick={downloadFinalPdf}>PDF</button>
             </div>
+            <div className={styles.whatsappArea}>
+              <span>Share Design</span>
+              <button type="button" onClick={shareLinkViaWhatsApp}>🟢 WhatsApp Link</button>
+              <button type="button" onClick={shareDesignViaWhatsApp}>🟢 WhatsApp Design</button>
+            </div>
+            <p className={styles.previewFoot}>High quality • Print ready</p>
           </aside>
         </section>
 
-        <section className={styles.featurePanel} aria-label="Generator features">
-          <article><span>📱</span><b>Mobile-first</b><p>No cut-off hero, no horizontal overflow and clean stacked controls.</p></article>
-          <article><span>🏷️</span><b>Logo-safe</b><p>Uploaded logos stay centered, visible and contain-fit in QR and templates.</p></article>
-          <article><span>▦</span><b>Bigger QR preview</b><p>Styled QR preview is large enough to check before printing.</p></article>
-          <article><span>⚡</span><b>Live canvas output</b><p>The same visible canvas powers preview, PNG, SVG and PDF exports.</p></article>
-          <article><span>🖨️</span><b>Print sizes</b><p>Choose practical mm + inch sizes for cards, stickers and standees.</p></article>
-          <article><span>💬</span><b>WhatsApp ready</b><p>Share the review link or share/download the final design with a safe fallback.</p></article>
-        </section>
-
-        <section id="finished-products" className={styles.products}>
-          <div className={styles.productsHead}><h2>Finished Products You Can Print</h2><a href="#template-studio">View All Templates →</a></div>
-          <div className={styles.productGrid}>
-            {TEMPLATES.map((template) => <FinishedProductMock key={template.id} template={template} qrDataUrl={qrPreviewDataUrl} />)}
+        <section className={styles.finishedSection}>
+          <div className={styles.sectionHeading}><div><h2>Finished Products You Can Print</h2><p>Premium prints for every need</p></div><Link href="/templates">View All Templates →</Link></div>
+          <div className={styles.productRow}>
+            {TEMPLATES.map((item) => (
+              <article className={`${styles.productCard} ${styles[`product_${item.id}`]}`} key={item.id}>
+                <div className={styles.productMock}><span>Review Us<br /><b>Google</b><i>▦</i></span></div>
+                <strong>{item.name}</strong>
+                <small>{item.sizeLabel} | {item.inchLabel}</small>
+              </article>
+            ))}
           </div>
         </section>
 
-        <section id="review-guide" className={styles.seoBlock}>
+        <section className={styles.bottomInfo}>
+          <div><b>✂ No Design Skills Needed</b><span>Create in minutes</span></div>
+          <div><b>🖨 Print Ready High Quality</b><span>Sharp, clean & professional</span></div>
+          <div><b>🛠 Fully Customizable</b><span>Your style, your way</span></div>
+          <div><b>🏪 Trusted by Indian Businesses</b><span>Across clinics, salons, cafés</span></div>
+          <div><b>🛡 Secure & Private</b><span>Your data stays in browser</span></div>
+        </section>
+
+        <section className={styles.seoBlock}>
           <div>
             <h2>Free Google Review QR Generator for Indian businesses</h2>
-            <p>BharathQR helps clinics, restaurants, salons, shops and local service businesses turn a happy customer moment into a simple scan-to-review action. Add your Google review link, upload your logo, choose a premium template and export print-ready files.</p>
+            <p>BharathQR helps clinics, salons, cafés, restaurants, shops and local service businesses create review QR codes with business logo, elegant templates and print-ready downloads.</p>
           </div>
-          <div>
-            <h3>Where to use your review QR</h3>
-            <p>Place your Google Review QR on reception counters, tables, billing desks, table tents, acrylic standees, thank-you cards, stickers, packaging and WhatsApp follow-up messages. Always ask for honest customer feedback.</p>
-          </div>
-          <div>
-            <h3>Related Review Growth pages</h3>
-            <div className={styles.relatedLinks}>{RELATED_LINKS.map((link) => <Link href={link.href} key={link.href}>{link.title} →</Link>)}</div>
-          </div>
-          <div className={styles.faqMini}>
-            <details><summary>Is this Google Review QR Generator free?</summary><p>Yes. You can create a Google Review QR code and download print-ready files without login.</p></details>
-            <details><summary>Can I add my business logo?</summary><p>Yes. The logo is centered, contain-fit and protected with a clean background so it does not crop or merge with the QR.</p></details>
-            <details><summary>Do PNG, SVG and PDF downloads match the preview?</summary><p>Yes. The visible live product canvas is used as the source for all final downloads.</p></details>
-            <details><summary>Does WhatsApp design sharing work on desktop?</summary><p>Browsers that support Web Share file sharing can share the PNG directly. Other browsers download the PNG and open WhatsApp with a fallback message so you can attach the file manually.</p></details>
-          </div>
+          <div className={styles.relatedLinks}>{RELATED_LINKS.map((link) => <Link href={link.href} key={link.href}>{link.title}</Link>)}</div>
         </section>
+        {toast && <div className={styles.toast} role="status" aria-live="polite">{toast}</div>}
       </main>
-      {toast && <div className={styles.toast} role="status" aria-live="polite">{toast}</div>}
     </>
   );
 }
+
+export default GoogleReviewQRGeneratorPage;
