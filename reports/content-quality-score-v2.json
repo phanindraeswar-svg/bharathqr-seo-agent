@@ -1,6 +1,6 @@
 {
-  "scored_posts": 29,
-  "publish_ready": 24,
+  "scored_posts": 30,
+  "publish_ready": 25,
   "review_needed": 5,
   "rejected": 0,
   "results": [
@@ -360,6 +360,19 @@
       "issues": [
         "too_many_long_sentences"
       ]
+    },
+    {
+      "file": "posts/2026-06-23-phone-qr-code-generator-for-salons-make-contact-ea.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 100,
+        "readability": 100,
+        "trust_signals": 70
+      },
+      "final_score": 97,
+      "status": "publish",
+      "issues": []
     },
     {
       "file": "posts/2026-06-23-sms-qr-code-generator-for-clinics-instantly-connec.md",

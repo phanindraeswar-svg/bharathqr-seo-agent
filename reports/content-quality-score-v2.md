@@ -29,5 +29,6 @@
 | 2026-06-20-wifi-qr-code-generator-for-hotels-connect-guests-f.md | 95 | publish | 100 | 100 | 75 | 100 | 100 | None |
 | 2026-06-23-email-qr-code-generator-for-schools-share-contact.md | 89 | publish | 100 | 100 | 75 | 100 | 40 | None |
 | 2026-06-23-event-qr-code-generator-for-hotels-share-event-det.md | 95 | publish | 100 | 100 | 100 | 85 | 70 | too_many_long_sentences |
+| 2026-06-23-phone-qr-code-generator-for-salons-make-contact-ea.md | 97 | publish | 100 | 100 | 100 | 100 | 70 | None |
 | 2026-06-23-sms-qr-code-generator-for-clinics-instantly-connec.md | 78 | review | 85 | 100 | 54 | 85 | 40 | too_many_long_sentences |
 | zero-fee-upi-guide.md | 97 | publish | 100 | 100 | 100 | 80 | 100 | short_body_under_450_words |
