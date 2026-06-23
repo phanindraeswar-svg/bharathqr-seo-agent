@@ -1,22 +1,9 @@
 {
   "scored_posts": 30,
-  "publish_ready": 25,
-  "review_needed": 5,
+  "publish_ready": 26,
+  "review_needed": 4,
   "rejected": 0,
   "results": [
-    {
-      "file": "posts/2026-05-30-how-home-bakeries-in-pune-can-sweeten-their-sales.md",
-      "scores": {
-        "commercial_intent": 87,
-        "founder_alignment": 100,
-        "keyword_coverage": 68,
-        "readability": 100,
-        "trust_signals": 30
-      },
-      "final_score": 83,
-      "status": "review",
-      "issues": []
-    },
     {
       "file": "posts/2026-05-30-how-kirana-store-owners-in-bengaluru-can-increase.md",
       "scores": {
@@ -388,6 +375,19 @@
       "issues": [
         "too_many_long_sentences"
       ]
+    },
+    {
+      "file": "posts/2026-06-23-upi-qr-code-generator-for-salons-accept-payments-f.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 100,
+        "readability": 100,
+        "trust_signals": 70
+      },
+      "final_score": 97,
+      "status": "publish",
+      "issues": []
     },
     {
       "file": "posts/zero-fee-upi-guide.md",

@@ -2,7 +2,6 @@
 
 | File | Final | Status | Commercial | Founder | Keywords | Readability | Trust | Issues |
 |---|---:|---|---:|---:|---:|---:|---:|---|
-| 2026-05-30-how-home-bakeries-in-pune-can-sweeten-their-sales.md | 83 | review | 87 | 100 | 68 | 100 | 30 | None |
 | 2026-05-30-how-kirana-store-owners-in-bengaluru-can-increase.md | 91 | publish | 100 | 100 | 90 | 100 | 30 | None |
 | 2026-05-30-how-small-laundry-services-in-hyderabad-can-boost.md | 90 | publish | 87 | 100 | 68 | 100 | 100 | None |
 | 2026-05-30-how-street-food-vendors-in-mumbai-can-boost-sales.md | 93 | publish | 100 | 100 | 78 | 100 | 70 | None |
@@ -31,4 +30,5 @@
 | 2026-06-23-pdf-qr-code-generator-for-clinics-share-medical-re.md | 94 | publish | 100 | 100 | 100 | 100 | 40 | None |
 | 2026-06-23-phone-qr-code-generator-for-salons-make-contact-ea.md | 97 | publish | 100 | 100 | 100 | 100 | 70 | None |
 | 2026-06-23-sms-qr-code-generator-for-clinics-instantly-connec.md | 78 | review | 85 | 100 | 54 | 85 | 40 | too_many_long_sentences |
+| 2026-06-23-upi-qr-code-generator-for-salons-accept-payments-f.md | 97 | publish | 100 | 100 | 100 | 100 | 70 | None |
 | zero-fee-upi-guide.md | 97 | publish | 100 | 100 | 100 | 80 | 100 | short_body_under_450_words |
