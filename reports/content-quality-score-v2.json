@@ -5,19 +5,6 @@
   "rejected": 0,
   "results": [
     {
-      "file": "posts/2026-05-30-how-kirana-store-owners-in-bengaluru-can-increase.md",
-      "scores": {
-        "commercial_intent": 100,
-        "founder_alignment": 100,
-        "keyword_coverage": 90,
-        "readability": 100,
-        "trust_signals": 30
-      },
-      "final_score": 91,
-      "status": "publish",
-      "issues": []
-    },
-    {
       "file": "posts/2026-05-30-how-small-laundry-services-in-hyderabad-can-boost.md",
       "scores": {
         "commercial_intent": 87,
@@ -334,6 +321,19 @@
       "issues": [
         "too_many_long_sentences"
       ]
+    },
+    {
+      "file": "posts/2026-06-23-google-review-qr-code-generator-for-clinics-collec.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 90,
+        "readability": 100,
+        "trust_signals": 40
+      },
+      "final_score": 92,
+      "status": "publish",
+      "issues": []
     },
     {
       "file": "posts/2026-06-23-pdf-qr-code-generator-for-clinics-share-medical-re.md",
