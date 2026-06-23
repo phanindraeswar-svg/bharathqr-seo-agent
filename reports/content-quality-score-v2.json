@@ -1,6 +1,6 @@
 {
-  "scored_posts": 26,
-  "publish_ready": 22,
+  "scored_posts": 27,
+  "publish_ready": 23,
   "review_needed": 4,
   "rejected": 0,
   "results": [
@@ -332,6 +332,21 @@
       "final_score": 95,
       "status": "publish",
       "issues": []
+    },
+    {
+      "file": "posts/2026-06-23-event-qr-code-generator-for-hotels-share-event-det.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 100,
+        "readability": 85,
+        "trust_signals": 70
+      },
+      "final_score": 95,
+      "status": "publish",
+      "issues": [
+        "too_many_long_sentences"
+      ]
     },
     {
       "file": "posts/zero-fee-upi-guide.md",
