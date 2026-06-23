@@ -1,6 +1,6 @@
 {
-  "scored_posts": 27,
-  "publish_ready": 23,
+  "scored_posts": 28,
+  "publish_ready": 24,
   "review_needed": 4,
   "rejected": 0,
   "results": [
@@ -330,6 +330,19 @@
         "trust_signals": 100
       },
       "final_score": 95,
+      "status": "publish",
+      "issues": []
+    },
+    {
+      "file": "posts/2026-06-23-email-qr-code-generator-for-schools-share-contact.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 75,
+        "readability": 100,
+        "trust_signals": 40
+      },
+      "final_score": 89,
       "status": "publish",
       "issues": []
     },
