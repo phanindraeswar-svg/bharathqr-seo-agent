@@ -5,19 +5,6 @@
   "rejected": 0,
   "results": [
     {
-      "file": "posts/2026-05-30-how-street-food-vendors-in-mumbai-can-boost-sales.md",
-      "scores": {
-        "commercial_intent": 100,
-        "founder_alignment": 100,
-        "keyword_coverage": 78,
-        "readability": 100,
-        "trust_signals": 70
-      },
-      "final_score": 93,
-      "status": "publish",
-      "issues": []
-    },
-    {
       "file": "posts/2026-05-31-how-pharmacies-in-kolkata-can-increase-sales-and-r.md",
       "scores": {
         "commercial_intent": 87,
@@ -386,6 +373,19 @@
         "trust_signals": 40
       },
       "final_score": 94,
+      "status": "publish",
+      "issues": []
+    },
+    {
+      "file": "posts/2026-06-30-sms-qr-code-generator-for-salons-instantly-connect.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 100,
+        "readability": 100,
+        "trust_signals": 70
+      },
+      "final_score": 97,
       "status": "publish",
       "issues": []
     },
