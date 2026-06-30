@@ -5,19 +5,6 @@
   "rejected": 0,
   "results": [
     {
-      "file": "posts/2026-05-31-how-pharmacies-in-kolkata-can-increase-sales-and-r.md",
-      "scores": {
-        "commercial_intent": 87,
-        "founder_alignment": 100,
-        "keyword_coverage": 68,
-        "readability": 100,
-        "trust_signals": 70
-      },
-      "final_score": 87,
-      "status": "publish",
-      "issues": []
-    },
-    {
       "file": "posts/2026-06-01-how-mobile-repair-shops-in-jaipur-can-fix-their-ca.md",
       "scores": {
         "commercial_intent": 100,
@@ -375,6 +362,21 @@
       "final_score": 94,
       "status": "publish",
       "issues": []
+    },
+    {
+      "file": "posts/2026-06-30-phone-qr-code-generator-for-clinics-make-contact-e.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 68,
+        "readability": 85,
+        "trust_signals": 40
+      },
+      "final_score": 85,
+      "status": "publish",
+      "issues": [
+        "too_many_long_sentences"
+      ]
     },
     {
       "file": "posts/2026-06-30-sms-qr-code-generator-for-salons-instantly-connect.md",
