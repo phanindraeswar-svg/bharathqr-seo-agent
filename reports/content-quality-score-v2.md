@@ -2,7 +2,6 @@
 
 | File | Final | Status | Commercial | Founder | Keywords | Readability | Trust | Issues |
 |---|---:|---|---:|---:|---:|---:|---:|---|
-| 2026-06-01-how-mobile-repair-shops-in-jaipur-can-fix-their-ca.md | 93 | publish | 100 | 100 | 78 | 100 | 70 | None |
 | 2026-06-02-how-sabziwalas-in-bangalore-can-increase-sales-by.md | 87 | publish | 87 | 100 | 68 | 100 | 70 | None |
 | 2026-06-03-how-cycle-rickshaw-owners-in-varanasi-can-pedal-th.md | 86 | publish | 87 | 100 | 68 | 100 | 60 | None |
 | 2026-06-04-how-panipuri-stall-owners-in-delhi-can-spice-up-th.md | 90 | publish | 87 | 100 | 68 | 100 | 100 | None |
@@ -29,6 +28,7 @@
 | 2026-06-23-sms-qr-code-generator-for-clinics-instantly-connec.md | 78 | review | 85 | 100 | 54 | 85 | 40 | too_many_long_sentences |
 | 2026-06-23-upi-qr-code-generator-for-salons-accept-payments-f.md | 97 | publish | 100 | 100 | 100 | 100 | 70 | None |
 | 2026-06-27-vcard-qr-code-generator-for-salons-share-contact-i.md | 94 | publish | 100 | 100 | 100 | 100 | 40 | None |
+| 2026-06-30-pdf-qr-code-generator-for-schools-share-digital-no.md | 94 | publish | 100 | 100 | 87 | 100 | 70 | None |
 | 2026-06-30-phone-qr-code-generator-for-clinics-make-contact-e.md | 85 | publish | 100 | 100 | 68 | 85 | 40 | too_many_long_sentences |
 | 2026-06-30-sms-qr-code-generator-for-salons-instantly-connect.md | 97 | publish | 100 | 100 | 100 | 100 | 70 | None |
 | zero-fee-upi-guide.md | 97 | publish | 100 | 100 | 100 | 80 | 100 | short_body_under_450_words |
