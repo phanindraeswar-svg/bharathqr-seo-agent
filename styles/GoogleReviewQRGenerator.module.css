@@ -1652,3 +1652,23 @@
   .workflow { gap: 14px !important; }
   .workflowStep i { display: none !important; }
 }
+
+
+/* v16.9.1 targeted polish overrides */
+.templateShell_counter, .templateShell_round { background: #ffffff !important; }
+.templateShell_beige { background: linear-gradient(180deg,#fffdf8,#fff2d7) !important; }
+.templateShell_credit { background: #ffffff !important; }
+
+.productPhoto {
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  filter: saturate(1.08) contrast(1.07) brightness(1.03) !important;
+}
+.product_round {
+  background-size: contain !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-color: #111827 !important;
+  border-radius: 20px !important;
+}

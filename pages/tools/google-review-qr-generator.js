@@ -256,8 +256,8 @@ function drawTemplate(ctx, canvas, templateId, size, data) {
     ctx.arc(w / 2, h / 2, min * 0.486, 0, Math.PI * 2);
     ctx.clip();
     const bg = ctx.createLinearGradient(0, 0, w, h);
-    bg.addColorStop(0, '#fffdf8');
-    bg.addColorStop(1, '#fff4db');
+    bg.addColorStop(0, '#ffffff');
+    bg.addColorStop(1, '#fffdf8');
     ctx.fillStyle = bg;
     ctx.fillRect(0, 0, w, h);
     ctx.strokeStyle = '#e7b85a'; ctx.lineWidth = min * 0.018;
@@ -279,9 +279,7 @@ function drawTemplate(ctx, canvas, templateId, size, data) {
     ctx.fillStyle = bg; ctx.fillRect(0,0,w,h);
     ctx.globalAlpha = .20; ctx.fillStyle = '#f59e0b'; ctx.beginPath(); ctx.arc(w*.86,h*.1,min*.34,0,Math.PI*2); ctx.fill(); ctx.globalAlpha=1;
     roundedRect(ctx, min*.07, min*.07, w-min*.14, h-min*.14, min*.06); ctx.lineWidth = min*.012; ctx.strokeStyle='rgba(251,191,36,.78)'; ctx.stroke();
-    roundedRect(ctx, min*.105, min*.105, w-min*.21, h-min*.21, min*.045); ctx.lineWidth = min*.006; ctx.strokeStyle='rgba(255,255,255,.18)'; ctx.stroke();
     drawSunriseLogo(ctx,w/2,h*.105,min*.15,data.logoImg,accent);
-    ctx.fillStyle = '#f8fafc'; ctx.font = `900 ${min*.055}px Arial`; ctx.textAlign = 'center'; ctx.fillText('⌁', w/2, h*.195);
     drawText(ctx, data.businessName, w/2, h*.27, w*.74, min*.066, min*.036, { color:'#fbd17b', family:'Georgia, serif', max:32 });
     drawText(ctx, 'Tap or scan to review us on', w/2, h*.375, w*.72, min*.041, min*.025, { color:'#f8fafc', weight:800, max:38 });
     drawGoogle(ctx, w/2, h*.468, min*.11);
@@ -293,14 +291,12 @@ function drawTemplate(ctx, canvas, templateId, size, data) {
 
   const bg = ctx.createLinearGradient(0,0,w,h);
   if (templateId === 'beige') { bg.addColorStop(0,'#fff9ef'); bg.addColorStop(.56,'#fff4dd'); bg.addColorStop(1,'#f2d39d'); }
-  else { bg.addColorStop(0,'#ffffff'); bg.addColorStop(.62,'#fffdf8'); bg.addColorStop(1,'#f8e4bc'); }
+  else { bg.addColorStop(0,'#ffffff'); bg.addColorStop(.62,'#ffffff'); bg.addColorStop(1,'#fffaf1'); }
   ctx.fillStyle = bg; ctx.fillRect(0,0,w,h);
   ctx.globalAlpha = .12; ctx.fillStyle = accent; ctx.beginPath(); ctx.arc(w*.86,h*.1,min*.32,0,Math.PI*2); ctx.fill(); ctx.globalAlpha=1;
   const pad = min*.055;
   roundedRect(ctx, pad, pad, w-pad*2, h-pad*2, min*.035);
   ctx.strokeStyle = templateId === 'beige' ? '#d4a044' : '#f0b044'; ctx.lineWidth = min*.011; ctx.stroke();
-  roundedRect(ctx, pad+min*.024, pad+min*.024, w-(pad+min*.024)*2, h-(pad+min*.024)*2, min*.026);
-  ctx.strokeStyle='rgba(255,255,255,.68)'; ctx.lineWidth=min*.004; ctx.stroke();
   drawSunriseLogo(ctx,w/2,h*.105,min*.15,data.logoImg,accent);
   drawText(ctx, data.businessName, w/2, h*.215, w*.74, min*.084, min*.046, { color:'#8b2d16', family:'Georgia, serif', max:36 });
   ctx.strokeStyle = templateId === 'beige' ? '#d4a044' : '#f0b044'; ctx.lineWidth = min*.004; ctx.beginPath(); ctx.moveTo(w*.3,h*.267); ctx.lineTo(w*.7,h*.267); ctx.stroke();
