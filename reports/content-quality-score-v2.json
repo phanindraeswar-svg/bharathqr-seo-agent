@@ -5,19 +5,6 @@
   "rejected": 0,
   "results": [
     {
-      "file": "posts/2026-06-03-how-cycle-rickshaw-owners-in-varanasi-can-pedal-th.md",
-      "scores": {
-        "commercial_intent": 87,
-        "founder_alignment": 100,
-        "keyword_coverage": 68,
-        "readability": 100,
-        "trust_signals": 60
-      },
-      "final_score": 86,
-      "status": "publish",
-      "issues": []
-    },
-    {
       "file": "posts/2026-06-04-how-panipuri-stall-owners-in-delhi-can-spice-up-th.md",
       "scores": {
         "commercial_intent": 87,
@@ -388,6 +375,19 @@
         "trust_signals": 100
       },
       "final_score": 100,
+      "status": "publish",
+      "issues": []
+    },
+    {
+      "file": "posts/2026-07-02-wifi-qr-code-generator-for-restaurants-connect-gue.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 88,
+        "readability": 100,
+        "trust_signals": 40
+      },
+      "final_score": 92,
       "status": "publish",
       "issues": []
     },

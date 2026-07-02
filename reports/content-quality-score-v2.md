@@ -2,7 +2,6 @@
 
 | File | Final | Status | Commercial | Founder | Keywords | Readability | Trust | Issues |
 |---|---:|---|---:|---:|---:|---:|---:|---|
-| 2026-06-03-how-cycle-rickshaw-owners-in-varanasi-can-pedal-th.md | 86 | publish | 87 | 100 | 68 | 100 | 60 | None |
 | 2026-06-04-how-panipuri-stall-owners-in-delhi-can-spice-up-th.md | 90 | publish | 87 | 100 | 68 | 100 | 100 | None |
 | 2026-06-05-how-darshan-tour-operators-in-tirupati-can-increas.md | 97 | publish | 100 | 100 | 100 | 80 | 100 | short_body_under_450_words |
 | 2026-06-06-how-barber-shops-in-coimbatore-can-cut-through-cas.md | 91 | publish | 100 | 100 | 88 | 100 | 30 | None |
@@ -31,4 +30,5 @@
 | 2026-06-30-phone-qr-code-generator-for-clinics-make-contact-e.md | 85 | publish | 100 | 100 | 68 | 85 | 40 | too_many_long_sentences |
 | 2026-06-30-sms-qr-code-generator-for-salons-instantly-connect.md | 97 | publish | 100 | 100 | 100 | 100 | 70 | None |
 | 2026-06-30-upi-qr-code-generator-for-restaurants-accept-payme.md | 100 | publish | 100 | 100 | 100 | 100 | 100 | None |
+| 2026-07-02-wifi-qr-code-generator-for-restaurants-connect-gue.md | 92 | publish | 100 | 100 | 88 | 100 | 40 | None |
 | zero-fee-upi-guide.md | 97 | publish | 100 | 100 | 100 | 80 | 100 | short_body_under_450_words |
