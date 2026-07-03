@@ -2,7 +2,6 @@
 
 | File | Final | Status | Commercial | Founder | Keywords | Readability | Trust | Issues |
 |---|---:|---|---:|---:|---:|---:|---:|---|
-| 2026-06-07-how-auto-rickshaw-drivers-in-mysuru-can-increase-t.md | 83 | review | 72 | 100 | 57 | 100 | 100 | None |
 | 2026-06-07-how-dhaba-owners-in-amritsar-can-boost-sales-by-ac.md | 84 | review | 75 | 100 | 70 | 100 | 70 | None |
 | 2026-06-07-how-petty-shop-owners-in-nagpur-can-boost-sales-by.md | 93 | publish | 100 | 100 | 78 | 100 | 70 | None |
 | 2026-06-08-how-dhaba-owners-in-amritsar-can-increase-sales-by.md | 93 | publish | 100 | 100 | 78 | 100 | 70 | None |
@@ -28,6 +27,7 @@
 | 2026-06-30-sms-qr-code-generator-for-salons-instantly-connect.md | 97 | publish | 100 | 100 | 100 | 100 | 70 | None |
 | 2026-06-30-upi-qr-code-generator-for-restaurants-accept-payme.md | 100 | publish | 100 | 100 | 100 | 100 | 100 | None |
 | 2026-07-02-wifi-qr-code-generator-for-restaurants-connect-gue.md | 92 | publish | 100 | 100 | 88 | 100 | 40 | None |
+| 2026-07-03-event-qr-code-generator-for-hotels-share-event-det.md | 94 | publish | 100 | 100 | 100 | 100 | 40 | None |
 | 2026-07-03-menu-qr-code-generator-for-hotels-share-digital-me.md | 94 | publish | 100 | 100 | 100 | 100 | 40 | None |
 | 2026-07-03-text-qr-code-generator-for-schools-share-contact-i.md | 97 | publish | 100 | 100 | 100 | 100 | 70 | None |
 | 2026-07-03-vcard-qr-code-generator-for-clinics-share-contact.md | 91 | publish | 100 | 88 | 100 | 100 | 40 | banned_or_disliked_phrases:seamless experience |
