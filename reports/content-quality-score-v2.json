@@ -1,22 +1,9 @@
 {
   "scored_posts": 30,
-  "publish_ready": 27,
-  "review_needed": 3,
+  "publish_ready": 28,
+  "review_needed": 2,
   "rejected": 0,
   "results": [
-    {
-      "file": "posts/2026-06-07-how-dhaba-owners-in-amritsar-can-boost-sales-by-ac.md",
-      "scores": {
-        "commercial_intent": 75,
-        "founder_alignment": 100,
-        "keyword_coverage": 70,
-        "readability": 100,
-        "trust_signals": 70
-      },
-      "final_score": 84,
-      "status": "review",
-      "issues": []
-    },
     {
       "file": "posts/2026-06-07-how-petty-shop-owners-in-nagpur-can-boost-sales-by.md",
       "scores": {
@@ -332,6 +319,19 @@
         "keyword_coverage": 88,
         "readability": 100,
         "trust_signals": 40
+      },
+      "final_score": 92,
+      "status": "publish",
+      "issues": []
+    },
+    {
+      "file": "posts/2026-07-03-email-qr-code-generator-for-schools-share-contact.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 75,
+        "readability": 100,
+        "trust_signals": 70
       },
       "final_score": 92,
       "status": "publish",
