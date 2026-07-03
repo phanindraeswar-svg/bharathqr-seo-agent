@@ -5,82 +5,136 @@ import QRCode from 'qrcode';
 import styles from '../../styles/UpiQRGenerator.module.css';
 
 const CANONICAL_URL = 'https://www.bharathqr.com/tools/upi-qr-generator';
-const BHARATHQR_UTM = `${CANONICAL_URL}?utm_source=whatsapp&utm_medium=share&utm_campaign=upi_qr_generator`;
+const BHARATHQR_UTM = `${CANONICAL_URL}?utm_source=whatsapp&utm_medium=share&utm_campaign=upi_qr_generator_v7`;
 const CANVAS_SCALE = 3;
 const DEFAULT_UPI_ID = 'jainsocialgroup@idfcbank';
 const DEFAULT_PAYEE = 'Sunrise Cafe';
-const DEFAULT_NOTE = 'Payment via UPI';
 
 const TEMPLATES = [
   {
     id: 'counter-standee',
     name: 'Counter Standee',
-    shortName: 'Counter Standee',
     size: '4 × 6 inch / A6',
     bestFor: 'Best for billing counters, cashier desks, clinics and small shops',
     width: 420,
     height: 620,
-    background: '#ffffff',
-    surface: '#fffdfb',
+    shape: 'portrait',
     accent: '#ff4f23',
-    accent2: '#f97316',
-    text: '#111827',
-    muted: '#667085',
-    dark: false,
-    round: false,
+    surface: '#ffffff',
+    shell: '#fffdf9',
   },
   {
     id: 'table-tent',
     name: 'Table Tent',
-    shortName: 'Table Tent',
     size: '6 × 4 inch',
     bestFor: 'Ideal for restaurants, cafes, retail counters and billing tables',
-    width: 620,
+    width: 640,
     height: 420,
-    background: '#ffffff',
-    surface: '#fffaf5',
+    shape: 'landscape',
     accent: '#ff4f23',
-    accent2: '#f97316',
-    text: '#111827',
-    muted: '#667085',
-    dark: false,
-    round: false,
+    surface: '#ffffff',
+    shell: '#fffdf9',
   },
   {
     id: 'payment-card',
     name: 'Payment Card',
-    shortName: 'Payment Card',
     size: '85 × 55 mm',
     bestFor: 'Best for auto drivers, delivery partners, wallets and parcel inserts',
     width: 680,
     height: 430,
-    background: '#ffffff',
-    surface: '#ffffff',
+    shape: 'card',
     accent: '#ff4f23',
-    accent2: '#f97316',
-    text: '#111827',
-    muted: '#667085',
-    dark: false,
-    round: false,
+    surface: '#ffffff',
+    shell: '#ffffff',
   },
   {
     id: 'round-sticker',
     name: 'Round Sticker',
-    shortName: 'Round Sticker',
     size: '3 inch circle',
     bestFor: 'Best for autos, counters, jars, boxes, packaging and takeaway bags',
     width: 560,
     height: 560,
-    background: '#ffffff',
-    surface: '#ffffff',
+    shape: 'round',
     accent: '#ff4f23',
-    accent2: '#20a86b',
-    text: '#111827',
-    muted: '#667085',
-    dark: false,
-    round: true,
+    surface: '#ffffff',
+    shell: '#ffffff',
   },
 ];
+
+const LAYOUTS = {
+  'counter-standee': {
+    margin: 31,
+    radius: 26,
+    logoSize: 38,
+    headerY: 70,
+    titleSize: 23,
+    scanY: 124,
+    scanSize: 18,
+    qrSize: 246,
+    qrY: 156,
+    upiY: 430,
+    upiSize: 11.5,
+    brandY: 486,
+    brandScale: 0.86,
+    appsY: 548,
+    appSize: 13.5,
+    appWidth: 320,
+  },
+  'table-tent': {
+    margin: 28,
+    radius: 24,
+    logoSize: 34,
+    headerY: 58,
+    titleSize: 21,
+    scanY: 98,
+    scanSize: 16,
+    qrSize: 188,
+    qrY: 124,
+    upiY: 334,
+    upiSize: 10.8,
+    brandY: 366,
+    brandScale: 0.72,
+    appsY: 397,
+    appSize: 12,
+    appWidth: 430,
+  },
+  'payment-card': {
+    margin: 30,
+    radius: 26,
+    logoSize: 34,
+    headerY: 58,
+    titleSize: 21,
+    scanY: 96,
+    scanSize: 16,
+    qrSize: 184,
+    qrY: 122,
+    upiY: 326,
+    upiSize: 10.8,
+    brandY: 362,
+    brandScale: 0.72,
+    appsY: 397,
+    appSize: 12,
+    appWidth: 450,
+  },
+  'round-sticker': {
+    margin: 0,
+    radius: 280,
+    logoSize: 32,
+    headerY: 86,
+    titleSize: 19,
+    scanY: 128,
+    scanSize: 15,
+    qrSize: 214,
+    qrY: 166,
+    upiY: 406,
+    upiSize: 8.6,
+    brandY: 444,
+    brandScale: 0.62,
+    appsY: 487,
+    appSize: 9.4,
+    appWidth: 330,
+  },
+};
 
 function encodeXml(value = '') {
   return String(value)
@@ -100,36 +154,34 @@ function sanitizeFileName(value) {
 }
 
 function formatAmount(value) {
-  const trimmed = String(value || '').trim();
-  if (!trimmed) return '';
-  const number = Number(trimmed);
-  if (!Number.isFinite(number) || number <= 0) return '';
-  return number.toFixed(2);
+  const clean = String(value || '').trim();
+  if (!clean) return '';
+  const num = Number(clean);
+  if (!Number.isFinite(num) || num <= 0) return '';
+  return num.toFixed(2);
 }
 
 function isValidUpiId(value) {
   return /^[a-zA-Z0-9._-]{2,256}@[a-zA-Z][a-zA-Z0-9._-]{2,64}$/.test(String(value || '').trim());
 }
 
-function buildUpiPayload({ upiId, payeeName, amount, note }) {
+function buildUpiPayload({ upiId, payeeName, amount }) {
   const params = new URLSearchParams();
   params.set('pa', String(upiId || '').trim());
-  params.set('pn', String(payeeName || 'Business').trim());
+  params.set('pn', String(payeeName || 'Business').trim() || 'Business');
   params.set('cu', 'INR');
   const cleanAmount = formatAmount(amount);
   if (cleanAmount) params.set('am', cleanAmount);
-  const cleanNote = String(note || '').trim();
-  if (cleanNote) params.set('tn', cleanNote);
   return `upi://pay?${params.toString()}`;
 }
 
 function loadImage(src) {
   return new Promise((resolve, reject) => {
-    const image = new Image();
-    image.crossOrigin = 'anonymous';
-    image.onload = () => resolve(image);
-    image.onerror = reject;
-    image.src = src;
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src = src;
   });
 }
 
@@ -151,130 +203,54 @@ function drawContainImage(ctx, image, x, y, w, h) {
   ctx.drawImage(image, x + (w - drawW) / 2, y + (h - drawH) / 2, drawW, drawH);
 }
 
-function drawBharathMark(ctx, x, y, size, color = '#ff4f23') {
-  const s = size;
-  const t = s * 0.2;
-  ctx.fillStyle = color;
-  ctx.fillRect(x, y, s * 0.38, t);
-  ctx.fillRect(x, y, t, s * 0.38);
-  ctx.fillRect(x + s * 0.62, y, s * 0.38, t);
-  ctx.fillRect(x + s * 0.8, y, t, s * 0.38);
-  ctx.fillRect(x, y + s * 0.8, s * 0.38, t);
-  ctx.fillRect(x, y + s * 0.62, t, s * 0.38);
-  ctx.fillRect(x + s * 0.62, y + s * 0.8, s * 0.38, t);
-  ctx.fillRect(x + s * 0.8, y + s * 0.62, t, s * 0.38);
-}
-
-function drawUPIWordmark(ctx, x, y, scale = 1, dark = false) {
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.font = `900 italic ${42 * scale}px Inter, Arial, sans-serif`;
-  ctx.fillStyle = dark ? '#ffffff' : '#3f464d';
-  ctx.fillText('UPI', 0, 0);
-  ctx.beginPath();
-  ctx.moveTo(101 * scale, -35 * scale);
-  ctx.lineTo(135 * scale, -10 * scale);
-  ctx.lineTo(101 * scale, 13 * scale);
-  ctx.closePath();
-  ctx.fillStyle = '#ff7a1a';
-  ctx.fill();
-  ctx.beginPath();
-  ctx.moveTo(116 * scale, -27 * scale);
-  ctx.lineTo(142 * scale, -10 * scale);
-  ctx.lineTo(116 * scale, 7 * scale);
-  ctx.closePath();
-  ctx.fillStyle = '#178f4b';
-  ctx.fill();
-  ctx.restore();
-}
-
-function drawSmallTriangle(ctx, x, y, size, color) {
+function drawTriangle(ctx, x, y, size, color) {
   ctx.beginPath();
   ctx.moveTo(x, y - size);
-  ctx.lineTo(x + size * 1.35, y);
+  ctx.lineTo(x + size * 1.36, y);
   ctx.lineTo(x, y + size);
   ctx.closePath();
   ctx.fillStyle = color;
   ctx.fill();
 }
 
-function drawAppStrip(ctx, x, y, width, dark = false, scale = 1, compact = false) {
-  const labels = compact
-    ? [
-        { text: 'GPay', color: '#4285f4' },
-        { text: 'PhonePe', color: '#5f259f' },
-        { text: 'Paytm', color: '#00baf2' },
-        { text: 'BHIM', color: '#111827' },
-      ]
-    : [
-        { text: 'G Pay', color: '#4285f4' },
-        { text: 'PhonePe', color: '#5f259f' },
-        { text: 'Paytm', color: '#00baf2' },
-        { text: 'AmazonPay', color: '#111827' },
-        { text: 'CRED', color: '#111827' },
-        { text: 'MobiKwik', color: '#2563eb' },
-      ];
-  const gap = width / labels.length;
-  labels.forEach((item, index) => {
-    const cx = x + gap * index + gap / 2;
-    ctx.save();
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.font = `900 ${Math.max(6, 10.5 * scale)}px Inter, Arial, sans-serif`;
-    ctx.fillStyle = dark ? '#ffffff' : item.color;
-    ctx.fillText(item.text, cx, y);
-    ctx.restore();
-  });
-}
-
-function drawBhimUpiStrip(ctx, x, y, width, dark = false, scale = 1) {
+function drawDefaultLogo(ctx, cx, cy, size, accent = '#ff4f23') {
   ctx.save();
-  const center = x + width / 2;
+  ctx.fillStyle = '#fff3ed';
+  ctx.strokeStyle = accent;
+  ctx.lineWidth = Math.max(1.5, size * 0.055);
+  ctx.beginPath();
+  ctx.arc(cx, cy, size / 2, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.stroke();
+  ctx.font = `900 ${size * 0.52}px Inter, Arial, sans-serif`;
+  ctx.fillStyle = accent;
+  ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.font = `900 italic ${30 * scale}px Inter, Arial, sans-serif`;
-  ctx.fillStyle = dark ? '#fff' : '#4b5563';
-  ctx.textAlign = 'right';
-  ctx.fillText('BHIM', center - 24 * scale, y);
-  drawSmallTriangle(ctx, center - 16 * scale, y, 11 * scale, '#ff7a1a');
-  drawSmallTriangle(ctx, center - 7 * scale, y, 11 * scale, '#178f4b');
-  ctx.textAlign = 'left';
-  ctx.fillText('UPI', center + 26 * scale, y);
-  drawSmallTriangle(ctx, center + 88 * scale, y, 11 * scale, '#ff7a1a');
-  drawSmallTriangle(ctx, center + 97 * scale, y, 11 * scale, '#178f4b');
+  ctx.fillText('₹', cx, cy + size * 0.04);
   ctx.restore();
 }
 
-async function createBrandedQrDataUrl(qrDataUrl, logoDataUrl) {
-  const qrImage = await loadImage(qrDataUrl);
-  const size = 900;
-  const canvas = document.createElement('canvas');
-  canvas.width = size;
-  canvas.height = size;
-  const ctx = canvas.getContext('2d');
-  ctx.fillStyle = '#ffffff';
-  ctx.fillRect(0, 0, size, size);
-  ctx.drawImage(qrImage, 0, 0, size, size);
-
-  if (logoDataUrl) {
-    const logo = await loadImage(logoDataUrl);
-    const box = 178;
-    const x = (size - box) / 2;
-    const y = (size - box) / 2;
-    ctx.save();
-    ctx.shadowColor = 'rgba(15,23,42,.16)';
-    ctx.shadowBlur = 18;
-    ctx.fillStyle = '#ffffff';
-    roundRect(ctx, x, y, box, box, 34);
-    ctx.fill();
-    ctx.restore();
-    roundRect(ctx, x + 18, y + 18, box - 36, box - 36, 24);
-    ctx.clip();
-    drawContainImage(ctx, logo, x + 22, y + 22, box - 44, box - 44);
+function drawLogoBadge(ctx, cx, cy, size, logo, accent = '#ff4f23') {
+  if (!logo) {
+    drawDefaultLogo(ctx, cx, cy, size, accent);
+    return;
   }
-  return canvas.toDataURL('image/png');
+  ctx.save();
+  ctx.fillStyle = '#ffffff';
+  ctx.strokeStyle = '#ffe0d4';
+  ctx.lineWidth = Math.max(1.3, size * 0.045);
+  ctx.beginPath();
+  ctx.arc(cx, cy, size / 2, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(cx, cy, size * 0.39, 0, Math.PI * 2);
+  ctx.clip();
+  drawContainImage(ctx, logo, cx - size * 0.37, cy - size * 0.37, size * 0.74, size * 0.74);
+  ctx.restore();
 }
 
-function fittedFontSize(ctx, text, maxWidth, start, min, weight = 900) {
+function fitFont(ctx, text, maxWidth, start, min, weight = 900) {
   let size = start;
   const value = String(text || '').trim();
   while (size > min) {
@@ -286,286 +262,219 @@ function fittedFontSize(ctx, text, maxWidth, start, min, weight = 900) {
 }
 
 function drawCenteredText(ctx, text, x, y, maxWidth, start, min, color = '#111827', weight = 900) {
-  const value = String(text || '').replace(/\s+/g, ' ').trim();
-  const size = fittedFontSize(ctx, value, maxWidth, start, min, weight);
+  const clean = String(text || '').replace(/\s+/g, ' ').trim();
+  const size = fitFont(ctx, clean, maxWidth, start, min, weight);
   ctx.save();
   ctx.font = `${weight} ${size}px Inter, Arial, sans-serif`;
   ctx.fillStyle = color;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillText(value, x, y);
+  ctx.fillText(clean, x, y);
   ctx.restore();
 }
 
-function drawLogoBadge(ctx, cx, cy, size, logo, accent = '#ff4f23') {
-  ctx.save();
-  ctx.fillStyle = '#fff7ed';
-  ctx.strokeStyle = accent;
-  ctx.lineWidth = Math.max(1.3, size * 0.055);
-  ctx.beginPath();
-  ctx.arc(cx, cy, size / 2, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.stroke();
-  if (logo) {
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(cx, cy, size * 0.39, 0, Math.PI * 2);
-    ctx.clip();
-    drawContainImage(ctx, logo, cx - size * 0.36, cy - size * 0.36, size * 0.72, size * 0.72);
-    ctx.restore();
-  } else {
-    ctx.font = `900 ${size * 0.52}px Inter, Arial, sans-serif`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillStyle = accent;
-    ctx.fillText('₹', cx, cy + size * 0.02);
-  }
-  ctx.restore();
-}
-
-function drawBrandHeader(ctx, xCenter, y, maxWidth, name, logo, template) {
+function drawBrandHeader(ctx, width, layout, name, logo, accent) {
   const title = String(name || 'Your Business').replace(/\s+/g, ' ').trim().slice(0, 34) || 'Your Business';
-  const logoSize = template.round ? 30 : template.width > template.height ? 30 : 34;
-  const fontSize = fittedFontSize(ctx, title, maxWidth - logoSize - 12, template.round ? 17 : template.width > template.height ? 17 : 20, 11, 900);
-  ctx.font = `900 ${fontSize}px Inter, Arial, sans-serif`;
-  const textW = ctx.measureText(title).width;
-  const totalW = logoSize + 8 + textW;
-  const logoCx = xCenter - totalW / 2 + logoSize / 2;
-  drawLogoBadge(ctx, logoCx, y - 1, logoSize, logo, template.accent);
-  ctx.save();
-  ctx.font = `900 ${fontSize}px Inter, Arial, sans-serif`;
+  const maxWidth = Math.min(width - 96, layout.appWidth || width - 100);
+  const titleSize = fitFont(ctx, title, maxWidth - layout.logoSize - 14, layout.titleSize, 11, 950);
+  ctx.font = `950 ${titleSize}px Inter, Arial, sans-serif`;
+  const textWidth = ctx.measureText(title).width;
+  const total = layout.logoSize + 11 + textWidth;
+  const logoX = width / 2 - total / 2 + layout.logoSize / 2;
+  const textX = logoX + layout.logoSize / 2 + 11;
+  drawLogoBadge(ctx, logoX, layout.headerY, layout.logoSize, logo, accent);
+  ctx.fillStyle = accent;
   ctx.textAlign = 'left';
   ctx.textBaseline = 'middle';
-  ctx.fillStyle = template.accent;
-  ctx.fillText(title, logoCx + logoSize / 2 + 8, y);
+  ctx.fillText(title, textX, layout.headerY + 1);
+}
+
+function drawBhimUpiStrip(ctx, width, y, scale) {
+  const center = width / 2;
+  ctx.save();
+  ctx.textBaseline = 'middle';
+  ctx.font = `950 italic ${32 * scale}px Inter, Arial, sans-serif`;
+  ctx.fillStyle = '#4b5563';
+  ctx.textAlign = 'right';
+  ctx.fillText('BHIM', center - 29 * scale, y);
+  drawTriangle(ctx, center - 21 * scale, y, 12 * scale, '#ff7a1a');
+  drawTriangle(ctx, center - 11 * scale, y, 12 * scale, '#159447');
+  ctx.textAlign = 'left';
+  ctx.fillText('UPI', center + 31 * scale, y);
+  drawTriangle(ctx, center + 91 * scale, y, 12 * scale, '#ff7a1a');
+  drawTriangle(ctx, center + 101 * scale, y, 12 * scale, '#159447');
   ctx.restore();
 }
 
-function drawPaymentLogos(ctx, x, y, width, template, scale = 1) {
-  drawBhimUpiStrip(ctx, x, y, width, template.dark, scale);
-}
-
-function getTemplateLayout(template) {
-  if (template.id === 'counter-standee') {
-    return {
-      margin: 28,
-      borderRadius: 28,
-      headerY: 62,
-      scanY: 118,
-      qrSize: 214,
-      qrY: 164,
-      upiY: 408,
-      logosY: 476,
-      appsY: 538,
-      logoWidth: 292,
-      appWidth: 300,
-      logoScale: 0.74,
-      appScale: 0.70,
-    };
-  }
-  if (template.id === 'table-tent') {
-    return {
-      margin: 30,
-      borderRadius: 26,
-      headerY: 56,
-      scanY: 94,
-      qrSize: 150,
-      qrY: 122,
-      upiY: 300,
-      logosY: 342,
-      appsY: 384,
-      logoWidth: 300,
-      appWidth: 350,
-      logoScale: 0.62,
-      appScale: 0.60,
-    };
-  }
-  if (template.id === 'payment-card') {
-    return {
-      margin: 28,
-      borderRadius: 24,
-      headerY: 56,
-      scanY: 94,
-      qrSize: 144,
-      qrY: 124,
-      upiY: 294,
-      logosY: 338,
-      appsY: 378,
-      logoWidth: 316,
-      appWidth: 366,
-      logoScale: 0.60,
-      appScale: 0.58,
-    };
-  }
-  return {
-    margin: 24,
-    borderRadius: 999,
-    headerY: 88,
-    scanY: 136,
-    qrSize: 168,
-    qrY: 176,
-    upiY: 372,
-    logosY: 420,
-    appsY: 468,
-    logoWidth: 240,
-    appWidth: 240,
-    logoScale: 0.52,
-    appScale: 0.52,
-  };
-}
-
-function paintTemplateBackground(ctx, width, height, template, layout) {
+function drawAppStrip(ctx, width, y, appWidth, fontSize) {
+  const items = [
+    { label: 'G Pay', color: '#4285f4' },
+    { label: 'PhonePe', color: '#5f259f' },
+    { label: 'Paytm', color: '#00a9e8' },
+    { label: 'AmazonPay', color: '#111827' },
+    { label: 'CRED', color: '#111827' },
+    { label: 'MobiKwik', color: '#2563eb' },
+  ];
+  const x = (width - appWidth) / 2;
+  const gap = appWidth / items.length;
   ctx.save();
-  ctx.fillStyle = '#ffffff';
-  ctx.fillRect(0, 0, width, height);
+  ctx.font = `950 ${fontSize}px Inter, Arial, sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  items.forEach((item, index) => {
+    ctx.fillStyle = item.color;
+    ctx.fillText(item.label, x + gap * index + gap / 2, y);
+  });
+  ctx.restore();
+}
 
-  if (template.round) {
-    const r = width / 2 - 10;
-    const bg = ctx.createRadialGradient(width * 0.35, height * 0.25, width * 0.05, width / 2, height / 2, r);
-    bg.addColorStop(0, '#ffffff');
-    bg.addColorStop(1, '#fff8f1');
+function paintTemplateShell(ctx, template, layout) {
+  const { width, height, accent } = template;
+  ctx.save();
+  const bg = ctx.createLinearGradient(0, 0, width, height);
+  bg.addColorStop(0, '#ffffff');
+  bg.addColorStop(0.66, '#ffffff');
+  bg.addColorStop(1, '#fff7ed');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, width, height);
+  if (template.shape === 'round') {
+    ctx.fillStyle = '#ffffff';
     ctx.beginPath();
-    ctx.arc(width / 2, height / 2, r, 0, Math.PI * 2);
-    ctx.fillStyle = bg;
+    ctx.arc(width / 2, height / 2, width / 2 - 17, 0, Math.PI * 2);
     ctx.fill();
     ctx.lineWidth = 5;
-    ctx.strokeStyle = template.accent;
+    ctx.strokeStyle = accent;
     ctx.beginPath();
-    ctx.arc(width / 2, height / 2, r - 9, 0, Math.PI * 2);
+    ctx.arc(width / 2, height / 2, width / 2 - 27, 0, Math.PI * 2);
     ctx.stroke();
     ctx.restore();
     return;
   }
-
   const x = layout.margin;
   const y = layout.margin;
   const w = width - layout.margin * 2;
   const h = height - layout.margin * 2;
-  const surface = ctx.createLinearGradient(0, 0, width, height);
-  surface.addColorStop(0, '#ffffff');
-  surface.addColorStop(0.58, '#ffffff');
-  surface.addColorStop(1, '#fff7ed');
-  ctx.fillStyle = surface;
-  roundRect(ctx, x, y, w, h, layout.borderRadius);
+  ctx.fillStyle = '#ffffff';
+  ctx.shadowColor = 'rgba(15, 23, 42, .10)';
+  ctx.shadowBlur = 12;
+  ctx.shadowOffsetY = 5;
+  roundRect(ctx, x, y, w, h, layout.radius);
   ctx.fill();
-  ctx.lineWidth = 4;
-  ctx.strokeStyle = template.accent;
-  roundRect(ctx, x + 5, y + 5, w - 10, h - 10, layout.borderRadius - 5);
+  ctx.shadowColor = 'transparent';
+  ctx.lineWidth = template.shape === 'portrait' ? 5 : 4.5;
+  ctx.strokeStyle = accent;
+  roundRect(ctx, x + 7, y + 7, w - 14, h - 14, layout.radius - 7);
   ctx.stroke();
   ctx.restore();
 }
 
 async function drawTemplateCanvas(canvas, options) {
   const { template, qrDataUrl, logoDataUrl, businessName, upiId } = options;
-  if (!canvas || !qrDataUrl) return;
-  const width = template.width;
-  const height = template.height;
-  const isLandscape = width > height;
-  const layout = getTemplateLayout(template);
-  const canvasScale = CANVAS_SCALE;
-  canvas.width = width * canvasScale;
-  canvas.height = height * canvasScale;
+  if (!canvas || !template || !qrDataUrl) return;
+  const layout = LAYOUTS[template.id];
+  const { width, height, accent } = template;
+  canvas.width = width * CANVAS_SCALE;
+  canvas.height = height * CANVAS_SCALE;
   canvas.style.aspectRatio = `${width} / ${height}`;
   const ctx = canvas.getContext('2d');
-  ctx.setTransform(canvasScale, 0, 0, canvasScale, 0, 0);
+  ctx.setTransform(CANVAS_SCALE, 0, 0, CANVAS_SCALE, 0, 0);
   ctx.clearRect(0, 0, width, height);
 
-  const qrImage = await loadImage(qrDataUrl);
-  const logo = logoDataUrl ? await loadImage(logoDataUrl) : null;
-  const upiText = `UPI ID: ${String(upiId || DEFAULT_UPI_ID).slice(0, template.round ? 30 : isLandscape ? 38 : 34)}`;
-  const contentWidth = template.round ? 330 : width - layout.margin * 2 - 42;
+  const [qrImage, logo] = await Promise.all([
+    loadImage(qrDataUrl),
+    logoDataUrl ? loadImage(logoDataUrl).catch(() => null) : Promise.resolve(null),
+  ]);
 
   ctx.save();
-  if (template.round) {
+  if (template.shape === 'round') {
     ctx.beginPath();
     ctx.arc(width / 2, height / 2, width / 2 - 8, 0, Math.PI * 2);
     ctx.clip();
   }
 
-  paintTemplateBackground(ctx, width, height, template, layout);
-  drawBrandHeader(ctx, width / 2, layout.headerY, contentWidth, businessName, logo, template);
-  drawCenteredText(ctx, 'SCAN & PAY', width / 2, layout.scanY, contentWidth, template.round ? 14 : isLandscape ? 15 : 17, 10, template.text, 950);
+  paintTemplateShell(ctx, template, layout);
+  drawBrandHeader(ctx, width, layout, businessName, logo, accent);
+  drawCenteredText(ctx, 'SCAN & PAY', width / 2, layout.scanY, width - 90, layout.scanSize, 10, '#111827', 950);
 
   const qrSize = layout.qrSize;
   const qrX = Math.round((width - qrSize) / 2);
   const qrY = layout.qrY;
   ctx.save();
-  ctx.shadowColor = 'rgba(15, 23, 42, .13)';
+  ctx.shadowColor = 'rgba(15, 23, 42, .10)';
   ctx.shadowBlur = 10;
-  ctx.fillStyle = '#fff';
-  roundRect(ctx, qrX - 11, qrY - 11, qrSize + 22, qrSize + 22, template.round ? 18 : 14);
+  ctx.fillStyle = '#ffffff';
+  roundRect(ctx, qrX - 13, qrY - 13, qrSize + 26, qrSize + 26, template.shape === 'round' ? 18 : 14);
   ctx.fill();
   ctx.restore();
-  ctx.strokeStyle = '#9aa8ba';
-  ctx.lineWidth = 1.2;
-  roundRect(ctx, qrX - 8, qrY - 8, qrSize + 16, qrSize + 16, template.round ? 16 : 12);
+  ctx.strokeStyle = '#a8b3c3';
+  ctx.lineWidth = 1.4;
+  roundRect(ctx, qrX - 10, qrY - 10, qrSize + 20, qrSize + 20, template.shape === 'round' ? 16 : 12);
   ctx.stroke();
+  // Clean UPI QR: never draw uploaded logo inside the QR center.
   ctx.drawImage(qrImage, qrX, qrY, qrSize, qrSize);
 
-  drawCenteredText(ctx, upiText, width / 2, layout.upiY, contentWidth, template.round ? 7.4 : isLandscape ? 9.4 : 10.2, 6.4, template.text, 850);
-  drawPaymentLogos(ctx, (width - layout.logoWidth) / 2, layout.logosY, layout.logoWidth, template, layout.logoScale);
-  drawAppStrip(ctx, (width - layout.appWidth) / 2, layout.appsY, layout.appWidth, template.dark, layout.appScale, template.round);
-
+  const upiText = `UPI ID: ${String(upiId || DEFAULT_UPI_ID).replace(/\s+/g, '').slice(0, template.shape === 'round' ? 31 : 42)}`;
+  drawCenteredText(ctx, upiText, width / 2, layout.upiY, Math.min(width - 80, layout.appWidth), layout.upiSize, 6.8, '#111827', 850);
+  drawBhimUpiStrip(ctx, width, layout.brandY, layout.brandScale);
+  drawAppStrip(ctx, width, layout.appsY, layout.appWidth, layout.appSize);
   ctx.restore();
 }
 
 function makeTemplateSvg({ template, qrDataUrl, logoDataUrl, businessName, upiId }) {
-  const width = template.width;
-  const height = template.height;
-  const isLandscape = width > height;
-  const layout = getTemplateLayout(template);
+  const layout = LAYOUTS[template.id];
+  const { width, height, accent } = template;
   const qrSize = layout.qrSize;
   const qrX = (width - qrSize) / 2;
-  const qrY = layout.qrY;
   const title = encodeXml(String(businessName || 'Your Business').replace(/\s+/g, ' ').trim().slice(0, 34) || 'Your Business');
-  const upiText = encodeXml(`UPI ID: ${String(upiId || DEFAULT_UPI_ID).slice(0, 42)}`);
-  const clip = template.round ? `<clipPath id="roundClip"><circle cx="${width / 2}" cy="${height / 2}" r="${width / 2 - 8}"/></clipPath>` : '';
-  const groupStart = template.round ? '<g clip-path="url(#roundClip)">' : '<g>';
-  const shell = template.round
-    ? `<circle cx="${width / 2}" cy="${height / 2}" r="${width / 2 - 18}" fill="${template.surface}"/><circle cx="${width / 2}" cy="${height / 2}" r="${width / 2 - 24}" fill="none" stroke="${template.accent}" stroke-width="5"/>`
-    : `<rect x="18" y="18" width="${width - 36}" height="${height - 36}" rx="${isLandscape ? 22 : 26}" fill="${template.surface}"/><rect x="22" y="22" width="${width - 44}" height="${height - 44}" rx="${isLandscape ? 18 : 22}" fill="none" stroke="${template.accent}" stroke-width="4"/>`;
-  const logoSize = template.round ? 30 : isLandscape ? 30 : 34;
-  const logoX = width / 2 - 92;
-  const logo = logoDataUrl
-    ? `<circle cx="${logoX}" cy="${layout.headerY}" r="${logoSize / 2}" fill="#fff7ed" stroke="${template.accent}" stroke-width="1.6"/><image href="${logoDataUrl}" x="${logoX - logoSize * 0.34}" y="${layout.headerY - logoSize * 0.34}" width="${logoSize * 0.68}" height="${logoSize * 0.68}" preserveAspectRatio="xMidYMid meet"/>`
-    : `<circle cx="${logoX}" cy="${layout.headerY}" r="${logoSize / 2}" fill="#fff7ed" stroke="${template.accent}" stroke-width="1.6"/><text x="${logoX}" y="${layout.headerY + logoSize * 0.16}" text-anchor="middle" font-size="${logoSize * 0.5}" font-weight="900" fill="${template.accent}">₹</text>`;
+  const upiText = encodeXml(`UPI ID: ${String(upiId || DEFAULT_UPI_ID).replace(/\s+/g, '').slice(0, 42)}`);
+  const isRound = template.shape === 'round';
+  const logoSize = layout.logoSize;
+  const logoX = width / 2 - 115;
+  const logoMarkup = logoDataUrl
+    ? `<circle cx="${logoX}" cy="${layout.headerY}" r="${logoSize / 2}" fill="#fff" stroke="#ffe0d4" stroke-width="1.5"/><image href="${logoDataUrl}" x="${logoX - logoSize * 0.37}" y="${layout.headerY - logoSize * 0.37}" width="${logoSize * 0.74}" height="${logoSize * 0.74}" preserveAspectRatio="xMidYMid meet"/>`
+    : `<circle cx="${logoX}" cy="${layout.headerY}" r="${logoSize / 2}" fill="#fff3ed" stroke="${accent}" stroke-width="1.5"/><text x="${logoX}" y="${layout.headerY + 5}" text-anchor="middle" font-size="${logoSize * 0.52}" font-weight="900" fill="${accent}">₹</text>`;
+  const shell = isRound
+    ? `<circle cx="${width / 2}" cy="${height / 2}" r="${width / 2 - 17}" fill="#fff"/><circle cx="${width / 2}" cy="${height / 2}" r="${width / 2 - 27}" fill="none" stroke="${accent}" stroke-width="5"/>`
+    : `<rect x="${layout.margin}" y="${layout.margin}" width="${width - layout.margin * 2}" height="${height - layout.margin * 2}" rx="${layout.radius}" fill="#fff"/><rect x="${layout.margin + 7}" y="${layout.margin + 7}" width="${width - layout.margin * 2 - 14}" height="${height - layout.margin * 2 - 14}" rx="${layout.radius - 7}" fill="none" stroke="${accent}" stroke-width="4.8"/>`;
+  const clip = isRound ? `<clipPath id="roundClip"><circle cx="${width / 2}" cy="${height / 2}" r="${width / 2 - 8}"/></clipPath>` : '';
+  const group = isRound ? '<g clip-path="url(#roundClip)">' : '<g>';
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
   <defs>${clip}</defs>
-  ${groupStart}
-    <rect width="${width}" height="${height}" fill="${template.background}"/>
+  ${group}
+    <rect width="${width}" height="${height}" fill="#ffffff"/>
     ${shell}
-    ${logo}
-    <text x="${width / 2 + 14}" y="${layout.headerY + 1}" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="${template.round ? 16 : isLandscape ? 17 : 20}" font-weight="900" fill="${template.accent}">${title}</text>
-    <text x="${width / 2}" y="${layout.scanY}" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="${template.round ? 14 : isLandscape ? 15 : 17}" font-weight="900" fill="${template.text}">SCAN &amp; PAY</text>
-    <rect x="${qrX - 13}" y="${qrY - 13}" width="${qrSize + 26}" height="${qrSize + 26}" rx="${template.round ? 18 : 14}" fill="#fff" stroke="#a8b3c3"/>
-    <image href="${qrDataUrl}" x="${qrX}" y="${qrY}" width="${qrSize}" height="${qrSize}"/>
-    <text x="${width / 2}" y="${layout.upiY}" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="${template.round ? 7.4 : isLandscape ? 9.3 : 10.6}" font-weight="800" fill="${template.text}">${upiText}</text>
-    <text x="${width / 2 - 42}" y="${layout.logosY}" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="${30 * layout.logoScale}" font-style="italic" font-weight="900" fill="#4a4f57">BHIM</text>
-    <text x="${width / 2 + 42}" y="${layout.logosY}" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="${30 * layout.logoScale}" font-style="italic" font-weight="900" fill="#4a4f57">UPI</text>
-    <text x="${width / 2}" y="${layout.appsY}" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="${template.round ? 6.2 : isLandscape ? 7.2 : 8.2}" font-weight="900" fill="#2563eb">G Pay · PhonePe · Paytm · Amazon Pay · CRED · MobiKwik</text>
+    ${logoMarkup}
+    <text x="${width / 2 - 90}" y="${layout.headerY + 7}" font-family="Inter, Arial, sans-serif" font-size="${layout.titleSize}" font-weight="950" fill="${accent}">${title}</text>
+    <text x="${width / 2}" y="${layout.scanY + 5}" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="${layout.scanSize}" font-weight="950" fill="#111827">SCAN &amp; PAY</text>
+    <rect x="${qrX - 13}" y="${layout.qrY - 13}" width="${qrSize + 26}" height="${qrSize + 26}" rx="14" fill="#fff" stroke="#a8b3c3"/>
+    <image href="${qrDataUrl}" x="${qrX}" y="${layout.qrY}" width="${qrSize}" height="${qrSize}"/>
+    <text x="${width / 2}" y="${layout.upiY + 4}" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="${layout.upiSize}" font-weight="850" fill="#111827">${upiText}</text>
+    <text x="${width / 2 - 35 * layout.brandScale}" y="${layout.brandY + 5}" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="${32 * layout.brandScale}" font-style="italic" font-weight="950" fill="#4b5563">BHIM</text>
+    <text x="${width / 2 + 35 * layout.brandScale}" y="${layout.brandY + 5}" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="${32 * layout.brandScale}" font-style="italic" font-weight="950" fill="#4b5563">UPI</text>
+    <text x="${width / 2}" y="${layout.appsY + 4}" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="${layout.appSize}" font-weight="950" fill="#2563eb">G Pay · PhonePe · Paytm · AmazonPay · CRED · MobiKwik</text>
   </g>
 </svg>`;
 }
 
-function downloadBlob(blob, fileName) {
-  const url = URL.createObjectURL(blob);
-  const anchor = document.createElement('a');
-  anchor.href = url;
-  anchor.download = fileName;
-  document.body.appendChild(anchor);
-  anchor.click();
-  anchor.remove();
-  URL.revokeObjectURL(url);
+function downloadDataUrl(dataUrl, fileName) {
+  const a = document.createElement('a');
+  a.href = dataUrl;
+  a.download = fileName;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
 }
 
-function downloadDataUrl(dataUrl, fileName) {
-  const anchor = document.createElement('a');
-  anchor.href = dataUrl;
-  anchor.download = fileName;
-  document.body.appendChild(anchor);
-  anchor.click();
-  anchor.remove();
+function downloadBlob(blob, fileName) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = fileName;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
 }
 
 function textBytes(value) {
@@ -588,7 +497,6 @@ function canvasToPdfBlob(canvas) {
   const binary = atob(dataUrl.split(',')[1]);
   const imageBytes = new Uint8Array(binary.length);
   for (let i = 0; i < binary.length; i += 1) imageBytes[i] = binary.charCodeAt(i);
-
   const landscape = canvas.width > canvas.height;
   const pageW = landscape ? 842 : 595;
   const pageH = landscape ? 595 : 842;
@@ -599,7 +507,6 @@ function canvasToPdfBlob(canvas) {
   const x = (pageW - imgW) / 2;
   const y = (pageH - imgH) / 2;
   const content = `q\n${imgW.toFixed(2)} 0 0 ${imgH.toFixed(2)} ${x.toFixed(2)} ${y.toFixed(2)} cm\n/Im0 Do\nQ\n`;
-
   const objects = [
     '1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n',
     '2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n',
@@ -609,7 +516,6 @@ function canvasToPdfBlob(canvas) {
     '\nendstream\nendobj\n',
     `5 0 obj\n<< /Length ${content.length} >>\nstream\n${content}endstream\nendobj\n`,
   ];
-
   const parts = [];
   const offsets = [0];
   let position = 0;
@@ -633,32 +539,22 @@ function canvasToPdfBlob(canvas) {
   return new Blob([concatBytes(parts)], { type: 'application/pdf' });
 }
 
-
-function TemplateMini({ template, qrDataUrl, logoDataUrl, businessName, upiId }) {
-  const cleanName = String(businessName || 'Your Business').trim() || 'Your Business';
-  const cleanUpi = String(upiId || DEFAULT_UPI_ID).trim() || DEFAULT_UPI_ID;
-  return (
-    <span className={styles.miniDesign} data-template={template.id}>
-      <span className={styles.miniBrandRow}>
-        <span className={styles.miniLogoMark}>
-          {logoDataUrl ? <img src={logoDataUrl} alt="" /> : <span>₹</span>}
-        </span>
-        <b>{cleanName}</b>
-      </span>
-      <span className={styles.miniHeading}>SCAN &amp; PAY</span>
-      <span className={styles.miniQrBox}>{qrDataUrl ? <img src={qrDataUrl} alt="" /> : null}</span>
-      <span className={styles.miniUpiId}>UPI ID: {cleanUpi.slice(0, 30)}</span>
-      <span className={styles.miniBhimUpi}><b>BHIM</b><i>UPI</i></span>
-      <span className={styles.miniApps}>G Pay · PhonePe · Paytm · BHIM</span>
-    </span>
-  );
-}
-
 function WhatsAppIcon() {
   return (
     <svg aria-hidden="true" viewBox="0 0 32 32" focusable="false">
       <path fill="currentColor" d="M16.02 3.2A12.66 12.66 0 0 0 5.3 22.6L3.8 28.8l6.35-1.45A12.68 12.68 0 1 0 16.02 3.2Zm0 22.95c-2.08 0-4.02-.62-5.65-1.68l-.4-.25-3.72.85.88-3.62-.27-.42A10.22 10.22 0 1 1 16.02 26.15Zm5.86-7.64c-.32-.16-1.9-.94-2.2-1.05-.3-.1-.52-.16-.74.16-.22.32-.84 1.05-1.03 1.27-.19.22-.38.24-.7.08-.32-.16-1.36-.5-2.59-1.6-.96-.86-1.6-1.92-1.79-2.24-.19-.32-.02-.5.14-.66.15-.15.32-.38.48-.57.16-.19.22-.32.32-.54.11-.22.05-.4-.03-.56-.08-.16-.74-1.78-1.01-2.43-.27-.64-.54-.55-.74-.56h-.63c-.22 0-.56.08-.86.4-.3.32-1.13 1.1-1.13 2.68s1.16 3.12 1.32 3.33c.16.22 2.28 3.48 5.52 4.88.77.33 1.37.53 1.84.68.77.25 1.48.21 2.04.13.62-.09 1.9-.78 2.17-1.53.27-.75.27-1.4.19-1.53-.08-.13-.3-.21-.62-.37Z" />
     </svg>
+  );
+}
+
+function TemplateFallback({ template }) {
+  return (
+    <span className={styles.fallbackArt} data-template={template.id}>
+      <span className={styles.fakeBrand}>₹ Sunrise Cafe</span>
+      <span className={styles.fakeScan}>SCAN &amp; PAY</span>
+      <span className={styles.fakeQr} />
+      <span className={styles.fakeApps}>BHIM · UPI</span>
+    </span>
   );
 }
 
@@ -669,7 +565,6 @@ export default function UpiQRGenerator() {
   const [logoDataUrl, setLogoDataUrl] = useState('');
   const [selectedTemplateId, setSelectedTemplateId] = useState(TEMPLATES[0].id);
   const [qrDataUrl, setQrDataUrl] = useState('');
-  const [brandedQrDataUrl, setBrandedQrDataUrl] = useState('');
   const [templatePreviewUrls, setTemplatePreviewUrls] = useState({});
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
@@ -681,95 +576,72 @@ export default function UpiQRGenerator() {
   );
 
   const upiPayload = useMemo(
-    () => buildUpiPayload({ upiId, payeeName: businessName || 'Business', amount, note: DEFAULT_NOTE }),
+    () => buildUpiPayload({ upiId, payeeName: businessName || 'Business', amount }),
     [upiId, businessName, amount]
   );
 
   useEffect(() => {
     let active = true;
-    async function generate() {
+    async function generateQr() {
       const cleanUpi = upiId.trim();
       if (!isValidUpiId(cleanUpi)) {
         setError('Enter a valid UPI ID like name@bank or business@okicici.');
-        setNotice('');
+        setQrDataUrl('');
         return;
       }
       if (amount.trim() && !formatAmount(amount)) {
         setError('Amount must be a positive number, or leave it blank.');
-        setNotice('');
+        setQrDataUrl('');
         return;
       }
       setError('');
-      setNotice('');
       try {
         const dataUrl = await QRCode.toDataURL(upiPayload, {
-          width: 900,
+          width: 940,
           margin: 2,
           errorCorrectionLevel: 'H',
           color: { dark: '#111827', light: '#ffffff' },
         });
-        if (!active) return;
-        setQrDataUrl(dataUrl);
-      } catch (err) {
+        if (active) setQrDataUrl(dataUrl);
+      } catch {
         if (active) setError('Could not generate the UPI QR. Please check the details and try again.');
       }
     }
-    generate();
-    return () => {
-      active = false;
-    };
-  }, [upiId, businessName, amount, upiPayload]);
-
-  useEffect(() => {
-    let active = true;
-    async function brandQr() {
-      if (!qrDataUrl) return;
-      try {
-        const dataUrl = await createBrandedQrDataUrl(qrDataUrl, logoDataUrl);
-        if (active) setBrandedQrDataUrl(dataUrl);
-      } catch {
-        if (active) setBrandedQrDataUrl(qrDataUrl);
-      }
-    }
-    brandQr();
+    generateQr();
     return () => { active = false; };
-  }, [qrDataUrl, logoDataUrl]);
-
+  }, [upiId, amount, upiPayload]);
 
   useEffect(() => {
-    if (!brandedQrDataUrl || typeof document === 'undefined') return;
+    if (!qrDataUrl || typeof document === 'undefined') return;
     let active = true;
     async function generateTemplatePreviews() {
       const entries = await Promise.all(TEMPLATES.map(async (template) => {
-        const previewCanvas = document.createElement('canvas');
-        await drawTemplateCanvas(previewCanvas, {
+        const canvas = document.createElement('canvas');
+        await drawTemplateCanvas(canvas, {
           template,
-          qrDataUrl: brandedQrDataUrl,
+          qrDataUrl,
           logoDataUrl,
           businessName,
           upiId,
         });
-        return [template.id, previewCanvas.toDataURL('image/png')];
+        return [template.id, canvas.toDataURL('image/png')];
       }));
       if (active) setTemplatePreviewUrls(Object.fromEntries(entries));
     }
     generateTemplatePreviews().catch(() => {});
     return () => { active = false; };
-  }, [brandedQrDataUrl, logoDataUrl, businessName, upiId]);
+  }, [qrDataUrl, logoDataUrl, businessName, upiId]);
 
   useEffect(() => {
-    if (!brandedQrDataUrl) return;
+    if (!qrDataUrl) return;
     drawTemplateCanvas(templateCanvasRef.current, {
       template: selectedTemplate,
-      qrDataUrl: brandedQrDataUrl,
+      qrDataUrl,
       logoDataUrl,
       businessName,
       upiId,
     }).catch(() => {});
-  }, [selectedTemplate, brandedQrDataUrl, logoDataUrl, businessName, upiId]);
-
-  const fileBaseName = sanitizeFileName(`${businessName}-upi-qr`);
-
+  }, [selectedTemplate, qrDataUrl, logoDataUrl, businessName, upiId]);
 
   function handleLogoUpload(event) {
     const file = event.target.files?.[0];
@@ -779,44 +651,62 @@ export default function UpiQRGenerator() {
     reader.readAsDataURL(file);
   }
 
+  const fileBaseName = sanitizeFileName(`${businessName || 'business'}-upi-qr`);
+  const cleanAmount = formatAmount(amount);
+  const amountText = cleanAmount ? ` for ₹${cleanAmount}` : '';
 
   function getShareMessage(kind = 'qr') {
-    const amountText = formatAmount(amount) ? ` for ₹${formatAmount(amount)}` : '';
     const name = businessName || 'this business';
-    const upiText = upiId ? `UPI ID: ${upiId}. ` : '';
-    if (kind === 'design') {
-      return `Here is the print-ready UPI payment QR design for ${name}${amountText}. ${upiText}Created with BharathQR: ${BHARATHQR_UTM}`;
-    }
-    return `Pay ${name}${amountText} using UPI. ${upiText}Created with BharathQR: ${BHARATHQR_UTM}`;
+    if (kind === 'design') return `Print-ready UPI payment QR design for ${name}${amountText}. UPI ID: ${upiId}. Created with BharathQR: ${BHARATHQR_UTM}`;
+    return `Pay ${name}${amountText} using UPI. UPI ID: ${upiId}. Created with BharathQR: ${BHARATHQR_UTM}`;
   }
 
-  function shareViaWhatsApp() {
+  function downloadQrPng() {
+    if (!qrDataUrl) return;
+    downloadDataUrl(qrDataUrl, `${fileBaseName}-clean-upi-qr.png`);
+  }
+
+  function shareQrViaWhatsApp() {
     window.open(`https://wa.me/?text=${encodeURIComponent(getShareMessage('qr'))}`, '_blank', 'noopener,noreferrer');
   }
 
-  async function sharePaymentLink() {
-    const shareText = `UPI payment link for ${businessName || 'this business'}: ${upiPayload}`;
+  async function copyPaymentLink() {
     try {
-      if (navigator.share) {
-        await navigator.share({ title: 'UPI payment link', text: shareText });
-        return;
-      }
-      if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(upiPayload);
-        setNotice('UPI payment link copied.');
-        return;
-      }
-    } catch {}
-    setNotice('UPI payment link is ready to copy from the QR.');
+      await navigator.clipboard?.writeText(upiPayload);
+      setNotice('UPI payment link copied.');
+    } catch {
+      setNotice('UPI payment link is ready to copy from the QR.');
+    }
+  }
+
+  function downloadTemplatePng() {
+    const canvas = templateCanvasRef.current;
+    if (!canvas) return;
+    downloadDataUrl(canvas.toDataURL('image/png'), `${fileBaseName}-${selectedTemplate.id}.png`);
+  }
+
+  function downloadTemplateSvg() {
+    if (!qrDataUrl) return;
+    const svg = makeTemplateSvg({ template: selectedTemplate, qrDataUrl, logoDataUrl, businessName, upiId });
+    downloadBlob(new Blob([svg], { type: 'image/svg+xml;charset=utf-8' }), `${fileBaseName}-${selectedTemplate.id}.svg`);
+  }
+
+  function downloadTemplatePdf() {
+    const canvas = templateCanvasRef.current;
+    if (!canvas) return;
+    downloadBlob(canvasToPdfBlob(canvas), `${fileBaseName}-${selectedTemplate.id}-print-ready.pdf`);
   }
 
   async function shareDesignViaWhatsApp() {
     const canvas = templateCanvasRef.current;
-    if (!canvas) { shareViaWhatsApp(); return; }
     const message = getShareMessage('design');
+    if (!canvas) {
+      window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+      return;
+    }
     try {
       const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png', 1));
-      if (blob && navigator.canShare && navigator.share) {
+      if (blob && navigator.share && navigator.canShare) {
         const file = new File([blob], `${fileBaseName}-${selectedTemplate.id}.png`, { type: 'image/png' });
         if (navigator.canShare({ files: [file] })) {
           await navigator.share({ title: 'UPI QR Design by BharathQR', text: message, files: [file] });
@@ -828,35 +718,6 @@ export default function UpiQRGenerator() {
     window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
   }
 
-  function downloadQrPng() {
-    if (!brandedQrDataUrl) return;
-    downloadDataUrl(brandedQrDataUrl, `${fileBaseName}-payment-qr.png`);
-  }
-
-  function downloadTemplatePng() {
-    const canvas = templateCanvasRef.current;
-    if (!canvas) return;
-    downloadDataUrl(canvas.toDataURL('image/png'), `${fileBaseName}-${selectedTemplate.id}.png`);
-  }
-
-  function downloadTemplateSvg() {
-    if (!brandedQrDataUrl) return;
-    const svg = makeTemplateSvg({
-      template: selectedTemplate,
-      qrDataUrl: brandedQrDataUrl,
-      logoDataUrl,
-      businessName,
-      upiId,
-    });
-    downloadBlob(new Blob([svg], { type: 'image/svg+xml;charset=utf-8' }), `${fileBaseName}-${selectedTemplate.id}.svg`);
-  }
-
-  function downloadTemplatePdf() {
-    const canvas = templateCanvasRef.current;
-    if (!canvas) return;
-    downloadBlob(canvasToPdfBlob(canvas), `${fileBaseName}-${selectedTemplate.id}-print-ready.pdf`);
-  }
-
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
@@ -865,146 +726,84 @@ export default function UpiQRGenerator() {
     operatingSystem: 'Web',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
     url: CANONICAL_URL,
-    description: 'Create a free print-ready UPI payment QR code for Indian businesses with optional amount, payment note and print-ready templates.',
+    description: 'Create a free clean UPI payment QR code and print-ready payment templates for Indian businesses.',
   };
 
-  const faqSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: [
-      {
-        '@type': 'Question',
-        name: 'Is this UPI QR Code Generator free?',
-        acceptedAnswer: { '@type': 'Answer', text: 'Yes. BharathQR lets Indian businesses create and download UPI payment QR codes for free without login.' },
-      },
-      {
-        '@type': 'Question',
-        name: 'Can I create a fixed amount UPI QR code?',
-        acceptedAnswer: { '@type': 'Answer', text: 'Yes. Enter an amount to create a fixed amount UPI QR, or leave amount blank so customers can type the amount while paying.' },
-      },
-      {
-        '@type': 'Question',
-        name: 'Which apps can scan this UPI QR?',
-        acceptedAnswer: { '@type': 'Answer', text: 'The QR uses the standard UPI payment link format and can be scanned by common UPI apps such as Google Pay, PhonePe, Paytm, BHIM and bank UPI apps.' },
-      },
-    ],
-  };
+  const heroPreview = templatePreviewUrls['counter-standee'];
 
   return (
     <>
       <Head>
-        <title>Free UPI QR Code Generator for Business — BharathQR</title>
-        <meta
-          name="description"
-          content="Create a free UPI QR code for your shop, restaurant, clinic, salon or small business. Add UPI ID, amount, note and print-ready payment templates."
-        />
+        <title>Free UPI QR Code Generator for Indian Businesses | BharathQR</title>
+        <meta name="description" content="Create a free UPI QR code for shops, restaurants, clinics, autos and small businesses. Add UPI ID, optional amount, logo and print-ready templates." />
         <link rel="canonical" href={CANONICAL_URL} />
-        <meta property="og:title" content="Free UPI QR Code Generator for Business — BharathQR" />
-        <meta property="og:description" content="Generate a professional UPI payment QR code with amount, note and print-ready templates. Free, no login required." />
+        <meta property="og:title" content="Free UPI QR Code Generator" />
+        <meta property="og:description" content="Generate clean UPI QR codes and print-ready payment templates. Free, no login required." />
         <meta property="og:url" content={CANONICAL_URL} />
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="og:type" content="website" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       </Head>
 
       <main className={styles.pageShell}>
-        <header className={styles.topbar}>
-          <Link href="/" className={styles.brand} aria-label="BharathQR home">
-            <span className={styles.logoMark} aria-hidden="true" />
-            <strong>Bharath<span>QR</span></strong>
-          </Link>
-          <nav className={styles.headerActions} aria-label="Primary navigation">
-            <Link href="/templates"><span className={styles.gridIcon} aria-hidden="true" />View Templates</Link>
-            <button type="button" className={styles.menuButton} aria-label="Open menu"><span /><span /><span /></button>
-          </nav>
-        </header>
+        <section className={styles.toolHeader}>
+          <Link href="/" className={styles.brandMark} aria-label="BharathQR home"><span />Bharath<span>QR</span></Link>
+          <div className={styles.headerActions}>
+            <Link href="/templates" className={styles.templateButton}>▦ View Templates</Link>
+            <button type="button" aria-label="Open menu" className={styles.menuButton}>☰</button>
+          </div>
+        </section>
 
         <section className={styles.hero}>
           <div className={styles.heroCopy}>
-            <p className={styles.eyebrow}>Free UPI QR tool for Indian businesses</p>
+            <p className={styles.eyebrow}>FREE UPI QR TOOL FOR INDIAN BUSINESSES</p>
             <h1>Accept Payments Instantly with <span>UPI QR Code</span></h1>
-            <p className={styles.heroLead}>Create a professional UPI payment QR with optional amount and note. Choose a print-ready template and start accepting payments at your counter in seconds.</p>
-            <div className={styles.trustPills}>
-              <span>🎁 100% Free</span>
-              <span>👤 No Sign-up</span>
-              <span>🖨️ Print Ready</span>
-            </div>
+            <p className={styles.heroText}>Create a clean UPI payment QR with optional fixed amount. Choose a premium print-ready template for your counter, auto, shop, clinic or restaurant.</p>
+            <div className={styles.trustPills}><span>🎁 100% Free</span><span>👤 No Sign-up</span><span>🖨️ Print Ready</span></div>
           </div>
-          <div className={styles.heroVisual} aria-hidden="true">
-            <div className={styles.heroGlow} />
-            <div className={styles.heroSceneCard}>
-              <div className={styles.heroStandee}>
-                {templatePreviewUrls['counter-standee'] ? <img className={styles.heroDesignImage} src={templatePreviewUrls['counter-standee']} alt="" /> : <TemplateMini template={TEMPLATES[0]} qrDataUrl={brandedQrDataUrl} logoDataUrl={logoDataUrl} businessName={businessName} upiId={upiId} />}
-              </div>
-              <div className={styles.heroStandeeSide} />
-              <div className={styles.heroDeskLine} />
-              <div className={styles.heroBadgeStack}>
-                <span>UPI</span>
-                <span>BHIM</span>
-                <span>GPay</span>
-              </div>
+          <div className={styles.heroVisual}>
+            <div className={styles.heroScene}>
+              <div className={styles.heroChips}><span>UPI</span><span>BHIM</span><span>GPay</span></div>
+              <div className={styles.heroBoard}>{heroPreview ? <img src={heroPreview} alt="UPI QR counter standee preview" /> : <TemplateFallback template={TEMPLATES[0]} />}</div>
+              <div className={styles.heroSide} />
             </div>
           </div>
         </section>
 
-        <section className={styles.workflow} aria-label="How the UPI QR generator works">
-          <article>
-            <span className={styles.stepNo}>1</span>
-            <div className={styles.stepIcon}>💳</div>
-            <div><h2>Enter UPI Details</h2><p>Add your UPI ID and business information.</p></div>
-          </article>
-          <article>
-            <span className={styles.stepNo}>2</span>
-            <div className={styles.stepIcon}>▦</div>
-            <div><h2>Choose Template</h2><p>Pick a print-ready payment design.</p></div>
-          </article>
-          <article>
-            <span className={styles.stepNo}>3</span>
-            <div className={styles.stepIcon}>🖨️</div>
-            <div><h2>Download &amp; Display</h2><p>Print and start accepting payments.</p></div>
-          </article>
+        <section className={styles.workflow} aria-label="How it works">
+          <article><span>1</span><i>💳</i><div><h2>Enter UPI Details</h2><p>Add your UPI ID and optional amount.</p></div></article>
+          <article><span>2</span><i>▦</i><div><h2>Choose Template</h2><p>Pick a merchant-friendly print size.</p></div></article>
+          <article><span>3</span><i>🖨️</i><div><h2>Download &amp; Display</h2><p>Print, place and start accepting payments.</p></div></article>
         </section>
 
         <section className={`${styles.panel} ${styles.generatorPanel}`}>
-          <div className={styles.generatorColumn}>
+          <div className={styles.inputColumn}>
             <div className={styles.sectionTitle}><span>1</span><div><h2>UPI QR Generator</h2><p>Core payment details</p></div></div>
-            <label className={styles.fieldLabel}>UPI ID / VPA <span className={styles.required}>*</span></label>
-            <div className={styles.upiInputWrap}>
-              <input value={upiId} onChange={(event) => setUpiId(event.target.value)} placeholder="name@upi (eg: bharathqr@okicici)" />
-              <span>UPI</span>
-            </div>
-            <label className={styles.fieldLabel}>Business / Payee Name <span>(Optional)</span></label>
+            <label>UPI ID / VPA <b>*</b></label>
+            <div className={styles.upiInputWrap}><input value={upiId} onChange={(event) => setUpiId(event.target.value)} placeholder="name@upi (eg: bharathqr@okicici)" /><span>UPI</span></div>
+            <label>Business / Payee Name <em>(Optional)</em></label>
             <input value={businessName} onChange={(event) => setBusinessName(event.target.value)} placeholder="Your business name" />
-            <label className={styles.fieldLabel}>Amount (Optional)</label>
+            <label>Amount <em>(Optional)</em></label>
             <input value={amount} onChange={(event) => setAmount(event.target.value.replace(/[^0-9.]/g, ''))} inputMode="decimal" placeholder="₹ 0.00" />
             {error && <p className={styles.errorText}>{error}</p>}
             {!error && notice && <p className={styles.noticeText}>{notice}</p>}
           </div>
 
-          <div className={styles.qrPreviewColumn}>
+          <div className={styles.qrColumn}>
             <h2>Preview</h2>
-            <div className={styles.qrFrame}>{brandedQrDataUrl ? <img src={brandedQrDataUrl} alt="Generated UPI payment QR code" /> : <span />}</div>
-            <div className={styles.scanLine}><i />Scan &amp; Pay<i /></div>
-            <div className={styles.appLogos}><span>G Pay</span><span>PhonePe</span><span>paytm</span><span>amazon pay</span><span>CRED</span><span>MobiKwik</span></div>
+            <div className={styles.qrFrame}>{qrDataUrl ? <img src={qrDataUrl} alt="Generated clean UPI payment QR code" /> : <span />}</div>
+            <p>Clean QR only — no logo inside the payment QR</p>
+            <div className={styles.qrBrandStrip}><b>BHIM</b><b>UPI</b><span>G Pay</span><span>PhonePe</span><span>Paytm</span></div>
+            <div className={styles.qrActions}><button type="button" onClick={downloadQrPng}>⌄ Download QR PNG</button><button type="button" onClick={shareQrViaWhatsApp}><WhatsAppIcon /> Share via WhatsApp</button></div>
           </div>
 
-          <div className={styles.enhancementColumn}>
-            <h2>Logo &amp; Quick Actions</h2>
-            <label className={styles.fieldLabel}>Upload Business Logo <span>(Optional)</span></label>
+          <div className={styles.logoColumn}>
+            <h2>Template Logo</h2>
+            <label>Upload Business Logo <em>(Optional)</em></label>
             <label className={styles.logoDrop}>
               <input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" onChange={handleLogoUpload} />
-              <span className={styles.uploadIcon}>⇧</span>
-              <strong>{logoDataUrl ? 'Logo Added' : 'Upload Logo'}</strong>
-              <small>PNG, JPG, SVG, WEBP</small>
+              <span>⇧</span><strong>{logoDataUrl ? 'Logo Added' : 'Upload Logo'}</strong><small>Only appears at top of template</small>
             </label>
-            <div className={styles.paymentHintCard}>
-              <strong>{formatAmount(amount) ? `Fixed amount QR: ₹${formatAmount(amount)}` : 'Open amount QR'}</strong>
-              <small>{formatAmount(amount) ? 'Customer scans and sees the amount pre-filled.' : 'Customer scans and enters the amount while paying.'}</small>
-            </div>
-            <div className={styles.compactQrActions}>
-              <button type="button" onClick={downloadQrPng}>⌄ QR PNG</button>
-              <button type="button" onClick={shareViaWhatsApp}><WhatsAppIcon /> WhatsApp</button>
-            </div>
+            <div className={styles.hintBox}><strong>{cleanAmount ? `Fixed amount QR: ₹${cleanAmount}` : 'Open amount QR'}</strong><small>{cleanAmount ? 'Customer scans and amount is pre-filled.' : 'Customer scans and enters the amount.'}</small></div>
           </div>
         </section>
 
@@ -1013,64 +812,39 @@ export default function UpiQRGenerator() {
             <div className={styles.sectionTitle}><span>2</span><div><h2>Template Studio</h2><p>Choose a payment QR template and customize it</p></div></div>
             <div className={styles.templateCards}>
               {TEMPLATES.map((template) => (
-                <button
-                  key={template.id}
-                  type="button"
-                  className={`${styles.templateCard} ${selectedTemplate.id === template.id ? styles.activeTemplate : ''}`}
-                  onClick={() => setSelectedTemplateId(template.id)}
-                >
-                  <span className={styles.templateThumb} data-template={template.id}>
-                    {templatePreviewUrls[template.id] ? <img className={styles.templatePreviewImage} src={templatePreviewUrls[template.id]} alt={`${template.name} preview`} /> : <TemplateMini template={template} qrDataUrl={brandedQrDataUrl} logoDataUrl={logoDataUrl} businessName={businessName} upiId={upiId} />}
-                  </span>
-                  <strong>{template.shortName}</strong>
-                  <small>{template.size}</small>
+                <button key={template.id} type="button" className={`${styles.templateCard} ${selectedTemplate.id === template.id ? styles.activeTemplate : ''}`} onClick={() => setSelectedTemplateId(template.id)}>
+                  <span className={styles.templateThumb} data-template={template.id}>{templatePreviewUrls[template.id] ? <img src={templatePreviewUrls[template.id]} alt={`${template.name} preview`} /> : <TemplateFallback template={template} />}</span>
+                  <strong>{template.name}</strong><small>{template.size}</small>
                 </button>
               ))}
             </div>
-
             <div className={styles.templateEditBar}>
               <label><span>Business Name on Template</span><input value={businessName} onChange={(event) => setBusinessName(event.target.value)} placeholder="Your business name" /></label>
-              <label className={styles.inlineLogoUpload}>
-                <input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" onChange={handleLogoUpload} />
-                <span>⇧</span>
-                <strong>{logoDataUrl ? 'Logo Added' : 'Upload Logo'}</strong>
-              </label>
+              <label className={styles.inlineLogoUpload}><input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" onChange={handleLogoUpload} /><span>⇧</span><strong>{logoDataUrl ? 'Logo Added' : 'Upload Logo'}</strong></label>
             </div>
           </div>
 
           <aside className={`${styles.panel} ${styles.livePreviewPanel}`}>
-            <div className={styles.liveHeader}><h2>Live Product Preview</h2><span>LIVE</span></div>
-            <div className={styles.canvasStage} data-round={selectedTemplate.round ? 'true' : 'false'}>
-              <canvas ref={templateCanvasRef} aria-label="Live UPI payment product preview" />
-            </div>
+            <div className={styles.liveHeader}><div><h2>Live Product Preview</h2><p>This is how your print design will look</p></div><span>LIVE</span></div>
+            <div className={styles.liveStage} data-template={selectedTemplate.id}><canvas ref={templateCanvasRef} aria-label="Live UPI payment product preview" /></div>
             <div className={styles.liveActions}>
-              <button type="button" onClick={shareDesignViaWhatsApp}><WhatsAppIcon />Design Share</button>
+              <button type="button" onClick={shareDesignViaWhatsApp}><WhatsAppIcon /> Design Share</button>
               <button type="button" onClick={downloadTemplatePng}>▣ PNG</button>
               <button type="button" onClick={downloadTemplateSvg}>◇ SVG</button>
               <button type="button" onClick={downloadTemplatePdf}>▤ PDF</button>
-              <button type="button" onClick={sharePaymentLink}>🔗 Copy Link</button>
+              <button type="button" onClick={copyPaymentLink}>🔗 Copy Link</button>
             </div>
-            <div className={styles.previewMeta}>
-              <strong>{selectedTemplate.name}</strong>
-              <span>{selectedTemplate.size}</span>
-              <p>{selectedTemplate.bestFor}</p>
-            </div>
+            <div className={styles.previewMeta}><strong>{selectedTemplate.name}</strong><span>{selectedTemplate.size}</span><p>{selectedTemplate.bestFor}</p></div>
           </aside>
         </section>
 
         <section className={styles.finishedSection}>
-          <div className={styles.finishedHeader}><h2>Finished Products You Can Print</h2><Link href="/templates">View All Templates →</Link></div>
+          <div className={styles.finishedHeader}><div><h2>Finished Products You Can Print</h2><p>Four practical UPI payment display formats for Indian merchants</p></div><Link href="/templates">View All Templates →</Link></div>
           <div className={styles.productRow}>
             {TEMPLATES.map((template) => (
-              <article key={template.id}>
-                <div className={styles.productMock} data-template={template.id}>
-                  <span className={styles.productSheet}>
-                    {templatePreviewUrls[template.id] ? <img src={templatePreviewUrls[template.id]} alt={`${template.name} print preview`} /> : <TemplateMini template={template} qrDataUrl={brandedQrDataUrl} logoDataUrl={logoDataUrl} businessName={businessName} upiId={upiId} />}
-                  </span>
-                </div>
-                <strong>{template.name}</strong>
-                <span>{template.size}</span>
-                <p>{template.bestFor}</p>
+              <article key={template.id} className={styles.productCard}>
+                <div className={styles.productPhoto} data-template={template.id}><span>{templatePreviewUrls[template.id] ? <img src={templatePreviewUrls[template.id]} alt={`${template.name} print preview`} /> : <TemplateFallback template={template} />}</span></div>
+                <strong>{template.name}</strong><b>{template.size}</b><p>{template.bestFor}</p>
               </article>
             ))}
           </div>
@@ -1078,25 +852,12 @@ export default function UpiQRGenerator() {
 
         <section className={styles.moreTools}>
           <h2>More Tools &amp; Guides</h2>
-          <div>
-            <Link href="/tools/google-review-qr-generator">⭐ Google Review QR</Link>
-            <Link href="/tools/whatsapp-qr-generator">🟢 WhatsApp QR Generator</Link>
-            <Link href="/tools/url-qr-generator">🔗 URL QR Generator</Link>
-            <Link href="/templates">🧾 Payment QR Templates</Link>
-            <Link href="/hi/tools/upi-qr-generator">हिंदी UPI QR Guide</Link>
-          </div>
+          <div><Link href="/tools/google-review-qr-generator">⭐ Google Review QR</Link><Link href="/tools/whatsapp-qr-generator">🟢 WhatsApp QR Generator</Link><Link href="/tools/url-qr-generator">🔗 URL QR Generator</Link><Link href="/templates">🧾 Payment QR Templates</Link></div>
         </section>
 
         <section className={styles.seoBlock}>
-          <div>
-            <h2>Free UPI QR Code Generator for shops and small businesses</h2>
-            <p>BharathQR helps Indian businesses create a clean UPI payment QR code for counters, reception desks, delivery parcels, billing tables and printed displays. Add your UPI ID, payee name, optional fixed amount and payment note, then download a payment QR or a ready-to-print design.</p>
-          </div>
-          <div className={styles.infoGrid}>
-            <article><h3>Fixed or open amount</h3><p>Leave amount blank when customers should enter the amount. Add an amount when you want a fixed payment QR for menus, services, tickets or packages.</p></article>
-            <article><h3>Made for UPI apps</h3><p>The QR uses a UPI payment link format that common UPI apps can scan for fast checkout at your business counter.</p></article>
-            <article><h3>Print-ready templates</h3><p>Use standees, payment cards, round stickers and mini cards so customers can notice the QR quickly and pay without typing your UPI ID.</p></article>
-          </div>
+          <div><h2>Free UPI QR Code Generator for shops and small businesses</h2><p>BharathQR helps Indian businesses create a clean UPI payment QR code for counters, reception desks, delivery parcels, billing tables and printed displays. Enter your UPI ID, optional payee name and optional fixed amount, then download a clean QR or a ready-to-print payment display.</p></div>
+          <div className={styles.infoGrid}><article><h3>Fixed or open amount</h3><p>Leave amount blank when customers should enter the amount. Add an amount when you want a fixed payment QR.</p></article><article><h3>Clean UPI QR</h3><p>The payment QR remains plain and scannable. Your logo is used only on the printed template header.</p></article><article><h3>Print-ready templates</h3><p>Use standees, table tents, cards and stickers so customers can notice the QR quickly.</p></article></div>
         </section>
       </main>
     </>
