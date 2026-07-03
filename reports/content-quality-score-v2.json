@@ -1,22 +1,9 @@
 {
   "scored_posts": 30,
-  "publish_ready": 26,
-  "review_needed": 4,
+  "publish_ready": 27,
+  "review_needed": 3,
   "rejected": 0,
   "results": [
-    {
-      "file": "posts/2026-06-07-how-auto-rickshaw-drivers-in-mysuru-can-increase-t.md",
-      "scores": {
-        "commercial_intent": 72,
-        "founder_alignment": 100,
-        "keyword_coverage": 57,
-        "readability": 100,
-        "trust_signals": 100
-      },
-      "final_score": 83,
-      "status": "review",
-      "issues": []
-    },
     {
       "file": "posts/2026-06-07-how-dhaba-owners-in-amritsar-can-boost-sales-by-ac.md",
       "scores": {
@@ -347,6 +334,19 @@
         "trust_signals": 40
       },
       "final_score": 92,
+      "status": "publish",
+      "issues": []
+    },
+    {
+      "file": "posts/2026-07-03-event-qr-code-generator-for-hotels-share-event-det.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 100,
+        "readability": 100,
+        "trust_signals": 40
+      },
+      "final_score": 94,
       "status": "publish",
       "issues": []
     },
