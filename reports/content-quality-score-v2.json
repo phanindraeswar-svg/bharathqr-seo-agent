@@ -5,21 +5,6 @@
   "rejected": 0,
   "results": [
     {
-      "file": "posts/2026-06-05-how-darshan-tour-operators-in-tirupati-can-increas.md",
-      "scores": {
-        "commercial_intent": 100,
-        "founder_alignment": 100,
-        "keyword_coverage": 100,
-        "readability": 80,
-        "trust_signals": 100
-      },
-      "final_score": 97,
-      "status": "publish",
-      "issues": [
-        "short_body_under_450_words"
-      ]
-    },
-    {
       "file": "posts/2026-06-06-how-barber-shops-in-coimbatore-can-cut-through-cas.md",
       "scores": {
         "commercial_intent": 100,
@@ -390,6 +375,21 @@
       "final_score": 97,
       "status": "publish",
       "issues": []
+    },
+    {
+      "file": "posts/2026-07-03-vcard-qr-code-generator-for-clinics-share-contact.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 88,
+        "keyword_coverage": 100,
+        "readability": 100,
+        "trust_signals": 40
+      },
+      "final_score": 91,
+      "status": "publish",
+      "issues": [
+        "banned_or_disliked_phrases:seamless experience"
+      ]
     },
     {
       "file": "posts/zero-fee-upi-guide.md",
