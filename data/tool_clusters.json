@@ -10,7 +10,7 @@
       "PhonePe QR code",
       "Paytm QR code"
     ],
-    "tool_url": "/",
+    "tool_url": "/tools/upi-qr-generator",
     "industries": [
       "restaurants",
       "retail-stores",

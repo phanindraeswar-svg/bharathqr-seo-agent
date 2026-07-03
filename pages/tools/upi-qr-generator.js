@@ -491,6 +491,27 @@ function canvasToPdfBlob(canvas) {
   return new Blob([concatBytes(parts)], { type: 'application/pdf' });
 }
 
+
+function TemplateMini({ template, qrDataUrl, logoDataUrl, businessName, upiId }) {
+  const cleanName = String(businessName || 'Your Business').trim() || 'Your Business';
+  const cleanUpi = String(upiId || DEFAULT_UPI_ID).trim() || DEFAULT_UPI_ID;
+  return (
+    <span className={styles.miniDesign} data-template={template.id}>
+      <span className={styles.miniBrandRow}>
+        <span className={styles.miniLogoMark}>
+          {logoDataUrl ? <img src={logoDataUrl} alt="" /> : <span>₹</span>}
+        </span>
+        <b>{cleanName}</b>
+      </span>
+      <span className={styles.miniHeading}>SCAN &amp; PAY</span>
+      <span className={styles.miniQrBox}>{qrDataUrl ? <img src={qrDataUrl} alt="" /> : null}</span>
+      <span className={styles.miniUpiId}>UPI ID: {cleanUpi.slice(0, 30)}</span>
+      <span className={styles.miniBhimUpi}><b>BHIM</b><i>UPI</i></span>
+      <span className={styles.miniApps}>G Pay · PhonePe · Paytm · BHIM</span>
+    </span>
+  );
+}
+
 function WhatsAppIcon() {
   return (
     <svg aria-hidden="true" viewBox="0 0 32 32" focusable="false">
@@ -700,16 +721,18 @@ export default function UpiQRGenerator() {
           </div>
           <div className={styles.heroVisual} aria-hidden="true">
             <div className={styles.heroGlow} />
-            <div className={styles.heroStandee}>
-              <div className={styles.heroLogoCircle}>UPI<br />PAY</div>
-              <b>Pay with any</b>
-              <div className={styles.heroUpi}>UPI<span /></div>
-              <em>Scan &amp; Pay</em>
-              <div className={styles.heroQr}>{brandedQrDataUrl ? <img src={brandedQrDataUrl} alt="" /> : <span />}</div>
-              <div className={styles.heroApps}>G Pay · PhonePe · Paytm · BHIM</div>
+            <div className={styles.heroSceneCard}>
+              <div className={styles.heroStandee}>
+                <TemplateMini template={TEMPLATES[0]} qrDataUrl={brandedQrDataUrl} logoDataUrl={logoDataUrl} businessName={businessName} upiId={upiId} />
+              </div>
+              <div className={styles.heroStandeeSide} />
+              <div className={styles.heroDeskLine} />
+              <div className={styles.heroBadgeStack}>
+                <span>UPI</span>
+                <span>BHIM</span>
+                <span>GPay</span>
+              </div>
             </div>
-            <div className={styles.heroStandeeSide} />
-            <div className={styles.plantPot}><i /><i /><i /><i /><b /></div>
           </div>
         </section>
 
@@ -785,10 +808,7 @@ export default function UpiQRGenerator() {
                   onClick={() => setSelectedTemplateId(template.id)}
                 >
                   <span className={styles.templateThumb} data-template={template.id}>
-                    <i>{template.round ? 'SCAN & PAY' : 'Pay with any UPI App'}</i>
-                    <b>UPI</b>
-                    {brandedQrDataUrl ? <img src={brandedQrDataUrl} alt="" /> : null}
-                    <em>{template.round ? '' : 'SCAN & PAY'}</em>
+                    <TemplateMini template={template} qrDataUrl={brandedQrDataUrl} logoDataUrl={logoDataUrl} businessName={businessName} upiId={upiId} />
                   </span>
                   <strong>{template.shortName}</strong>
                   <small>{template.size}</small>
@@ -831,7 +851,11 @@ export default function UpiQRGenerator() {
           <div className={styles.productRow}>
             {TEMPLATES.map((template) => (
               <article key={template.id}>
-                <div className={styles.productMock} data-template={template.id}>{brandedQrDataUrl ? <img src={brandedQrDataUrl} alt="" /> : null}</div>
+                <div className={styles.productMock} data-template={template.id}>
+                  <span className={styles.productSheet}>
+                    <TemplateMini template={template} qrDataUrl={brandedQrDataUrl} logoDataUrl={logoDataUrl} businessName={businessName} upiId={upiId} />
+                  </span>
+                </div>
                 <strong>{template.name}</strong>
                 <span>{template.size}</span>
                 <p>{template.bestFor}</p>
