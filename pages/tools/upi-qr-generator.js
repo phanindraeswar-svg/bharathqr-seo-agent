@@ -188,21 +188,39 @@ function drawUPIWordmark(ctx, x, y, scale = 1, dark = false) {
   ctx.restore();
 }
 
-function drawAppStrip(ctx, x, y, width, dark = false, scale = 1) {
-  const labels = [
-    { text: 'G Pay', color: '#4285f4' },
-    { text: 'PhonePe', color: '#5f259f' },
-    { text: 'Paytm', color: '#00baf2' },
-    { text: 'Amazon Pay', color: '#111827' },
-    { text: 'CRED', color: '#111827' },
-    { text: 'MobiKwik', color: '#2563eb' },
-  ];
+function drawSmallTriangle(ctx, x, y, size, color) {
+  ctx.beginPath();
+  ctx.moveTo(x, y - size);
+  ctx.lineTo(x + size * 1.35, y);
+  ctx.lineTo(x, y + size);
+  ctx.closePath();
+  ctx.fillStyle = color;
+  ctx.fill();
+}
+
+function drawAppStrip(ctx, x, y, width, dark = false, scale = 1, compact = false) {
+  const labels = compact
+    ? [
+        { text: 'GPay', color: '#4285f4' },
+        { text: 'PhonePe', color: '#5f259f' },
+        { text: 'Paytm', color: '#00baf2' },
+        { text: 'BHIM', color: '#111827' },
+      ]
+    : [
+        { text: 'G Pay', color: '#4285f4' },
+        { text: 'PhonePe', color: '#5f259f' },
+        { text: 'Paytm', color: '#00baf2' },
+        { text: 'AmazonPay', color: '#111827' },
+        { text: 'CRED', color: '#111827' },
+        { text: 'MobiKwik', color: '#2563eb' },
+      ];
   const gap = width / labels.length;
   labels.forEach((item, index) => {
     const cx = x + gap * index + gap / 2;
     ctx.save();
     ctx.textAlign = 'center';
-    ctx.font = `900 ${9.5 * scale}px Inter, Arial, sans-serif`;
+    ctx.textBaseline = 'middle';
+    ctx.font = `900 ${Math.max(6, 10.5 * scale)}px Inter, Arial, sans-serif`;
     ctx.fillStyle = dark ? '#ffffff' : item.color;
     ctx.fillText(item.text, cx, y);
     ctx.restore();
@@ -211,26 +229,21 @@ function drawAppStrip(ctx, x, y, width, dark = false, scale = 1) {
 
 function drawBhimUpiStrip(ctx, x, y, width, dark = false, scale = 1) {
   ctx.save();
-  drawUPIWordmark(ctx, x + width * 0.58, y, 0.82 * scale, dark);
-  ctx.font = `900 italic ${34 * scale}px Inter, Arial, sans-serif`;
-  ctx.fillStyle = dark ? '#ffffff' : '#4a4f57';
-  ctx.fillText('BHIM', x + 5 * scale, y);
-  ctx.beginPath();
-  ctx.moveTo(x + 130 * scale, y - 29 * scale);
-  ctx.lineTo(x + 156 * scale, y - 9 * scale);
-  ctx.lineTo(x + 130 * scale, y + 10 * scale);
-  ctx.closePath();
-  ctx.fillStyle = '#ff7a1a';
-  ctx.fill();
-  ctx.beginPath();
-  ctx.moveTo(x + 142 * scale, y - 23 * scale);
-  ctx.lineTo(x + 164 * scale, y - 9 * scale);
-  ctx.lineTo(x + 142 * scale, y + 5 * scale);
-  ctx.closePath();
-  ctx.fillStyle = '#178f4b';
-  ctx.fill();
+  const center = x + width / 2;
+  ctx.textBaseline = 'middle';
+  ctx.font = `900 italic ${30 * scale}px Inter, Arial, sans-serif`;
+  ctx.fillStyle = dark ? '#fff' : '#4b5563';
+  ctx.textAlign = 'right';
+  ctx.fillText('BHIM', center - 24 * scale, y);
+  drawSmallTriangle(ctx, center - 16 * scale, y, 11 * scale, '#ff7a1a');
+  drawSmallTriangle(ctx, center - 7 * scale, y, 11 * scale, '#178f4b');
+  ctx.textAlign = 'left';
+  ctx.fillText('UPI', center + 26 * scale, y);
+  drawSmallTriangle(ctx, center + 88 * scale, y, 11 * scale, '#ff7a1a');
+  drawSmallTriangle(ctx, center + 97 * scale, y, 11 * scale, '#178f4b');
   ctx.restore();
 }
+
 async function createBrandedQrDataUrl(qrDataUrl, logoDataUrl) {
   const qrImage = await loadImage(qrDataUrl);
   const size = 900;
@@ -261,12 +274,194 @@ async function createBrandedQrDataUrl(qrDataUrl, logoDataUrl) {
   return canvas.toDataURL('image/png');
 }
 
+function fittedFontSize(ctx, text, maxWidth, start, min, weight = 900) {
+  let size = start;
+  const value = String(text || '').trim();
+  while (size > min) {
+    ctx.font = `${weight} ${size}px Inter, Arial, sans-serif`;
+    if (ctx.measureText(value).width <= maxWidth) break;
+    size -= 1;
+  }
+  return size;
+}
+
+function drawCenteredText(ctx, text, x, y, maxWidth, start, min, color = '#111827', weight = 900) {
+  const value = String(text || '').replace(/\s+/g, ' ').trim();
+  const size = fittedFontSize(ctx, value, maxWidth, start, min, weight);
+  ctx.save();
+  ctx.font = `${weight} ${size}px Inter, Arial, sans-serif`;
+  ctx.fillStyle = color;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(value, x, y);
+  ctx.restore();
+}
+
+function drawLogoBadge(ctx, cx, cy, size, logo, accent = '#ff4f23') {
+  ctx.save();
+  ctx.fillStyle = '#fff7ed';
+  ctx.strokeStyle = accent;
+  ctx.lineWidth = Math.max(1.3, size * 0.055);
+  ctx.beginPath();
+  ctx.arc(cx, cy, size / 2, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.stroke();
+  if (logo) {
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, size * 0.39, 0, Math.PI * 2);
+    ctx.clip();
+    drawContainImage(ctx, logo, cx - size * 0.36, cy - size * 0.36, size * 0.72, size * 0.72);
+    ctx.restore();
+  } else {
+    ctx.font = `900 ${size * 0.52}px Inter, Arial, sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = accent;
+    ctx.fillText('₹', cx, cy + size * 0.02);
+  }
+  ctx.restore();
+}
+
+function drawBrandHeader(ctx, xCenter, y, maxWidth, name, logo, template) {
+  const title = String(name || 'Your Business').replace(/\s+/g, ' ').trim().slice(0, 34) || 'Your Business';
+  const logoSize = template.round ? 30 : template.width > template.height ? 30 : 34;
+  const fontSize = fittedFontSize(ctx, title, maxWidth - logoSize - 12, template.round ? 17 : template.width > template.height ? 17 : 20, 11, 900);
+  ctx.font = `900 ${fontSize}px Inter, Arial, sans-serif`;
+  const textW = ctx.measureText(title).width;
+  const totalW = logoSize + 8 + textW;
+  const logoCx = xCenter - totalW / 2 + logoSize / 2;
+  drawLogoBadge(ctx, logoCx, y - 1, logoSize, logo, template.accent);
+  ctx.save();
+  ctx.font = `900 ${fontSize}px Inter, Arial, sans-serif`;
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'middle';
+  ctx.fillStyle = template.accent;
+  ctx.fillText(title, logoCx + logoSize / 2 + 8, y);
+  ctx.restore();
+}
+
+function drawPaymentLogos(ctx, x, y, width, template, scale = 1) {
+  drawBhimUpiStrip(ctx, x, y, width, template.dark, scale);
+}
+
+function getTemplateLayout(template) {
+  if (template.id === 'counter-standee') {
+    return {
+      margin: 28,
+      borderRadius: 28,
+      headerY: 62,
+      scanY: 118,
+      qrSize: 214,
+      qrY: 164,
+      upiY: 408,
+      logosY: 476,
+      appsY: 538,
+      logoWidth: 292,
+      appWidth: 300,
+      logoScale: 0.74,
+      appScale: 0.70,
+    };
+  }
+  if (template.id === 'table-tent') {
+    return {
+      margin: 30,
+      borderRadius: 26,
+      headerY: 56,
+      scanY: 94,
+      qrSize: 150,
+      qrY: 122,
+      upiY: 300,
+      logosY: 342,
+      appsY: 384,
+      logoWidth: 300,
+      appWidth: 350,
+      logoScale: 0.62,
+      appScale: 0.60,
+    };
+  }
+  if (template.id === 'payment-card') {
+    return {
+      margin: 28,
+      borderRadius: 24,
+      headerY: 56,
+      scanY: 94,
+      qrSize: 144,
+      qrY: 124,
+      upiY: 294,
+      logosY: 338,
+      appsY: 378,
+      logoWidth: 316,
+      appWidth: 366,
+      logoScale: 0.60,
+      appScale: 0.58,
+    };
+  }
+  return {
+    margin: 24,
+    borderRadius: 999,
+    headerY: 88,
+    scanY: 136,
+    qrSize: 168,
+    qrY: 176,
+    upiY: 372,
+    logosY: 420,
+    appsY: 468,
+    logoWidth: 240,
+    appWidth: 240,
+    logoScale: 0.52,
+    appScale: 0.52,
+  };
+}
+
+function paintTemplateBackground(ctx, width, height, template, layout) {
+  ctx.save();
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, width, height);
+
+  if (template.round) {
+    const r = width / 2 - 10;
+    const bg = ctx.createRadialGradient(width * 0.35, height * 0.25, width * 0.05, width / 2, height / 2, r);
+    bg.addColorStop(0, '#ffffff');
+    bg.addColorStop(1, '#fff8f1');
+    ctx.beginPath();
+    ctx.arc(width / 2, height / 2, r, 0, Math.PI * 2);
+    ctx.fillStyle = bg;
+    ctx.fill();
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = template.accent;
+    ctx.beginPath();
+    ctx.arc(width / 2, height / 2, r - 9, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+    return;
+  }
+
+  const x = layout.margin;
+  const y = layout.margin;
+  const w = width - layout.margin * 2;
+  const h = height - layout.margin * 2;
+  const surface = ctx.createLinearGradient(0, 0, width, height);
+  surface.addColorStop(0, '#ffffff');
+  surface.addColorStop(0.58, '#ffffff');
+  surface.addColorStop(1, '#fff7ed');
+  ctx.fillStyle = surface;
+  roundRect(ctx, x, y, w, h, layout.borderRadius);
+  ctx.fill();
+  ctx.lineWidth = 4;
+  ctx.strokeStyle = template.accent;
+  roundRect(ctx, x + 5, y + 5, w - 10, h - 10, layout.borderRadius - 5);
+  ctx.stroke();
+  ctx.restore();
+}
+
 async function drawTemplateCanvas(canvas, options) {
   const { template, qrDataUrl, logoDataUrl, businessName, upiId } = options;
   if (!canvas || !qrDataUrl) return;
   const width = template.width;
   const height = template.height;
   const isLandscape = width > height;
+  const layout = getTemplateLayout(template);
   const canvasScale = CANVAS_SCALE;
   canvas.width = width * canvasScale;
   canvas.height = height * canvasScale;
@@ -275,119 +470,65 @@ async function drawTemplateCanvas(canvas, options) {
   ctx.setTransform(canvasScale, 0, 0, canvasScale, 0, 0);
   ctx.clearRect(0, 0, width, height);
 
-  if (template.round) {
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(width / 2, height / 2, width / 2 - 6, 0, Math.PI * 2);
-    ctx.clip();
-  }
-
-  ctx.fillStyle = template.background;
-  ctx.fillRect(0, 0, width, height);
-  const gradient = ctx.createLinearGradient(0, 0, width, height);
-  gradient.addColorStop(0, template.surface);
-  gradient.addColorStop(1, '#ffffff');
-  ctx.fillStyle = gradient;
-  if (template.round) {
-    ctx.beginPath();
-    ctx.arc(width / 2, height / 2, width / 2 - 14, 0, Math.PI * 2);
-    ctx.fill();
-  } else {
-    roundRect(ctx, 14, 14, width - 28, height - 28, isLandscape ? 22 : 24);
-    ctx.fill();
-  }
-
-  ctx.strokeStyle = template.accent;
-  ctx.lineWidth = template.round ? 5 : 4;
-  if (template.round) {
-    ctx.beginPath();
-    ctx.arc(width / 2, height / 2, width / 2 - 18, 0, Math.PI * 2);
-    ctx.stroke();
-  } else {
-    roundRect(ctx, 16, 16, width - 32, height - 32, isLandscape ? 20 : 22);
-    ctx.stroke();
-  }
-
   const qrImage = await loadImage(qrDataUrl);
   const logo = logoDataUrl ? await loadImage(logoDataUrl) : null;
-  const title = String(businessName || 'Your Business').slice(0, 34);
-  const upiText = `UPI ID: ${String(upiId || DEFAULT_UPI_ID).slice(0, 42)}`;
-
-  let headerY = template.round ? 72 : 54;
-  let logoSize = template.round ? 34 : isLandscape ? 34 : 38;
-  let qrSize = template.round ? 210 : isLandscape ? 182 : 238;
-  let qrX = (width - qrSize) / 2;
-  let qrY = template.round ? 152 : isLandscape ? 112 : 206;
-
-  if (isLandscape) {
-    headerY = 52;
-    qrY = 112;
-  }
+  const upiText = `UPI ID: ${String(upiId || DEFAULT_UPI_ID).slice(0, template.round ? 30 : isLandscape ? 38 : 34)}`;
+  const contentWidth = template.round ? 330 : width - layout.margin * 2 - 42;
 
   ctx.save();
-  const logoX = width / 2 - (title.length * (isLandscape ? 4.8 : 5.5)) - logoSize - 8;
-  const logoY = headerY - logoSize + 5;
-  if (logo) {
-    roundRect(ctx, logoX, logoY, logoSize, logoSize, 8);
+  if (template.round) {
+    ctx.beginPath();
+    ctx.arc(width / 2, height / 2, width / 2 - 8, 0, Math.PI * 2);
     ctx.clip();
-    drawContainImage(ctx, logo, logoX, logoY, logoSize, logoSize);
-  } else {
-    ctx.fillStyle = template.accent;
-    ctx.font = `900 ${logoSize * 0.75}px Inter, Arial, sans-serif`;
-    ctx.fillText('☕', logoX + logoSize / 2 - 11, logoY + logoSize - 6);
   }
-  ctx.restore();
 
-  ctx.textAlign = 'center';
-  ctx.fillStyle = template.accent;
-  ctx.font = `900 ${template.round ? 17 : isLandscape ? 18 : 21}px Inter, Arial, sans-serif`;
-  ctx.fillText(title, width / 2 + 16, headerY);
+  paintTemplateBackground(ctx, width, height, template, layout);
+  drawBrandHeader(ctx, width / 2, layout.headerY, contentWidth, businessName, logo, template);
+  drawCenteredText(ctx, 'SCAN & PAY', width / 2, layout.scanY, contentWidth, template.round ? 14 : isLandscape ? 15 : 17, 10, template.text, 950);
 
-  ctx.fillStyle = template.text;
-  ctx.font = `900 ${template.round ? 13 : isLandscape ? 15 : 17}px Inter, Arial, sans-serif`;
-  ctx.fillText('SCAN & PAY', width / 2, template.round ? 116 : isLandscape ? 88 : 138);
-
+  const qrSize = layout.qrSize;
+  const qrX = Math.round((width - qrSize) / 2);
+  const qrY = layout.qrY;
   ctx.save();
-  ctx.shadowColor = 'rgba(15,23,42,.14)';
-  ctx.shadowBlur = 14;
-  ctx.fillStyle = '#ffffff';
-  roundRect(ctx, qrX - 10, qrY - 10, qrSize + 20, qrSize + 20, template.round ? 18 : 14);
+  ctx.shadowColor = 'rgba(15, 23, 42, .13)';
+  ctx.shadowBlur = 10;
+  ctx.fillStyle = '#fff';
+  roundRect(ctx, qrX - 11, qrY - 11, qrSize + 22, qrSize + 22, template.round ? 18 : 14);
   ctx.fill();
   ctx.restore();
-  ctx.strokeStyle = '#9aa4b2';
+  ctx.strokeStyle = '#9aa8ba';
   ctx.lineWidth = 1.2;
   roundRect(ctx, qrX - 8, qrY - 8, qrSize + 16, qrSize + 16, template.round ? 16 : 12);
   ctx.stroke();
   ctx.drawImage(qrImage, qrX, qrY, qrSize, qrSize);
 
-  ctx.fillStyle = template.text;
-  ctx.font = `800 ${template.round ? 8.5 : isLandscape ? 10.5 : 11.5}px Inter, Arial, sans-serif`;
-  ctx.fillText(upiText, width / 2, qrY + qrSize + (template.round ? 22 : 28));
+  drawCenteredText(ctx, upiText, width / 2, layout.upiY, contentWidth, template.round ? 7.4 : isLandscape ? 9.4 : 10.2, 6.4, template.text, 850);
+  drawPaymentLogos(ctx, (width - layout.logoWidth) / 2, layout.logosY, layout.logoWidth, template, layout.logoScale);
+  drawAppStrip(ctx, (width - layout.appWidth) / 2, layout.appsY, layout.appWidth, template.dark, layout.appScale, template.round);
 
-  const stripY = template.round ? height - 96 : isLandscape ? height - 86 : height - 104;
-  const stripW = template.round ? width - 190 : isLandscape ? width - 285 : width - 130;
-  drawBhimUpiStrip(ctx, (width - stripW) / 2, stripY, stripW, template.dark, isLandscape ? 0.86 : template.round ? 0.7 : 0.82);
-  drawAppStrip(ctx, template.round ? 92 : 50, template.round ? height - 50 : height - 44, template.round ? width - 184 : width - 100, template.dark, template.round ? 0.72 : isLandscape ? 0.86 : 0.82);
-
-  if (template.round) ctx.restore();
+  ctx.restore();
 }
 
 function makeTemplateSvg({ template, qrDataUrl, logoDataUrl, businessName, upiId }) {
   const width = template.width;
   const height = template.height;
   const isLandscape = width > height;
-  const qrSize = template.round ? 210 : isLandscape ? 182 : 238;
+  const layout = getTemplateLayout(template);
+  const qrSize = layout.qrSize;
   const qrX = (width - qrSize) / 2;
-  const qrY = template.round ? 152 : isLandscape ? 112 : 206;
-  const headerY = template.round ? 72 : isLandscape ? 52 : 54;
-  const title = encodeXml(String(businessName || 'Your Business').slice(0, 34));
+  const qrY = layout.qrY;
+  const title = encodeXml(String(businessName || 'Your Business').replace(/\s+/g, ' ').trim().slice(0, 34) || 'Your Business');
   const upiText = encodeXml(`UPI ID: ${String(upiId || DEFAULT_UPI_ID).slice(0, 42)}`);
-  const clip = template.round ? `<clipPath id="roundClip"><circle cx="${width / 2}" cy="${height / 2}" r="${width / 2 - 6}"/></clipPath>` : '';
+  const clip = template.round ? `<clipPath id="roundClip"><circle cx="${width / 2}" cy="${height / 2}" r="${width / 2 - 8}"/></clipPath>` : '';
   const groupStart = template.round ? '<g clip-path="url(#roundClip)">' : '<g>';
   const shell = template.round
-    ? `<circle cx="${width / 2}" cy="${height / 2}" r="${width / 2 - 14}" fill="${template.surface}"/><circle cx="${width / 2}" cy="${height / 2}" r="${width / 2 - 18}" fill="none" stroke="${template.accent}" stroke-width="5"/>`
-    : `<rect x="14" y="14" width="${width - 28}" height="${height - 28}" rx="22" fill="${template.surface}"/><rect x="16" y="16" width="${width - 32}" height="${height - 32}" rx="20" fill="none" stroke="${template.accent}" stroke-width="4"/>`;
-  const logo = logoDataUrl ? `<image href="${logoDataUrl}" x="${width / 2 - 96}" y="${headerY - 30}" width="34" height="34" preserveAspectRatio="xMidYMid meet"/>` : `<text x="${width / 2 - 78}" y="${headerY}" text-anchor="middle" font-size="24">☕</text>`;
+    ? `<circle cx="${width / 2}" cy="${height / 2}" r="${width / 2 - 18}" fill="${template.surface}"/><circle cx="${width / 2}" cy="${height / 2}" r="${width / 2 - 24}" fill="none" stroke="${template.accent}" stroke-width="5"/>`
+    : `<rect x="18" y="18" width="${width - 36}" height="${height - 36}" rx="${isLandscape ? 22 : 26}" fill="${template.surface}"/><rect x="22" y="22" width="${width - 44}" height="${height - 44}" rx="${isLandscape ? 18 : 22}" fill="none" stroke="${template.accent}" stroke-width="4"/>`;
+  const logoSize = template.round ? 30 : isLandscape ? 30 : 34;
+  const logoX = width / 2 - 92;
+  const logo = logoDataUrl
+    ? `<circle cx="${logoX}" cy="${layout.headerY}" r="${logoSize / 2}" fill="#fff7ed" stroke="${template.accent}" stroke-width="1.6"/><image href="${logoDataUrl}" x="${logoX - logoSize * 0.34}" y="${layout.headerY - logoSize * 0.34}" width="${logoSize * 0.68}" height="${logoSize * 0.68}" preserveAspectRatio="xMidYMid meet"/>`
+    : `<circle cx="${logoX}" cy="${layout.headerY}" r="${logoSize / 2}" fill="#fff7ed" stroke="${template.accent}" stroke-width="1.6"/><text x="${logoX}" y="${layout.headerY + logoSize * 0.16}" text-anchor="middle" font-size="${logoSize * 0.5}" font-weight="900" fill="${template.accent}">₹</text>`;
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
   <defs>${clip}</defs>
@@ -395,13 +536,14 @@ function makeTemplateSvg({ template, qrDataUrl, logoDataUrl, businessName, upiId
     <rect width="${width}" height="${height}" fill="${template.background}"/>
     ${shell}
     ${logo}
-    <text x="${width / 2 + 16}" y="${headerY}" text-anchor="middle" font-size="${isLandscape ? 18 : 21}" font-weight="900" fill="${template.accent}">${title}</text>
-    <text x="${width / 2}" y="${template.round ? 116 : isLandscape ? 88 : 138}" text-anchor="middle" font-size="${isLandscape ? 15 : 17}" font-weight="900" fill="${template.text}">SCAN &amp; PAY</text>
-    <rect x="${qrX - 10}" y="${qrY - 10}" width="${qrSize + 20}" height="${qrSize + 20}" rx="14" fill="#fff" stroke="#9aa4b2"/>
+    <text x="${width / 2 + 14}" y="${layout.headerY + 1}" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="${template.round ? 16 : isLandscape ? 17 : 20}" font-weight="900" fill="${template.accent}">${title}</text>
+    <text x="${width / 2}" y="${layout.scanY}" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="${template.round ? 14 : isLandscape ? 15 : 17}" font-weight="900" fill="${template.text}">SCAN &amp; PAY</text>
+    <rect x="${qrX - 13}" y="${qrY - 13}" width="${qrSize + 26}" height="${qrSize + 26}" rx="${template.round ? 18 : 14}" fill="#fff" stroke="#a8b3c3"/>
     <image href="${qrDataUrl}" x="${qrX}" y="${qrY}" width="${qrSize}" height="${qrSize}"/>
-    <text x="${width / 2}" y="${qrY + qrSize + 28}" text-anchor="middle" font-size="11" font-weight="800" fill="${template.text}">${upiText}</text>
-    <text x="${width / 2}" y="${template.round ? height - 96 : isLandscape ? height - 86 : height - 104}" text-anchor="middle" font-size="34" font-style="italic" font-weight="900" fill="#4a4f57">BHIM   UPI</text>
-    <text x="${width / 2}" y="${template.round ? height - 50 : height - 44}" text-anchor="middle" font-size="10" font-weight="900" fill="#2563eb">G Pay · PhonePe · Paytm · Amazon Pay · CRED · MobiKwik</text>
+    <text x="${width / 2}" y="${layout.upiY}" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="${template.round ? 7.4 : isLandscape ? 9.3 : 10.6}" font-weight="800" fill="${template.text}">${upiText}</text>
+    <text x="${width / 2 - 42}" y="${layout.logosY}" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="${30 * layout.logoScale}" font-style="italic" font-weight="900" fill="#4a4f57">BHIM</text>
+    <text x="${width / 2 + 42}" y="${layout.logosY}" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="${30 * layout.logoScale}" font-style="italic" font-weight="900" fill="#4a4f57">UPI</text>
+    <text x="${width / 2}" y="${layout.appsY}" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="${template.round ? 6.2 : isLandscape ? 7.2 : 8.2}" font-weight="900" fill="#2563eb">G Pay · PhonePe · Paytm · Amazon Pay · CRED · MobiKwik</text>
   </g>
 </svg>`;
 }
@@ -528,7 +670,9 @@ export default function UpiQRGenerator() {
   const [selectedTemplateId, setSelectedTemplateId] = useState(TEMPLATES[0].id);
   const [qrDataUrl, setQrDataUrl] = useState('');
   const [brandedQrDataUrl, setBrandedQrDataUrl] = useState('');
+  const [templatePreviewUrls, setTemplatePreviewUrls] = useState({});
   const [error, setError] = useState('');
+  const [notice, setNotice] = useState('');
   const templateCanvasRef = useRef(null);
 
   const selectedTemplate = useMemo(
@@ -547,13 +691,16 @@ export default function UpiQRGenerator() {
       const cleanUpi = upiId.trim();
       if (!isValidUpiId(cleanUpi)) {
         setError('Enter a valid UPI ID like name@bank or business@okicici.');
+        setNotice('');
         return;
       }
       if (amount.trim() && !formatAmount(amount)) {
         setError('Amount must be a positive number, or leave it blank.');
+        setNotice('');
         return;
       }
       setError('');
+      setNotice('');
       try {
         const dataUrl = await QRCode.toDataURL(upiPayload, {
           width: 900,
@@ -588,6 +735,28 @@ export default function UpiQRGenerator() {
     return () => { active = false; };
   }, [qrDataUrl, logoDataUrl]);
 
+
+  useEffect(() => {
+    if (!brandedQrDataUrl || typeof document === 'undefined') return;
+    let active = true;
+    async function generateTemplatePreviews() {
+      const entries = await Promise.all(TEMPLATES.map(async (template) => {
+        const previewCanvas = document.createElement('canvas');
+        await drawTemplateCanvas(previewCanvas, {
+          template,
+          qrDataUrl: brandedQrDataUrl,
+          logoDataUrl,
+          businessName,
+          upiId,
+        });
+        return [template.id, previewCanvas.toDataURL('image/png')];
+      }));
+      if (active) setTemplatePreviewUrls(Object.fromEntries(entries));
+    }
+    generateTemplatePreviews().catch(() => {});
+    return () => { active = false; };
+  }, [brandedQrDataUrl, logoDataUrl, businessName, upiId]);
+
   useEffect(() => {
     if (!brandedQrDataUrl) return;
     drawTemplateCanvas(templateCanvasRef.current, {
@@ -611,9 +780,51 @@ export default function UpiQRGenerator() {
   }
 
 
-  function shareViaWhatsApp() {
+  function getShareMessage(kind = 'qr') {
     const amountText = formatAmount(amount) ? ` for ₹${formatAmount(amount)}` : '';
-    const message = `Pay ${businessName || 'this business'}${amountText} using UPI. Created with BharathQR: ${BHARATHQR_UTM}`;
+    const name = businessName || 'this business';
+    const upiText = upiId ? `UPI ID: ${upiId}. ` : '';
+    if (kind === 'design') {
+      return `Here is the print-ready UPI payment QR design for ${name}${amountText}. ${upiText}Created with BharathQR: ${BHARATHQR_UTM}`;
+    }
+    return `Pay ${name}${amountText} using UPI. ${upiText}Created with BharathQR: ${BHARATHQR_UTM}`;
+  }
+
+  function shareViaWhatsApp() {
+    window.open(`https://wa.me/?text=${encodeURIComponent(getShareMessage('qr'))}`, '_blank', 'noopener,noreferrer');
+  }
+
+  async function sharePaymentLink() {
+    const shareText = `UPI payment link for ${businessName || 'this business'}: ${upiPayload}`;
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: 'UPI payment link', text: shareText });
+        return;
+      }
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(upiPayload);
+        setNotice('UPI payment link copied.');
+        return;
+      }
+    } catch {}
+    setNotice('UPI payment link is ready to copy from the QR.');
+  }
+
+  async function shareDesignViaWhatsApp() {
+    const canvas = templateCanvasRef.current;
+    if (!canvas) { shareViaWhatsApp(); return; }
+    const message = getShareMessage('design');
+    try {
+      const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png', 1));
+      if (blob && navigator.canShare && navigator.share) {
+        const file = new File([blob], `${fileBaseName}-${selectedTemplate.id}.png`, { type: 'image/png' });
+        if (navigator.canShare({ files: [file] })) {
+          await navigator.share({ title: 'UPI QR Design by BharathQR', text: message, files: [file] });
+          return;
+        }
+      }
+    } catch {}
+    downloadTemplatePng();
     window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
   }
 
@@ -723,7 +934,7 @@ export default function UpiQRGenerator() {
             <div className={styles.heroGlow} />
             <div className={styles.heroSceneCard}>
               <div className={styles.heroStandee}>
-                <TemplateMini template={TEMPLATES[0]} qrDataUrl={brandedQrDataUrl} logoDataUrl={logoDataUrl} businessName={businessName} upiId={upiId} />
+                {templatePreviewUrls['counter-standee'] ? <img className={styles.heroDesignImage} src={templatePreviewUrls['counter-standee']} alt="" /> : <TemplateMini template={TEMPLATES[0]} qrDataUrl={brandedQrDataUrl} logoDataUrl={logoDataUrl} businessName={businessName} upiId={upiId} />}
               </div>
               <div className={styles.heroStandeeSide} />
               <div className={styles.heroDeskLine} />
@@ -767,6 +978,7 @@ export default function UpiQRGenerator() {
             <label className={styles.fieldLabel}>Amount (Optional)</label>
             <input value={amount} onChange={(event) => setAmount(event.target.value.replace(/[^0-9.]/g, ''))} inputMode="decimal" placeholder="₹ 0.00" />
             {error && <p className={styles.errorText}>{error}</p>}
+            {!error && notice && <p className={styles.noticeText}>{notice}</p>}
           </div>
 
           <div className={styles.qrPreviewColumn}>
@@ -808,7 +1020,7 @@ export default function UpiQRGenerator() {
                   onClick={() => setSelectedTemplateId(template.id)}
                 >
                   <span className={styles.templateThumb} data-template={template.id}>
-                    <TemplateMini template={template} qrDataUrl={brandedQrDataUrl} logoDataUrl={logoDataUrl} businessName={businessName} upiId={upiId} />
+                    {templatePreviewUrls[template.id] ? <img className={styles.templatePreviewImage} src={templatePreviewUrls[template.id]} alt={`${template.name} preview`} /> : <TemplateMini template={template} qrDataUrl={brandedQrDataUrl} logoDataUrl={logoDataUrl} businessName={businessName} upiId={upiId} />}
                   </span>
                   <strong>{template.shortName}</strong>
                   <small>{template.size}</small>
@@ -832,11 +1044,11 @@ export default function UpiQRGenerator() {
               <canvas ref={templateCanvasRef} aria-label="Live UPI payment product preview" />
             </div>
             <div className={styles.liveActions}>
-              <button type="button" onClick={shareViaWhatsApp}><WhatsAppIcon />WhatsApp</button>
+              <button type="button" onClick={shareDesignViaWhatsApp}><WhatsAppIcon />Design Share</button>
               <button type="button" onClick={downloadTemplatePng}>▣ PNG</button>
               <button type="button" onClick={downloadTemplateSvg}>◇ SVG</button>
               <button type="button" onClick={downloadTemplatePdf}>▤ PDF</button>
-              <button type="button" onClick={shareViaWhatsApp}>🔗 Share Link</button>
+              <button type="button" onClick={sharePaymentLink}>🔗 Copy Link</button>
             </div>
             <div className={styles.previewMeta}>
               <strong>{selectedTemplate.name}</strong>
@@ -853,7 +1065,7 @@ export default function UpiQRGenerator() {
               <article key={template.id}>
                 <div className={styles.productMock} data-template={template.id}>
                   <span className={styles.productSheet}>
-                    <TemplateMini template={template} qrDataUrl={brandedQrDataUrl} logoDataUrl={logoDataUrl} businessName={businessName} upiId={upiId} />
+                    {templatePreviewUrls[template.id] ? <img src={templatePreviewUrls[template.id]} alt={`${template.name} print preview`} /> : <TemplateMini template={template} qrDataUrl={brandedQrDataUrl} logoDataUrl={logoDataUrl} businessName={businessName} upiId={upiId} />}
                   </span>
                 </div>
                 <strong>{template.name}</strong>
