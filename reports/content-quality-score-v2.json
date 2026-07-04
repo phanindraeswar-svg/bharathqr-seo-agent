@@ -5,19 +5,6 @@
   "rejected": 0,
   "results": [
     {
-      "file": "posts/2026-06-07-how-petty-shop-owners-in-nagpur-can-boost-sales-by.md",
-      "scores": {
-        "commercial_intent": 100,
-        "founder_alignment": 100,
-        "keyword_coverage": 78,
-        "readability": 100,
-        "trust_signals": 70
-      },
-      "final_score": 93,
-      "status": "publish",
-      "issues": []
-    },
-    {
       "file": "posts/2026-06-08-how-dhaba-owners-in-amritsar-can-increase-sales-by.md",
       "scores": {
         "commercial_intent": 100,
@@ -390,6 +377,19 @@
       "issues": [
         "banned_or_disliked_phrases:seamless experience"
       ]
+    },
+    {
+      "file": "posts/2026-07-04-phone-qr-code-generator-for-salons-make-contact-ea.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 100,
+        "readability": 100,
+        "trust_signals": 40
+      },
+      "final_score": 94,
+      "status": "publish",
+      "issues": []
     },
     {
       "file": "posts/zero-fee-upi-guide.md",
