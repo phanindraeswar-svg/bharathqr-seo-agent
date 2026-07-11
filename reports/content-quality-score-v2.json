@@ -5,19 +5,6 @@
   "rejected": 0,
   "results": [
     {
-      "file": "posts/2026-06-08-how-dhaba-owners-in-amritsar-can-increase-sales-by.md",
-      "scores": {
-        "commercial_intent": 100,
-        "founder_alignment": 100,
-        "keyword_coverage": 78,
-        "readability": 100,
-        "trust_signals": 70
-      },
-      "final_score": 93,
-      "status": "publish",
-      "issues": []
-    },
-    {
       "file": "posts/2026-06-08-how-petty-shop-owners-in-visakhapatnam-can-increas.md",
       "scores": {
         "commercial_intent": 85,
@@ -390,6 +377,21 @@
       "final_score": 94,
       "status": "publish",
       "issues": []
+    },
+    {
+      "file": "posts/2026-07-11-vcard-qr-code-generator-for-salons-share-contact-i.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 88,
+        "keyword_coverage": 100,
+        "readability": 100,
+        "trust_signals": 40
+      },
+      "final_score": 91,
+      "status": "publish",
+      "issues": [
+        "banned_or_disliked_phrases:seamless experience"
+      ]
     },
     {
       "file": "posts/zero-fee-upi-guide.md",
