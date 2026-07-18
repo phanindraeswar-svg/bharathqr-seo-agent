@@ -1,22 +1,9 @@
 {
   "scored_posts": 30,
-  "publish_ready": 28,
-  "review_needed": 2,
+  "publish_ready": 29,
+  "review_needed": 1,
   "rejected": 0,
   "results": [
-    {
-      "file": "posts/2026-06-08-how-petty-shop-owners-in-visakhapatnam-can-increas.md",
-      "scores": {
-        "commercial_intent": 85,
-        "founder_alignment": 100,
-        "keyword_coverage": 77,
-        "readability": 100,
-        "trust_signals": 0
-      },
-      "final_score": 81,
-      "status": "review",
-      "issues": []
-    },
     {
       "file": "posts/2026-06-09-upi-qr-code-generator-for-restaurants-accept-payme.md",
       "scores": {
@@ -392,6 +379,19 @@
       "issues": [
         "banned_or_disliked_phrases:seamless experience"
       ]
+    },
+    {
+      "file": "posts/2026-07-18-google-review-qr-code-generator-for-hotels-collect.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 90,
+        "readability": 100,
+        "trust_signals": 70
+      },
+      "final_score": 95,
+      "status": "publish",
+      "issues": []
     },
     {
       "file": "posts/zero-fee-upi-guide.md",

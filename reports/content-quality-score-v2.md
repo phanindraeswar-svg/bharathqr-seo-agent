@@ -2,7 +2,6 @@
 
 | File | Final | Status | Commercial | Founder | Keywords | Readability | Trust | Issues |
 |---|---:|---|---:|---:|---:|---:|---:|---|
-| 2026-06-08-how-petty-shop-owners-in-visakhapatnam-can-increas.md | 81 | review | 85 | 100 | 77 | 100 | 0 | None |
 | 2026-06-09-upi-qr-code-generator-for-restaurants-accept-payme.md | 100 | publish | 100 | 100 | 100 | 100 | 100 | None |
 | 2026-06-10-google-review-qr-code-generator-for-restaurants-co.md | 94 | publish | 100 | 100 | 100 | 100 | 40 | None |
 | 2026-06-10-whatsapp-qr-code-generator-for-salons-open-chat-in.md | 95 | publish | 100 | 100 | 90 | 100 | 70 | None |
@@ -31,4 +30,5 @@
 | 2026-07-03-vcard-qr-code-generator-for-clinics-share-contact.md | 91 | publish | 100 | 88 | 100 | 100 | 40 | banned_or_disliked_phrases:seamless experience |
 | 2026-07-04-phone-qr-code-generator-for-salons-make-contact-ea.md | 94 | publish | 100 | 100 | 100 | 100 | 40 | None |
 | 2026-07-11-vcard-qr-code-generator-for-salons-share-contact-i.md | 91 | publish | 100 | 88 | 100 | 100 | 40 | banned_or_disliked_phrases:seamless experience |
+| 2026-07-18-google-review-qr-code-generator-for-hotels-collect.md | 95 | publish | 100 | 100 | 90 | 100 | 70 | None |
 | zero-fee-upi-guide.md | 97 | publish | 100 | 100 | 100 | 80 | 100 | short_body_under_450_words |
