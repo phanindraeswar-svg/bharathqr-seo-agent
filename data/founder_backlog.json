@@ -247,6 +247,14 @@
       "type": "opportunity",
       "task": "Add new plain-English feedback below this line.",
       "status": "todo"
+    },
+    {
+      "id": "ff-2026-08-01-35",
+      "date": "2026-08-01",
+      "source": "feedback/inbox.md",
+      "type": "opportunity",
+      "task": "Add new plain-English feedback below this line.",
+      "status": "todo"
     }
   ]
 }
