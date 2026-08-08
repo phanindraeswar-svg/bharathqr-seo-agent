@@ -5,19 +5,6 @@
   "rejected": 0,
   "results": [
     {
-      "file": "posts/2026-06-10-whatsapp-qr-code-generator-for-salons-open-chat-in.md",
-      "scores": {
-        "commercial_intent": 100,
-        "founder_alignment": 100,
-        "keyword_coverage": 90,
-        "readability": 100,
-        "trust_signals": 70
-      },
-      "final_score": 95,
-      "status": "publish",
-      "issues": []
-    },
-    {
       "file": "posts/2026-06-11-text-qr-code-generator-for-schools-share-contact-i.md",
       "scores": {
         "commercial_intent": 100,
@@ -390,6 +377,19 @@
         "trust_signals": 40
       },
       "final_score": 86,
+      "status": "publish",
+      "issues": []
+    },
+    {
+      "file": "posts/2026-08-08-pdf-qr-code-generator-for-restaurants-share-digita.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 100,
+        "readability": 100,
+        "trust_signals": 40
+      },
+      "final_score": 94,
       "status": "publish",
       "issues": []
     },
