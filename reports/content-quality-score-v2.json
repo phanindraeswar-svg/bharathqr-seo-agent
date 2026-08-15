@@ -5,21 +5,6 @@
   "rejected": 0,
   "results": [
     {
-      "file": "posts/2026-06-11-text-qr-code-generator-for-schools-share-contact-i.md",
-      "scores": {
-        "commercial_intent": 100,
-        "founder_alignment": 100,
-        "keyword_coverage": 100,
-        "readability": 85,
-        "trust_signals": 100
-      },
-      "final_score": 98,
-      "status": "publish",
-      "issues": [
-        "too_many_long_sentences"
-      ]
-    },
-    {
       "file": "posts/2026-06-11-url-qr-code-generator-for-schools-share-digital-no.md",
       "scores": {
         "commercial_intent": 100,
@@ -382,6 +367,19 @@
     },
     {
       "file": "posts/2026-08-08-pdf-qr-code-generator-for-restaurants-share-digita.md",
+      "scores": {
+        "commercial_intent": 100,
+        "founder_alignment": 100,
+        "keyword_coverage": 100,
+        "readability": 100,
+        "trust_signals": 40
+      },
+      "final_score": 94,
+      "status": "publish",
+      "issues": []
+    },
+    {
+      "file": "posts/2026-08-15-menu-qr-code-generator-for-hotels-share-digital-me.md",
       "scores": {
         "commercial_intent": 100,
         "founder_alignment": 100,
