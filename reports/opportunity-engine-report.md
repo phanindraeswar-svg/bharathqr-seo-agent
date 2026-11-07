@@ -1,6 +1,6 @@
 # Opportunity Engine Report
 
-Generated: 2026-10-31
+Generated: 2026-11-07
 
 | Priority | Opportunity | Tool | Industry | Confidence | Source |
 |---:|---|---|---|---:|---|
